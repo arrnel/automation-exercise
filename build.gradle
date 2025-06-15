@@ -1,0 +1,119 @@
+buildscript {
+    ext {
+        allureEnvironmentWritterVersion = '1.0.0'
+        allureGradleVersion = '2.12.0'
+        allureVersion = '2.29.1'
+        ashotVersion = '1.5.4'
+        assertjVersion = '3.27.3'
+        benManesVersion = '0.51.0'
+        fakerVersion = '2.4.2'
+        jacksonVersion = '2.19.0'
+        jsr305Version = '3.0.2'
+        junitJupiterVersion = '5.13.0'
+        lombokVersion = '1.18.38'
+        playwriteVersion = '1.49.0'
+        restAssuredVersion = '5.5.5'
+        slf4jVersion = '2.0.17'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'idea'
+    id 'io.qameta.allure' version "${allureGradleVersion}"
+    id 'io.qameta.allure-adapter' version "${allureGradleVersion}"
+    id 'com.github.ben-manes.versions' version "${benManesVersion}"
+}
+
+group 'com.automationexercise'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+allure {
+    version.set("${allureVersion}")
+    adapter {
+        aspectjVersion.set("1.9.22")
+        aspectjWeaver.set(true)
+    }
+}
+
+sourceSets {
+    test {
+        java {
+            srcDir('src/test/java')
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+
+    // Allure
+    testImplementation "io.qameta.allure:allure-assertj:${allureVersion}"
+    testImplementation "io.qameta.allure:allure-attachments:${allureVersion}"
+    testImplementation("io.qameta.allure:allure-junit5:${allureVersion}") {
+        exclude group: 'org.junit.jupiter'
+    }
+    testImplementation("io.qameta.allure:allure-rest-assured:${allureVersion}") {
+        exclude group: 'io.rest-assured'
+        exclude group: 'com.fasterxml'
+    }
+    testImplementation("io.qameta.allure:allure-selenide:${allureVersion}") {
+        exclude group: 'com.codeborne'
+    }
+
+    // API
+    testImplementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+    testImplementation "io.rest-assured:rest-assured:${restAssuredVersion}"
+
+    // JUnit
+    testImplementation "org.junit.jupiter:junit-jupiter:${junitJupiterVersion}"
+
+    // Lombok
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+    // Utils
+    testImplementation "ru.yandex.qatools.ashot:ashot:${ashotVersion}"
+    testImplementation "org.assertj:assertj-core:${assertjVersion}"
+    testImplementation "net.datafaker:datafaker:${fakerVersion}"
+    testImplementation "com.google.code.findbugs:jsr305:${jsr305Version}"
+    testImplementation "org.slf4j:slf4j-simple:${slf4jVersion}"
+
+    // WEB
+    testImplementation "com.microsoft.playwright:playwright:${playwriteVersion}"
+    testImplementation "com.github.automatedowl:allure-environment-writer:${allureEnvironmentWritterVersion}"
+
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.register('printVersion') {
+    doLast {
+        println project.version
+    }
+}
+
+test {
+    options {
+        systemProperties(System.getProperties())
+    }
+    environment(System.getenv())
+    testLogging.showStandardStreams = true
+    testLogging.exceptionFormat = 'full'
+    useJUnitPlatform()
+}
