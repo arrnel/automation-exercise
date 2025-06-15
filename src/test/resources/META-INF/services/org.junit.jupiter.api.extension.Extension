@@ -1,0 +1,2 @@
+com.automationexercise.tests.jupiter.extension.TestMethodContextExtension
+com.automationexercise.tests.jupiter.extension.UsersRemoverExtension
