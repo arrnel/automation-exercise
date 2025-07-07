@@ -57,6 +57,10 @@ public abstract class RestClient {
         this(baseUrl, followRedirect, DEFAULT_ACCEPT, DEFAULT_CONTENT_TYPE, loggingLevel);
     }
 
+    public RestClient(String baseUrl, ContentType accept) {
+        this(baseUrl, true, accept, DEFAULT_CONTENT_TYPE, DEFAULT_LOG_LEVEL);
+    }
+
     public RestClient(String baseUrl, boolean followRedirect, ContentType accept, ContentType contentType, @Nullable LogDetail loggingLevel, @Nullable Filter... filters) {
 
         RequestSpecBuilder specBuilder = new RequestSpecBuilder()

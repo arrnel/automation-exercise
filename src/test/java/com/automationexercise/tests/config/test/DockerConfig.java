@@ -19,6 +19,12 @@ enum DockerConfig implements Config {
 
     @Nonnull
     @Override
+    public String domain() {
+        return "www.automationexercise.com";
+    }
+
+    @Nonnull
+    @Override
     public String baseApiUrl() {
         return System.getProperty(
                 "test.env.base_api_url",
@@ -26,13 +32,23 @@ enum DockerConfig implements Config {
         );
     }
 
+    @Override
+    public boolean isRemote() {
+        return true;
+    }
+
     @Nonnull
     @Override
     public String remoteUrl() {
         return System.getProperty(
                 "test.env.remote_url",
-                "http://localhost:4444/wd/hub"
+                "ws://playwright-server:8080"
         );
+    }
+
+    @Override
+    public String pathToScreenshots() {
+        return System.getProperty("user.dir") + "/src/.screen-output/screenshots/remote";
     }
 
 }

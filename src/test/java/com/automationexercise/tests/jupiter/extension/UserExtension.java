@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.*;
 import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 public class UserExtension extends BaseExtension implements BeforeEachCallback, ParameterResolver {
@@ -73,6 +74,12 @@ public class UserExtension extends BaseExtension implements BeforeEachCallback, 
 
     private static void putInUserMap(String paramName, UserDTO user) {
         getUserMap().put(paramName, user);
+    }
+
+    public static Optional<UserDTO> findUser(String email) {
+        return getUserMap().values().stream()
+                .filter(user -> user.email().equals(email))
+                .findFirst();
     }
 
 }

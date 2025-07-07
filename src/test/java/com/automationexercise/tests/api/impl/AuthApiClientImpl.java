@@ -26,18 +26,18 @@ public class AuthApiClientImpl extends RestClient implements AuthApiClient {
     }
 
     @Nonnull
-    @Step("Send request [GET]:/")
+    @Step("Send request [GET]:/login")
     public AssertableResponse sendGetCsrfTokenRequest() {
-        log.debug("Send request [GET]:/");
+        log.debug("Send request [GET]:{}", LOGIN_URL);
         return new AssertableResponse(
                 given()
                         .get(LOGIN_URL));
     }
 
     @Nonnull
-    @Step("Send [POST]:/login")
+    @Step("Send request [POST]:/login")
     public AssertableResponse sendLoginRequest(String email, String password, Token csrf) {
-        log.debug("Send POST:{}", LOGIN_URL);
+        log.debug("Send request [POST]:{}", LOGIN_URL);
         return new AssertableResponse(
                 given()
                         .cookie(csrf.type(), csrf.value())
@@ -51,7 +51,7 @@ public class AuthApiClientImpl extends RestClient implements AuthApiClient {
     @Nonnull
     @Step("Send request [GET]:/login")
     public AssertableResponse sendLoginRequest(String email, String password, Cookie csrf, String csrfFormData) {
-        log.debug("Send request GET:{}", LOGIN_URL);
+        log.debug("Send request [GET]:{}", LOGIN_URL);
         return new AssertableResponse(
                 given()
                         .cookie(csrf)

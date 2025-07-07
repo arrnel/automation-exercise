@@ -4,7 +4,7 @@ import com.automationexercise.tests.jupiter.anno.meta.ApiTest;
 import com.automationexercise.tests.models.*;
 import com.automationexercise.tests.models.api.HttpStatus;
 import com.automationexercise.tests.test.BaseTest;
-import lombok.extern.slf4j.Slf4j;
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,13 +14,13 @@ import static com.automationexercise.tests.api.core.condition.Conditions.bodySta
 import static com.automationexercise.tests.api.core.condition.Conditions.statusCode;
 import static org.junit.jupiter.api.Assertions.*;
 
-@Slf4j
 @ApiTest
+@Feature("[API] Products tests")
 @DisplayName("[API] Products test")
 class ProductApiTest extends BaseTest {
 
     private static final ProductDTO EXPECTED_PRODUCT = ProductDTO.builder()
-            .id(8)
+            .id(8L)
             .title("Fancy Green Top")
             .price(PriceDTO.builder()
                     .currency(Currency.RS)
@@ -34,7 +34,7 @@ class ProductApiTest extends BaseTest {
             .build();
 
     private static final ProductDTO EXCLUDED_BY_FILTER_PRODUCT = ProductDTO.builder()
-            .id(2)
+            .id(2L)
             .title("Men Tshirt")
             .price(PriceDTO.builder()
                     .currency(Currency.RS)

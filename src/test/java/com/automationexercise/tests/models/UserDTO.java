@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Builder;
 
+import javax.annotation.Nonnull;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -100,6 +101,10 @@ public record UserDTO(
         return new UserDTO(id, email, password, name, firstName, lastName, phoneNumber, userTitle, birthDay, birthMonth, birthYear, company, country, state, city, address1, address2, zipCode, testData);
     }
 
+    public UserDTO withPassword(String password) {
+        return new UserDTO(id, email, password, name, firstName, lastName, phoneNumber, userTitle, birthDay, birthMonth, birthYear, company, country, state, city, address1, address2, zipCode, testData.password(password));
+    }
+
     public UserDTO name(String name) {
         return new UserDTO(id, email, password, name, firstName, lastName, phoneNumber, userTitle, birthDay, birthMonth, birthYear, company, country, state, city, address1, address2, zipCode, testData);
     }
@@ -169,6 +174,7 @@ public record UserDTO(
         return new UserDTO(null, null, null, null, null, null, null, null, 0, 0, 0, null, null, null, null, null, null, null, TestData.empty());
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return getBeautifulJSON(this);

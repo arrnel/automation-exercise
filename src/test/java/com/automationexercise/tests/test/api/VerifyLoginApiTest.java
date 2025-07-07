@@ -7,13 +7,11 @@ import com.automationexercise.tests.models.UserDTO;
 import com.automationexercise.tests.models.api.HttpStatus;
 import com.automationexercise.tests.test.BaseTest;
 import com.automationexercise.tests.util.DataGenerator;
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.stream.Stream;
 
 import static com.automationexercise.tests.api.core.condition.Conditions.bodyField;
 import static com.automationexercise.tests.api.core.condition.Conditions.bodyStatusCode;
@@ -22,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ApiTest
+@Feature("[API] Verify login tests")
 @DisplayName("[API] Verify Login test")
 class VerifyLoginApiTest extends BaseTest {
 
@@ -81,7 +80,7 @@ class VerifyLoginApiTest extends BaseTest {
     }
 
     @ParameterizedTest(name = "Case: {0}")
-    @MethodSource("invalidCredentialsProvider")
+    @MethodSource("com.automationexercise.tests.test.data.UserDataProvider#invalidCredentialsProvider")
     @DisplayName("Should return BAD_REQUEST if provide invalid data")
     void shouldReturnBadRequestIfCredentialsIsInvalidTest(String caseName, String email, String password) {
 
@@ -95,15 +94,6 @@ class VerifyLoginApiTest extends BaseTest {
                 .shouldHave(bodyStatusCode(HttpStatus.BAD_REQUEST))
                 .shouldHave(bodyField("message", equalTo(INVALID_CREDENTIALS_MESSAGE)));
 
-    }
-
-    static Stream<Arguments> invalidCredentialsProvider() {
-        return Stream.of(
-                Arguments.of("email not present", null, DataGenerator.generatePassword()),
-                Arguments.of("email is empty", "", DataGenerator.generatePassword()),
-                Arguments.of("password not present", DataGenerator.generateEmail(), null),
-                Arguments.of("password is empty", DataGenerator.generateEmail(), "")
-        );
     }
 
 }

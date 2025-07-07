@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * EXTENSION REGISTERED GLOBALLY
+ */
 @Slf4j
 @ParametersAreNonnullByDefault
 public class UsersRemoverExtension extends BaseExtension implements AfterEachCallback {
