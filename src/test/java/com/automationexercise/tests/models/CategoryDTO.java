@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 
+import javax.annotation.Nonnull;
+
 import static com.automationexercise.tests.util.ObjectMapperUtil.getBeautifulJSON;
 
 @Builder
@@ -20,6 +22,14 @@ public record CategoryDTO(
 
 ) {
 
+    public static CategoryDTO of(UserType userType, String category) {
+        return CategoryDTO.builder()
+                .usertype(new UserTypeDTO(userType))
+                .category(category)
+                .build();
+    }
+
+    @Nonnull
     @Override
     public String toString() {
         return getBeautifulJSON(this);

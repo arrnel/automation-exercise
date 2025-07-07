@@ -1,2 +1,5 @@
+io.qameta.allure.junit5.AllureJunit5
 com.automationexercise.tests.jupiter.extension.TestMethodContextExtension
+com.automationexercise.tests.jupiter.extension.UserExtension
+com.automationexercise.tests.jupiter.extension.UsersExtension
 com.automationexercise.tests.jupiter.extension.UsersRemoverExtension

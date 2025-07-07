@@ -16,14 +16,30 @@ enum LocalConfig implements Config {
 
     @Nonnull
     @Override
+    public String domain() {
+        return "www.automationexercise.com";
+    }
+
+    @Nonnull
+    @Override
     public String baseApiUrl() {
         return "https://automationexercise.com/api";
+    }
+
+    @Override
+    public boolean isRemote() {
+        return false;
     }
 
     @Nonnull
     @Override
     public String remoteUrl() {
         return "";
+    }
+
+    @Override
+    public String pathToScreenshots() {
+        return System.getProperty("user.dir") + "/src/.screen-output/screenshots/local";
     }
 
 }

@@ -4,6 +4,7 @@ import com.automationexercise.tests.ex.UserTypeNotFoundException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Random;
 import java.util.stream.Stream;
 
 @Getter
@@ -23,4 +24,9 @@ public enum UserType {
                 .findFirst()
                 .orElseThrow(() -> new UserTypeNotFoundException("UserType with value = [%s] not found".formatted(value)));
     }
+
+    public static UserType random() {
+        return UserType.values()[new Random().nextInt(UserType.values().length - 1) + 1];
+    }
+
 }

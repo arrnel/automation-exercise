@@ -304,7 +304,7 @@ public class EmailHelper {
         /**
          * @return Valid email
          */
-        public String random() {
+        public static String random() {
 
             int cases = RANDOM.nextInt(11);
 

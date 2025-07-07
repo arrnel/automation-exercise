@@ -6,12 +6,14 @@ import com.automationexercise.tests.jupiter.anno.meta.ApiTest;
 import com.automationexercise.tests.models.UserDTO;
 import com.automationexercise.tests.test.BaseTest;
 import com.automationexercise.tests.util.DataGenerator;
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ApiTest
+@Feature("[API] Auth tests")
 @DisplayName("[API] Auth test")
 class AuthApiTest extends BaseTest {
 

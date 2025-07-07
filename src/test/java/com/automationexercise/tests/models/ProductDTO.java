@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Builder;
 
+import javax.annotation.Nonnull;
 import java.util.Objects;
 
 import static com.automationexercise.tests.util.ObjectMapperUtil.getBeautifulJSON;
@@ -19,7 +20,7 @@ import static com.automationexercise.tests.util.ObjectMapperUtil.getBeautifulJSO
 public record ProductDTO(
 
         @JsonProperty("id")
-        Integer id,
+        Long id,
 
         @JsonProperty("name")
         String title,
@@ -37,6 +38,7 @@ public record ProductDTO(
 
 ) {
 
+    @Nonnull
     @Override
     public String toString() {
         return getBeautifulJSON(this);

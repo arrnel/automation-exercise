@@ -1,5 +1,7 @@
 package com.automationexercise.tests.models.api;
 
+import javax.annotation.Nonnull;
+
 public record Token(
 
         String type,
@@ -12,6 +14,7 @@ public record Token(
         return new Token(null, null);
     }
 
+    @Nonnull
     public String toString() {
         return "%s %s".formatted(type, value);
     }

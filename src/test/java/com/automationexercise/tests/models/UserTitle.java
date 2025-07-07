@@ -12,9 +12,7 @@ public enum UserTitle {
 
     EMPTY(""),
     MR("Mr"),
-    MRS("Mrs"),
-    MS("Ms"),
-    MISS("Miss");
+    MRS("Mrs");
 
     private final String value;
 

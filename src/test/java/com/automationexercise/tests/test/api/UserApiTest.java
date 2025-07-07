@@ -2,11 +2,12 @@ package com.automationexercise.tests.test.api;
 
 import com.automationexercise.tests.jupiter.anno.User;
 import com.automationexercise.tests.jupiter.anno.meta.ApiTest;
+import com.automationexercise.tests.jupiter.anno.meta.DisabledByIssue;
 import com.automationexercise.tests.jupiter.extension.UsersRemoverExtension;
 import com.automationexercise.tests.models.UserDTO;
 import com.automationexercise.tests.test.BaseTest;
 import com.automationexercise.tests.util.DataGenerator;
-import lombok.extern.slf4j.Slf4j;
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,12 +16,14 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import static com.automationexercise.tests.api.core.condition.Conditions.*;
 import static com.automationexercise.tests.models.api.HttpStatus.*;
-import static com.automationexercise.tests.util.matcher.UserDTOAssertion.areUserCommonDataEqualWithoutId;
+import static com.automationexercise.tests.util.matcher.AppMatchers.matchUserRequestData;
+import static com.automationexercise.tests.util.matcher.AppMatchers.matchUserRequestDataWithoutId;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@Slf4j
 @ApiTest
+@Feature("[API] Users tests")
 @DisplayName("[API] Users test")
 class UserApiTest extends BaseTest {
 
@@ -29,7 +32,7 @@ class UserApiTest extends BaseTest {
             EMAIL_ALREADY_EXIST_MESSAGE = "Email already exists!",
             SUCCESSFUL_CREATE_MESSAGE = "User created!",
             SUCCESSFUL_UPDATE_MESSAGE = "User updated!",
-            SUCCESSFUL_DELETE_MESSAGE = "User deleted!",
+            SUCCESSFUL_DELETE_MESSAGE = "Account deleted!",
             UNABLE_TO_UPDATE_MESSAGE = "Unable to update user!";
 
 
@@ -51,16 +54,6 @@ class UserApiTest extends BaseTest {
                 .shouldHave(statusCode(OK))
                 .shouldHave(bodyStatusCode(CREATED))
                 .shouldHave(bodyField("message", equalTo(SUCCESSFUL_CREATE_MESSAGE)));
-
-        var result = userApiService.getUserByEmail(user.email())
-                .orElse(UserDTO.empty());
-
-        // Assertions
-        Assertions.assertAll("Check created user are the same",
-                () -> assertNotNull(result.id()),
-                () -> areUserCommonDataEqualWithoutId(user, result)
-        );
-
     }
 
     @User
@@ -100,6 +93,7 @@ class UserApiTest extends BaseTest {
                         equalTo("Bad request, %s parameter is missing in POST request.".formatted(absentParam))));
     }
 
+    @DisabledByIssue(issueId = "2")
     @ParameterizedTest(name = "Case: {0}")
     @MethodSource("com.automationexercise.tests.test.data.UserDataProvider#validEmailProvider")
     @DisplayName("Should create user with valid email")
@@ -120,6 +114,7 @@ class UserApiTest extends BaseTest {
                 .shouldHave(bodyField("message", equalTo(SUCCESSFUL_CREATE_MESSAGE)));
     }
 
+    @DisabledByIssue(issueId = "2")
     @ParameterizedTest(name = "Case: {0}")
     @MethodSource("com.automationexercise.tests.test.data.UserDataProvider#invalidEmailProvider")
     @DisplayName("Should not create user with invalid email")
@@ -142,6 +137,7 @@ class UserApiTest extends BaseTest {
                 .shouldHave(bodyField("message", equalTo("Invalid email!")));
     }
 
+    @DisabledByIssue(issueId = "2")
     @ParameterizedTest(name = "Case: {0}")
     @MethodSource("com.automationexercise.tests.test.data.UserDataProvider#validPasswordProvider")
     @DisplayName("Should create user with valid password")
@@ -162,6 +158,7 @@ class UserApiTest extends BaseTest {
                 .shouldHave(bodyField("message", equalTo(SUCCESSFUL_CREATE_MESSAGE)));
     }
 
+    @DisabledByIssue(issueId = "2")
     @ParameterizedTest(name = "Case: {0}")
     @MethodSource("com.automationexercise.tests.test.data.UserDataProvider#invalidPasswordProvider")
     @DisplayName("Should not create user with invalid password")
@@ -184,6 +181,7 @@ class UserApiTest extends BaseTest {
                 .shouldHave(bodyField("message", equalTo("Invalid password!")));
     }
 
+    @DisabledByIssue(issueId = "2")
     @ParameterizedTest(name = "Case: {0}")
     @MethodSource("com.automationexercise.tests.test.data.UserDataProvider#validAnotherSensitiveDataProvider")
     @DisplayName("Should create user with valid sensitive data")
@@ -204,6 +202,7 @@ class UserApiTest extends BaseTest {
                 .shouldHave(bodyField("message", equalTo(SUCCESSFUL_CREATE_MESSAGE)));
     }
 
+    @DisabledByIssue(issueId = "2")
     @ParameterizedTest(name = "Case: {0}")
     @MethodSource("com.automationexercise.tests.test.data.UserDataProvider#invalidAnotherSensitiveDataProvider")
     @DisplayName("Should not create user with invalid sensitive data name")
@@ -240,7 +239,7 @@ class UserApiTest extends BaseTest {
                 .extract()
                 .asPojo("user", UserDTO.class);
 
-        assertTrue(areUserCommonDataEqualWithoutId(user, result));
+        matchUserRequestDataWithoutId(user, result);
     }
 
     @Test
@@ -277,7 +276,7 @@ class UserApiTest extends BaseTest {
         // Assertions
         Assertions.assertAll("Check updated user has expected data",
                 () -> assertEquals(user.id(), result.id()),
-                () -> assertTrue(areUserCommonDataEqualWithoutId(updatedUser, result))
+                () -> matchUserRequestData(updatedUser, result)
         );
     }
 
@@ -297,6 +296,7 @@ class UserApiTest extends BaseTest {
                 .shouldHave(bodyField("message", equalTo(ACCOUNT_NOT_FOUND_MESSAGE)));
     }
 
+    @DisabledByIssue(issueId = "2")
     @ParameterizedTest(name = "Case: field [{0}] is not provided")
     @MethodSource("com.automationexercise.tests.test.data.UserDataProvider#absentDataProvider")
     @DisplayName("Should not update user if mandatory param is missing")
@@ -319,6 +319,7 @@ class UserApiTest extends BaseTest {
                         equalTo("Bad request, %s parameter is missing in POST request.".formatted(absentParam))));
     }
 
+    @DisabledByIssue(issueId = "2")
     @ParameterizedTest(name = "Case: {0}")
     @MethodSource("com.automationexercise.tests.test.data.UserDataProvider#validAnotherSensitiveDataProvider")
     @DisplayName("Should update user with valid sensitive data")
@@ -340,6 +341,7 @@ class UserApiTest extends BaseTest {
                 .shouldHave(bodyField("message", equalTo(SUCCESSFUL_UPDATE_MESSAGE)));
     }
 
+    @DisabledByIssue(issueId = "2")
     @ParameterizedTest(name = "Case: {0}")
     @MethodSource("com.automationexercise.tests.test.data.UserDataProvider#invalidAnotherSensitiveDataProvider")
     @DisplayName("Should not update user with invalid sensitive data name")

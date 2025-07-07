@@ -1,6 +1,7 @@
 package com.automationexercise.tests.mapper;
 
 import com.automationexercise.tests.jupiter.anno.User;
+import com.automationexercise.tests.models.AddressInfo;
 import com.automationexercise.tests.models.UserDTO;
 import com.automationexercise.tests.models.UserTitle;
 
@@ -66,6 +67,18 @@ public class UserMapper {
                         ? anno.company().address().zipCode()
                         : user.zipCode())
                 .testData(user.testData())
+                .build();
+    }
+
+    public static AddressInfo toAddress(UserDTO user) {
+        return AddressInfo.builder()
+                .fullName("%s %s".formatted(user.firstName(), user.lastName()))
+                .company(user.company())
+                .address1(user.address1())
+                .address1(user.address2())
+                .cityStateZip("%s %s %s".formatted(user.city(), user.state(), user.zipCode()))
+                .country(user.country())
+                .phoneNumber(user.phoneNumber())
                 .build();
     }
 
