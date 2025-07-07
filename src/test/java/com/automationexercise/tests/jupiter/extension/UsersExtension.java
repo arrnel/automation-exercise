@@ -90,4 +90,11 @@ public class UsersExtension extends BaseExtension implements BeforeEachCallback,
                 .getOrComputeIfAbsent(extensionContext.getUniqueId(), map -> new HashMap<>());
     }
 
+    public static Optional<UserDTO> findUser(String email) {
+        return getUsersMap().values().stream()
+                .flatMap(List::stream)
+                .filter(user -> user.email().equals(email))
+                .findFirst();
+    }
+
 }

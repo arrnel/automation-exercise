@@ -43,4 +43,7 @@ public interface ServiceConfig {
     @Nonnull
     VerifyLoginApiService getVerifyLoginApiService();
 
+    @Nonnull
+    GithubApiClient getGitHubApiClient();
+
 }

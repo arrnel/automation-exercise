@@ -1,6 +1,8 @@
 package com.automationexercise.tests.jupiter.extension;
 
+import com.automationexercise.tests.api.GithubApiClient;
 import com.automationexercise.tests.config.service.ServiceConfig;
+import com.automationexercise.tests.config.test.Config;
 import com.automationexercise.tests.service.AuthApiService;
 import com.automationexercise.tests.service.UserApiService;
 
@@ -14,6 +16,9 @@ import java.util.List;
 public abstract class BaseExtension {
 
     private static final ServiceConfig SERVICE_CONFIG = ServiceConfig.getInstance();
+    protected static final Config CFG = Config.getInstance();
+
+    protected final GithubApiClient gitHubApiClient = SERVICE_CONFIG.getGitHubApiClient();
 
     protected final UserApiService userService = SERVICE_CONFIG.getUserApiService();
     protected final AuthApiService authService = SERVICE_CONFIG.getAuthApiService();

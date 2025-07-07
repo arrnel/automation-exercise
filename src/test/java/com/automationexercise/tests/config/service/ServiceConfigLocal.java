@@ -71,4 +71,10 @@ enum ServiceConfigLocal implements ServiceConfig {
         return new VerifyLoginServiceImpl();
     }
 
+    @Nonnull
+    @Override
+    public GithubApiClient getGitHubApiClient() {
+        return new GithubApiClientImpl();
+    }
+
 }

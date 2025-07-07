@@ -2,11 +2,13 @@ package com.automationexercise.tests.test;
 
 import com.automationexercise.tests.api.*;
 import com.automationexercise.tests.config.service.ServiceConfig;
+import com.automationexercise.tests.config.test.Config;
 import com.automationexercise.tests.service.*;
 import net.datafaker.Faker;
 
 public abstract class BaseTest {
 
+    protected static final Config CFG = Config.getInstance();
     protected static final ServiceConfig SERVICE_CONFIG = ServiceConfig.getInstance();
     protected static final Faker FAKE = new Faker();
 

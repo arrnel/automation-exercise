@@ -20,6 +20,13 @@ public record CategoryDTO(
 
 ) {
 
+    public static CategoryDTO of(UserType userType, String category) {
+        return CategoryDTO.builder()
+                .usertype(new UserTypeDTO(userType))
+                .category(category)
+                .build();
+    }
+
     @Override
     public String toString() {
         return getBeautifulJSON(this);

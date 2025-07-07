@@ -13,6 +13,10 @@ public record PriceDTO(
 
 ) {
 
+    public static PriceDTO of(BigDecimal amount) {
+        return new PriceDTO(Currency.RS, amount);
+    }
+
     public String getPriceText() {
         return "%s. %s".formatted(getCapitalizeCurrencyText(), getAmountText());
     }

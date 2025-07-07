@@ -99,17 +99,27 @@ public enum ThreadSafeCookieStore {
                 .orElseThrow(() -> new CookieNotFoundException("Cookie with name = [%s] not found in empty domain".formatted(cookieName)));
     }
 
+    public Cookie getCurrentSiteCookie(String cookieName) {
+        return get().values().stream()
+                .filter(c -> c.getName().equals(cookieName))
+                .findFirst()
+                .orElseThrow(() -> new CookieNotFoundException("Cookie with name = [%s] not found in empty domain".formatted(cookieName)));
+    }
+
     public Token getCsrfToken() {
+        var csrf = getCurrentSiteCookie(CSRF_COOKIE_TITLE);
+        System.out.printf("CSRF cookie: %s%n", csrf.toString());
         return new Token(
                 CSRF_COOKIE_TITLE,
-                cookieValue(CSRF_COOKIE_TITLE)
+                csrf.getValue()
         );
     }
 
     public Token getSessionToken() {
+        var sessionId = getCurrentSiteCookie(SESSION_ID_COOKIE_TITLE);
         return new Token(
                 SESSION_ID_COOKIE_TITLE,
-                cookieValue(SESSION_ID_COOKIE_TITLE)
+                sessionId.getValue()
         );
     }
 

@@ -1,7 +1,10 @@
 package com.automationexercise.tests.test.data;
 
 import com.automationexercise.tests.models.meta.Range;
+import com.automationexercise.tests.util.DataGenerator;
 import com.automationexercise.tests.util.EmailHelper;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import net.datafaker.Faker;
 import org.junit.jupiter.params.provider.Arguments;
 
@@ -10,7 +13,8 @@ import java.util.stream.Stream;
 import static com.automationexercise.tests.util.DataGenerator.generatePassword;
 import static com.automationexercise.tests.util.DataGenerator.generateUser;
 
-public class UserDataProvider {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class UserDataProvider extends BaseDataProvider {
 
     private static final Range passwordRange = new Range(8, 20),
             nameRange = new Range(2, 20),
@@ -42,6 +46,15 @@ public class UserDataProvider {
                 Arguments.of("city", generateUser().city(null)),
                 Arguments.of("address1", generateUser().address1(null)),
                 Arguments.of("zipcode", generateUser().zipCode(null))
+        );
+    }
+
+    static Stream<Arguments> invalidCredentialsProvider() {
+        return Stream.of(
+                Arguments.of("email not present", null, DataGenerator.generatePassword()),
+                Arguments.of("email is empty", "", DataGenerator.generatePassword()),
+                Arguments.of("password not present", DataGenerator.generateEmail(), null),
+                Arguments.of("password is empty", DataGenerator.generateEmail(), "")
         );
     }
 

@@ -19,7 +19,7 @@ import static com.automationexercise.tests.util.ObjectMapperUtil.getBeautifulJSO
 public record ProductDTO(
 
         @JsonProperty("id")
-        Integer id,
+        Long id,
 
         @JsonProperty("name")
         String title,
