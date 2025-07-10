@@ -1,0 +1,31 @@
+services:
+
+  playwright-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5900:5900"
+    container_name: playwright-tests
+    working_dir: /automation-exercise
+    volumes:
+      - ./src/.screen-output/screenshots/remote:/automation-exercise/src/.screen-output/screenshots/remote
+      - ./build/allure-results:/automation-exercise/build/allure-results
+    environment:
+      - DISPLAY=${DISPLAY}
+      - TEST_ENV=${TEST_ENV:-ci}
+      - TEST_DEFAULT_USER_PASSWORD=${TEST_DEFAULT_USER_PASSWORD}
+      - TEST_IGNORE_DISABLED_BY_ISSUE=${TEST_IGNORE_DISABLED_BY_ISSUE}
+      - TEST_MAX_SCREENSHOT_DIFF=${TEST_MAX_SCREENSHOT_DIFF}
+      - TEST_SAVE_FAILED_TESTS_VIDEO=${TEST_SAVE_FAILED_TESTS_VIDEO}
+      - TEST_REST_LOGS=${TEST_REST_LOGS}
+      - TEST_REWRITE_ALL_SCREENSHOTS=${TEST_REWRITE_ALL_SCREENSHOTS}
+      - PLAYWRIGHT_BROWSER_NAME=${PLAYWRIGHT_BROWSER_NAME}
+      - PLAYWRIGHT_BROWSER_TIMEOUT=${PLAYWRIGHT_BROWSER_TIMEOUT}
+      - PLAYWRIGHT_HEADLESS=${PLAYWRIGHT_HEADLESS}
+      - PLAYWRIGHT_SLOW_MOTION=${PLAYWRIGHT_SLOW_MOTION}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - GITHUB_TOKEN_NAME=${GITHUB_TOKEN_NAME}
+      - GITHUB_ACCOUNT_NAME=${GITHUB_ACCOUNT_NAME}
+      - GITHUB_REPO_NAME=${GITHUB_REPO_NAME}
+    ipc: host

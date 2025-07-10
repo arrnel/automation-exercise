@@ -32,23 +32,16 @@ enum DockerConfig implements Config {
         );
     }
 
+    @Nonnull
     @Override
-    public boolean isRemote() {
-        return true;
+    public String pathToScreenshotsDirectory() {
+        return System.getProperty("user.dir") + "/src/.screen-output/screenshots/docker";
     }
 
     @Nonnull
     @Override
-    public String remoteUrl() {
-        return System.getProperty(
-                "test.env.remote_url",
-                "ws://playwright-server:8080"
-        );
-    }
-
-    @Override
-    public String pathToScreenshots() {
-        return System.getProperty("user.dir") + "/src/.screen-output/screenshots/remote";
+    public String pathToVideosDirectory() {
+        return System.getProperty("user.dir") + "/src/.screen-output/video/docker";
     }
 
 }

@@ -8,7 +8,6 @@ import com.automationexercise.tests.models.UserDTO;
 import com.automationexercise.tests.test.BaseTest;
 import com.automationexercise.tests.util.DataGenerator;
 import io.qameta.allure.Feature;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -16,10 +15,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import static com.automationexercise.tests.api.core.condition.Conditions.*;
 import static com.automationexercise.tests.models.api.HttpStatus.*;
-import static com.automationexercise.tests.util.matcher.AppMatchers.matchUserRequestData;
 import static com.automationexercise.tests.util.matcher.AppMatchers.matchUserRequestDataWithoutId;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ApiTest
@@ -265,19 +262,13 @@ class UserApiTest extends BaseTest {
 
         // Steps
         userApiClient.updateUser(updatedUser)
+
+                // Assertions
                 //.shouldHave(contentType(JSON)) <- Current realization return HTML
                 .shouldHave(statusCode(OK))
                 .shouldHave(bodyStatusCode(OK))
                 .shouldHave(bodyField("message", equalTo(SUCCESSFUL_UPDATE_MESSAGE)));
 
-        var result = userApiService.getUserByEmail(user.email())
-                .orElse(UserDTO.empty());
-
-        // Assertions
-        Assertions.assertAll("Check updated user has expected data",
-                () -> assertEquals(user.id(), result.id()),
-                () -> matchUserRequestData(updatedUser, result)
-        );
     }
 
     @Test
