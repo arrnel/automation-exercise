@@ -7,6 +7,9 @@ import com.automationexercise.tests.models.allure.AllureProject;
 import com.automationexercise.tests.models.allure.AllureResults;
 import lombok.extern.slf4j.Slf4j;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 import static com.automationexercise.tests.api.core.condition.Conditions.statusCode;
 import static com.automationexercise.tests.models.api.HttpStatus.*;
 
@@ -57,7 +60,7 @@ public class AllureApiClientImpl extends RestClient implements AllureApiClient {
                 given()
                         .queryParam("project_id", projectId)
                         .queryParam("execution_name", System.getenv("HEAD_COMMIT_MESSAGE"))
-                        .queryParam("execution_from", System.getenv("BUILD_URL"))
+                        .queryParam("execution_from", URLEncoder.encode(System.getenv("BUILD_URL"), StandardCharsets.UTF_8))
                         .queryParam("execution_type", System.getenv("EXECUTION_TYPE"))
                         .get(GENERATE_REPORT)
         )
