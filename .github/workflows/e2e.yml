@@ -1,0 +1,156 @@
+name: e2e
+
+on:
+  pull_request:
+    types: [ opened, reopened, synchronize ]
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    env:
+      DISPLAY: :0
+      ALLURE_DOCKER_API: ${{ vars.ALLURE_DOCKER_API }}
+      ALLURE_PROJECT_NAME: ${{ vars.ALLURE_PROJECT_NAME }}
+      TEST_ENV: ${{ vars.TEST_ENV }}
+      TEST_DEFAULT_USER_PASSWORD: ${{ secrets.TEST_DEFAULT_USER_PASSWORD }}
+      TEST_IGNORE_DISABLED_BY_ISSUE: ${{ vars.TEST_IGNORE_DISABLED_BY_ISSUE }}
+      TEST_MAX_SCREENSHOT_DIFF: ${{ vars.TEST_MAX_SCREENSHOT_DIFF }}
+      TEST_SAVE_FAILED_TESTS_VIDEO: ${{ vars.TEST_SAVE_FAILED_TESTS_VIDEO }}
+      TEST_REST_LOGS: ${{ vars.TEST_REST_LOGS }}
+      TEST_REWRITE_ALL_SCREENSHOTS: ${{ vars.TEST_REWRITE_ALL_SCREENSHOTS }}
+      TESTS_PASSED_PERCENTAGE: ${{vars.TESTS_PASSED_PERCENTAGE}}
+      PLAYWRIGHT_VERSION: ${{ vars.PLAYWRIGHT_VERSION }}
+      PLAYWRIGHT_BROWSER_NAME: ${{ vars.PLAYWRIGHT_BROWSER_NAME }}
+      PLAYWRIGHT_BROWSER_TIMEOUT: ${{ vars.PLAYWRIGHT_BROWSER_TIMEOUT }}
+      PLAYWRIGHT_HEADLESS: ${{ vars.PLAYWRIGHT_HEADLESS }}
+      PLAYWRIGHT_SLOW_MOTION: ${{ vars.PLAYWRIGHT_SLOW_MOTION }}
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      GITHUB_TOKEN_NAME: ${{ secrets.GH_TOKEN_NAME }}
+      GITHUB_ACCOUNT_NAME: ${{ vars.GH_ACCOUNT_NAME }}
+      GITHUB_REPO_NAME: ${{ vars.GH_REPO_NAME }}
+      BUILD_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      EXECUTION_TYPE: github
+      LAST_TEST_STAT_URL: ${{ vars.LAST_TEST_STAT_URL }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.GITHUB_SHA }}
+
+      - name: Get the last commit message
+        run: |
+          echo "HEAD_COMMIT_MESSAGE=$(git show -s --format=%s)" >> $GITHUB_ENV
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Run e2e tests
+        id: e2e
+        run: |
+          docker compose -f docker-compose.ci.yaml up -d
+          docker ps -a
+          docker wait playwright-tests
+          echo "### Test logs ###"
+          docker logs playwright-tests
+
+      - name: Get test statistics
+        id: test_stats
+        run: |
+          response=$(curl -s -f "${{ env.LAST_TEST_STAT_URL }}" || echo "[]")
+          echo "Raw response: $response"
+          
+          if [ -z "$response" ] || [ "$response" = "[]" ]; then
+            echo "Error: Failed to fetch test statistics or empty response"
+            exit 1
+          fi
+
+          # Get first data from array          
+          first_item=$(echo "$response" | jq '.[0]')
+          data=$(echo "$first_item" | jq '.data')
+          
+          echo "Test statistics: $response"
+          failed=$(echo "$data" | jq -r '.failed // 0')
+          broken=$(echo "$data" | jq -r '.broken // 0')
+          skipped=$(echo "$data" | jq -r '.skipped // 0')
+          passed=$(echo "$data" | jq -r '.passed // 0')
+          unknown=$(echo "$data" | jq -r '.unknown // 0')
+          total=$(echo "$data" | jq -r '.total // 0')
+          
+          if [ "$total" -ne 0 ]; then
+            passed_percentage=$(echo "scale=2; $passed * 100 / $total" | bc)
+          else
+            passed_percentage=0
+          fi
+
+          echo "failed=$failed" >> $GITHUB_OUTPUT
+          echo "broken=$broken" >> $GITHUB_OUTPUT
+          echo "skipped=$skipped" >> $GITHUB_OUTPUT
+          echo "passed=$passed" >> $GITHUB_OUTPUT
+          echo "unknown=$unknown" >> $GITHUB_OUTPUT
+          echo "total=$total" >> $GITHUB_OUTPUT
+          echo "passed_percentage=$passed_percentage" >> $GITHUB_OUTPUT
+
+      - name: Quality gate
+        id: quality_gate
+        run: |
+          
+          quality_gate_value=${{ env.TESTS_PASSED_PERCENTAGE }}
+          passed_percentage=${{ steps.test_stats.outputs.passed_percentage }}
+          
+          if (( $(echo "$passed_percentage >= $quality_gate_value" | bc -l) )); then
+            echo "Quality gate passed"
+            echo "result=passed" >> $GITHUB_OUTPUT
+            exit 0
+          else
+            echo "Quality gate failed"
+            echo "result=failed" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+      - name: Add comment to PR with link to allure
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const isPassed = 'true' === '${{ steps.quality_gate.outputs.result }}';
+            const projectName = ${{ env.ALLURE_PROJECT_NAME }}
+            const reportUrl = 'https://allure.niffler-stage.qa.guru/api/allure-docker-service/projects/' + projectName + '/reports/latest/index.html';
+            const historyUrl = 'https://allure.niffler-stage.qa.guru/allure-docker-service-ui/projects/' + projectName;
+
+            const stats = {
+              passed: Number('${{ steps.test_stats.outputs.passed }}') || 0,
+              failed: Number('${{ steps.test_stats.outputs.failed }}') || 0,
+              broken: Number('${{ steps.test_stats.outputs.broken }}') || 0,
+              skipped: Number('${{ steps.test_stats.outputs.skipped }}') || 0,
+              unknown: Number('${{ steps.test_stats.outputs.unknown }}') || 0,
+              total: Number('${{ steps.test_stats.outputs.total }}') || 0,
+              passedPercentage: Number('${{ steps.test_stats.outputs.passed_percentage }}') || 0
+            };
+
+            console.log('Stats:', stats); // Debug output
+
+            const statsMessage = `
+            📋 **Test Statistics:**
+            
+            | Status       | Count                      |
+            |:-------------|:---------------------------|
+            | 🟢 Passed    | ${stats.passed}            |
+            | 🔴 Failed    | ${stats.failed}            |
+            | 🟡 Broken    | ${stats.broken}            |
+            | ⚪ Skipped    | ${stats.skipped}           |
+            | 🟣 Unknown   | ${stats.unknown}           |
+            | 📊 Total     | ${stats.total}             |
+            | 🎯 Pass Rate | ${stats.passedPercentage}% |
+            `;
+
+            const message = isPassed ?
+              `✅ TEST RUN PASSED ✅\n${statsMessage}\nThere is the [report](${reportUrl})\n🕓 All reports [history](${historyUrl})` :
+              `🔴 TEST RUN FAILED 🔴\n${statsMessage}\nThere is the [report](${reportUrl})\n🕓 All reports [history](${historyUrl})`;
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            });
