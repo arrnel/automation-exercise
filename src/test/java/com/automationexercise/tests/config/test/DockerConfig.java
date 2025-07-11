@@ -44,4 +44,9 @@ enum DockerConfig implements Config {
         return System.getProperty("user.dir") + "/src/.screen-output/video/docker";
     }
 
+    @Override
+    public String allureReportUrl() {
+        return "";
+    }
+
 }

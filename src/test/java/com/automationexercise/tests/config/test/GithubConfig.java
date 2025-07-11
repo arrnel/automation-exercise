@@ -38,4 +38,9 @@ enum GithubConfig implements Config {
         return System.getProperty("user.dir") + "/src/.screen-output/video/remote";
     }
 
+    @Override
+    public String allureReportUrl() {
+        return "";
+    }
+
 }

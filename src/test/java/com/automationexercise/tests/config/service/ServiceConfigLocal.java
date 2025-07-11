@@ -73,7 +73,13 @@ enum ServiceConfigLocal implements ServiceConfig {
 
     @Nonnull
     @Override
-    public GithubApiClient getGitHubApiClient() {
+    public AllureApiClient getAllureApiClient() {
+        return new AllureApiClientImpl();
+    }
+
+    @Nonnull
+    @Override
+    public GithubApiClient getGithubApiClient() {
         return new GithubApiClientImpl();
     }
 
