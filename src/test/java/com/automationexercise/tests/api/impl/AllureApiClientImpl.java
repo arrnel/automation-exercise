@@ -8,8 +8,7 @@ import com.automationexercise.tests.models.allure.AllureResults;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.automationexercise.tests.api.core.condition.Conditions.statusCode;
-import static com.automationexercise.tests.models.api.HttpStatus.NOT_FOUND;
-import static com.automationexercise.tests.models.api.HttpStatus.OK;
+import static com.automationexercise.tests.models.api.HttpStatus.*;
 
 @Slf4j
 public class AllureApiClientImpl extends RestClient implements AllureApiClient {
@@ -85,7 +84,7 @@ public class AllureApiClientImpl extends RestClient implements AllureApiClient {
                         .body(project)
                         .post(CREATE_PROJECT)
         )
-                .shouldHave(statusCode(OK));
+                .shouldHave(statusCode(CREATED));
     }
 
 }
