@@ -40,7 +40,7 @@ enum GithubConfig implements Config {
 
     @Override
     public String allureReportUrl() {
-        return "";
+        return System.getenv("ALLURE_DOCKER_API");
     }
 
 }
