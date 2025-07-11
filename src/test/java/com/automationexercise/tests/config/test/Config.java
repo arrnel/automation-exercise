@@ -206,7 +206,7 @@ public interface Config {
     }
 
     default Path pathToAllureResults() {
-        return Path.of("./rococo-tests/build/allure-results");
+        return Path.of("build/allure-results");
     }
 
     String allureReportUrl();
