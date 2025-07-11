@@ -151,6 +151,8 @@ public final class DataGenerator {
 
     public static List<ProductDTO> randomProducts(int count) {
         var products = new ArrayList<>(productService.getAllProducts());
+        if (count < 1)
+            throw new IllegalArgumentException("Count must be greater then 0");
         if (products.size() < count)
             throw new IllegalArgumentException("Invalid products count: %d. Found products count: %d"
                     .formatted(count, products.size()));

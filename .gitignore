@@ -1,8 +1,18 @@
+# Gradle
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+
+# Screenshots & video
+src/.screen-output/video
+src/.screen-output/screenshots/local
+src/.screen-output/screenshots/docker
+
+# Docker
+docker-compose.allure.yaml
+docker-compose.build.yaml
 
 ### IDE ###
 # IntelliJ IDEA

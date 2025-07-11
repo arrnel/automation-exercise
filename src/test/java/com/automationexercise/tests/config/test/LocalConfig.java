@@ -26,20 +26,16 @@ enum LocalConfig implements Config {
         return "https://automationexercise.com/api";
     }
 
+    @Nonnull
     @Override
-    public boolean isRemote() {
-        return false;
+    public String pathToScreenshotsDirectory() {
+        return System.getProperty("user.dir") + "/src/.screen-output/screenshots/local";
     }
 
     @Nonnull
     @Override
-    public String remoteUrl() {
-        return "";
-    }
-
-    @Override
-    public String pathToScreenshots() {
-        return System.getProperty("user.dir") + "/src/.screen-output/screenshots/local";
+    public String pathToVideosDirectory() {
+        return System.getProperty("user.dir") + "/build/video/local";
     }
 
 }

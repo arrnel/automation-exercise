@@ -1,0 +1,34 @@
+services:
+
+  playwright-tests:
+    image: automation-exercise-tests:latest
+    ports:
+      - "5900:5900"
+    container_name: playwright-tests
+    working_dir: /automation-exercise
+    volumes:
+      - ./src/.screen-output/screenshots/docker:/automation-exercise/src/.screen-output/screenshots/docker
+      - ./src/.screen-output/video/docker:/automation-exercise/src/.screen-output/video/docker
+      - ./build/allure-results:/automation-exercise/build/allure-results
+    cpu_count: 2
+    mem_limit: 3500MB
+    environment:
+      - DISPLAY=${DISPLAY}
+      - TEST_ANIMATION_DURATION=${TEST_ANIMATION_DURATION:-1000}
+      - TEST_ENV=docker
+      - TEST_DEFAULT_USER_PASSWORD=${TEST_DEFAULT_USER_PASSWORD:-12345}
+      - TEST_IGNORE_DISABLED_BY_ISSUE=${TEST_SAVE_FAILED_TESTS_VIDEO:-false}
+      - TEST_MAX_SCREENSHOT_DIFF=${TEST_MAX_SCREENSHOT_DIFF:-0.2}
+      - TEST_SAVE_FAILED_TESTS_VIDEO=${TEST_SAVE_FAILED_TESTS_VIDEO:-false}
+      - TEST_REST_LOGS=${TEST_REST_LOGS:-ALL}
+      - TEST_REWRITE_ALL_SCREENSHOTS=${TEST_REWRITE_ALL_SCREENSHOTS:-false}
+      - PLAYWRIGHT_BROWSER_NAME=${PLAYWRIGHT_BROWSER_NAME:-chromium}
+      - PLAYWRIGHT_BROWSER_SIZE=${PLAYWRIGHT_BROWSER_SIZE:-1920x1080}
+      - PLAYWRIGHT_BROWSER_TIMEOUT=${PLAYWRIGHT_BROWSER_TIMEOUT:-10000.0}
+      - PLAYWRIGHT_HEADLESS=${PLAYWRIGHT_HEADLESS:-false}
+      - PLAYWRIGHT_SLOW_MOTION=${PLAYWRIGHT_SLOW_MOTION:-50.0}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - GITHUB_TOKEN_NAME=${GITHUB_TOKEN_NAME}
+      - GITHUB_ACCOUNT_NAME=${GITHUB_ACCOUNT_NAME}
+      - GITHUB_REPO_NAME=${GITHUB_REPO_NAME}
+    ipc: host

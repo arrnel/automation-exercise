@@ -1,5 +1,6 @@
 package com.automationexercise.tests.jupiter.anno.meta;
 
+import com.automationexercise.tests.jupiter.extension.ApiLoginExtension;
 import com.automationexercise.tests.jupiter.extension.BrowserExtension;
 import io.qameta.allure.Epic;
 import org.junit.jupiter.api.Tag;
@@ -14,7 +15,10 @@ import java.lang.annotation.Target;
 @Epic("WEB")
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@ExtendWith(BrowserExtension.class)
+@ExtendWith({
+        BrowserExtension.class,
+        ApiLoginExtension.class
+})
 public @interface WebTest {
 
 }

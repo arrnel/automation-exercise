@@ -13,7 +13,6 @@ import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
-import org.apache.commons.lang3.EnumUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,9 +25,8 @@ public abstract class RestClient {
 
     protected static final Config CFG = Config.getInstance();
 
-    private static final LogDetail DEFAULT_LOG_LEVEL = EnumUtils.getEnumIgnoreCase(
-            LogDetail.class,
-            System.getProperty("test.api.log.level", "headers"));
+    private static final LogDetail DEFAULT_LOG_LEVEL = CFG.defaultRestLogLevel();
+
     private static final ContentType DEFAULT_ACCEPT = ContentType.JSON;
     private static final ContentType DEFAULT_CONTENT_TYPE = ContentType.JSON;
 
