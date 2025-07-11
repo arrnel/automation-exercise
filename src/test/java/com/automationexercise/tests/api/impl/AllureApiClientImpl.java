@@ -83,7 +83,7 @@ public class AllureApiClientImpl extends RestClient implements AllureApiClient {
         new AssertableResponse(
                 given()
                         .body(project)
-                        .get(CREATE_PROJECT)
+                        .post(CREATE_PROJECT)
         )
                 .shouldHave(statusCode(OK));
     }
