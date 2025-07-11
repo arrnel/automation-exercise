@@ -114,7 +114,7 @@ jobs:
         with:
           script: |
             const isPassed = 'true' === '${{ steps.quality_gate.outputs.result }}';
-            const projectName = ${{ env.ALLURE_PROJECT_NAME }}
+            const projectName = '${{ env.ALLURE_PROJECT_NAME }}'
             const reportUrl = 'https://allure.niffler-stage.qa.guru/api/allure-docker-service/projects/' + projectName + '/reports/latest/index.html';
             const historyUrl = 'https://allure.niffler-stage.qa.guru/allure-docker-service-ui/projects/' + projectName;
 
