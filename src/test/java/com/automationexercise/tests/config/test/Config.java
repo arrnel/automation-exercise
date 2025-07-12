@@ -6,6 +6,7 @@ import io.restassured.filter.log.LogDetail;
 import org.apache.commons.lang3.EnumUtils;
 
 import javax.annotation.Nonnull;
+import java.nio.file.Path;
 
 import static com.automationexercise.tests.util.EnvDataUtil.*;
 
@@ -18,11 +19,13 @@ public interface Config {
             getStringEnv("TEST_ENV", "docker"),
             TestEnv.DOCKER
     );
+    String PROJECT_NAME = System.getenv("ALLURE_PROJECT_NAME");
 
     static Config getInstance() {
         return switch (TEST_ENV) {
             case LOCAL -> LocalConfig.INSTANCE;
-            case DOCKER, CI -> DockerConfig.INSTANCE;
+            case DOCKER -> DockerConfig.INSTANCE;
+            case CI -> GithubConfig.INSTANCE;
         };
     }
 
@@ -201,5 +204,11 @@ public interface Config {
                     "github" : %s,
                 }""".formatted(testData, pwData, githubData);
     }
+
+    default Path pathToAllureResults() {
+        return Path.of("build/allure-results");
+    }
+
+    String allureReportUrl();
 
 }

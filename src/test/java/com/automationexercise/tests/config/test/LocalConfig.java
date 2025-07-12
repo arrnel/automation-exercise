@@ -38,4 +38,9 @@ enum LocalConfig implements Config {
         return System.getProperty("user.dir") + "/build/video/local";
     }
 
+    @Override
+    public String allureReportUrl() {
+        return "";
+    }
+
 }

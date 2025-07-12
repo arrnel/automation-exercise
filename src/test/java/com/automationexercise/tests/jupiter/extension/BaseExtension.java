@@ -18,7 +18,7 @@ public abstract class BaseExtension {
     private static final ServiceConfig SERVICE_CONFIG = ServiceConfig.getInstance();
     protected static final Config CFG = Config.getInstance();
 
-    protected final GithubApiClient gitHubApiClient = SERVICE_CONFIG.getGitHubApiClient();
+    protected final GithubApiClient gitHubApiClient = SERVICE_CONFIG.getGithubApiClient();
 
     protected final UserApiService userService = SERVICE_CONFIG.getUserApiService();
     protected final AuthApiService authService = SERVICE_CONFIG.getAuthApiService();
