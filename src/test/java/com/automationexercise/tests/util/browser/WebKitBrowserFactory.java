@@ -1,6 +1,8 @@
 package com.automationexercise.tests.util.browser;
 
-import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.BrowserType;
+import com.microsoft.playwright.BrowserType.ConnectOptions;
+import com.microsoft.playwright.BrowserType.ConnectOverCDPOptions;
 import com.microsoft.playwright.BrowserType.LaunchOptions;
 import com.microsoft.playwright.Playwright;
 
@@ -14,10 +16,9 @@ public enum WebKitBrowserFactory implements BrowserFactory {
 
     @Nonnull
     @Override
-    public Browser getBrowser(Playwright playwright) {
+    public BrowserType getBrowserType(Playwright playwright) {
         return playwright
-                .webkit()
-                .launch(getLaunchOptions());
+                .webkit();
     }
 
     @Nonnull
@@ -26,6 +27,22 @@ public enum WebKitBrowserFactory implements BrowserFactory {
                 .setTimeout(CFG.browserTimeout())
                 .setSlowMo(CFG.browserSlowMotion())
                 .setHeadless(CFG.browserIsHeadless());
+    }
+
+    @Nonnull
+    @Override
+    public ConnectOptions getConnectOptions() {
+        return new ConnectOptions()
+                .setTimeout(CFG.browserTimeout())
+                .setSlowMo(CFG.browserSlowMotion());
+    }
+
+    @Nonnull
+    @Override
+    public ConnectOverCDPOptions getConnectOverCdpOptions() {
+        return new ConnectOverCDPOptions()
+                .setTimeout(CFG.browserTimeout())
+                .setSlowMo(CFG.browserSlowMotion());
     }
 
 }

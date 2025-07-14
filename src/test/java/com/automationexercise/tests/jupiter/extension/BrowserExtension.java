@@ -1,6 +1,6 @@
 package com.automationexercise.tests.jupiter.extension;
 
-import com.automationexercise.tests.jupiter.Browser;
+import com.automationexercise.tests.jupiter.anno.meta.Browser;
 import com.automationexercise.tests.jupiter.anno.meta.ScreenshotTest;
 import com.automationexercise.tests.jupiter.anno.meta.WebTest;
 import com.automationexercise.tests.util.browser.ChromeBrowserFactory;
@@ -84,6 +84,7 @@ public class BrowserExtension extends BaseExtension implements BeforeEachCallbac
 
     @Override
     public void handleTestExecutionException(ExtensionContext context, Throwable throwable) throws Throwable {
+        log.info("TEST EXCEPTION: {}", throwable.getMessage());
         if (!isClassHaveUiAnno(context.getRequiredTestClass()))
             throw throwable;
         attachPage();

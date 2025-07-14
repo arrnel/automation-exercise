@@ -14,6 +14,9 @@ src/.screen-output/screenshots/docker
 docker-compose.allure.yaml
 docker-compose.build.yaml
 
+# Moon
+.moon/license/license.key
+
 ### IDE ###
 # IntelliJ IDEA
 .idea

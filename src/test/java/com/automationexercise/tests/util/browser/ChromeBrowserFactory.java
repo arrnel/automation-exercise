@@ -1,6 +1,8 @@
 package com.automationexercise.tests.util.browser;
 
-import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.BrowserType;
+import com.microsoft.playwright.BrowserType.ConnectOptions;
+import com.microsoft.playwright.BrowserType.ConnectOverCDPOptions;
 import com.microsoft.playwright.BrowserType.LaunchOptions;
 import com.microsoft.playwright.Playwright;
 
@@ -14,20 +16,34 @@ public enum ChromeBrowserFactory implements BrowserFactory {
 
     @Nonnull
     @Override
-    public Browser getBrowser(Playwright playwright) {
+    public BrowserType getBrowserType(Playwright playwright) {
         return playwright
-                .chromium()
-                .launch(getLaunchOptions());
+                .chromium();
     }
 
     @Nonnull
     public LaunchOptions getLaunchOptions() {
         return new LaunchOptions()
+                .setChannel("chrome")
                 .setTimeout(CFG.browserTimeout())
                 .setSlowMo(CFG.browserSlowMotion())
-                .setHeadless(CFG.browserIsHeadless())
-//                .setArgs(List.of("--wm-window-animations-disabled", "--animation-duration-scale=0"))
-                ;
+                .setHeadless(CFG.browserIsHeadless());
+    }
+
+    @Nonnull
+    @Override
+    public ConnectOptions getConnectOptions() {
+        return new ConnectOptions()
+                .setTimeout(CFG.browserTimeout())
+                .setSlowMo(CFG.browserSlowMotion());
+    }
+
+    @Nonnull
+    @Override
+    public ConnectOverCDPOptions getConnectOverCdpOptions() {
+        return new ConnectOverCDPOptions()
+                .setTimeout(CFG.browserTimeout())
+                .setSlowMo(CFG.browserSlowMotion());
     }
 
 }

@@ -1,5 +1,6 @@
 package com.automationexercise.tests.util.browser;
 
+import com.automationexercise.tests.config.test.Config;
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.Browser.NewContextOptions;
 import com.microsoft.playwright.BrowserContext;
@@ -18,10 +19,10 @@ public enum PageStore {
 
     INSTANCE;
 
-    private final ThreadLocal<Playwright> playwrightStore = new ThreadLocal<>();
-    private final ThreadLocal<Browser> browserStore = new ThreadLocal<>();
-    private final ThreadLocal<BrowserContext> browserContextStore = new ThreadLocal<>();
-    private final ThreadLocal<Page> pageStore = new ThreadLocal<>();
+    private static final ThreadLocal<Playwright> playwrightStore = new ThreadLocal<>();
+    private static final ThreadLocal<Browser> browserStore = new ThreadLocal<>();
+    private static final ThreadLocal<BrowserContext> browserContextStore = new ThreadLocal<>();
+    private static final ThreadLocal<Page> pageStore = new ThreadLocal<>();
 
     @Nonnull
     public Playwright createNewPlaywright() {
@@ -118,7 +119,7 @@ public enum PageStore {
     private void cleanUpBrowser() {
         try {
             log.info("Cleanup browser");
-            if (getBrowser() != null && getBrowser().isConnected()) {
+            if (getBrowser() != null || getBrowser().isConnected()) {
                 getBrowser().close();
                 browserStore.remove();
             }
@@ -130,7 +131,8 @@ public enum PageStore {
     private void cleanUpBrowserContext() {
         try {
             log.info("Cleanup browser context");
-            if (getBrowserContext() != null) {
+            if (getBrowserContext() != null || !getBrowserContext().pages().isEmpty()) {
+                getBrowserContext().pages().forEach(Page::close);
                 getBrowserContext().close();
                 browserContextStore.remove();
             }

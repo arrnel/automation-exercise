@@ -12,7 +12,7 @@ buildscript {
         jsr305Version = '3.0.2'
         junitJupiterVersion = '5.13.0'
         lombokVersion = '1.18.38'
-        playwriteVersion = '1.49.0'
+        playwrightVersion = '1.53.0'
         restAssuredVersion = '5.5.5'
         slf4jVersion = '2.0.17'
     }
@@ -31,6 +31,7 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    maven { url "https://jitpack.io" }
 }
 
 java {
@@ -92,7 +93,7 @@ dependencies {
     testImplementation "org.slf4j:slf4j-simple:${slf4jVersion}"
 
     // WEB
-    testImplementation "com.microsoft.playwright:playwright:${playwriteVersion}"
+    testImplementation "com.microsoft.playwright:playwright:${playwrightVersion}"
     testImplementation "com.github.automatedowl:allure-environment-writer:${allureEnvironmentWritterVersion}"
 
 }

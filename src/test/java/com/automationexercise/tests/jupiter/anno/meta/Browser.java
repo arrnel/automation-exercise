@@ -1,4 +1,4 @@
-package com.automationexercise.tests.jupiter;
+package com.automationexercise.tests.jupiter.anno.meta;
 
 import com.automationexercise.tests.util.browser.BrowserName;
 

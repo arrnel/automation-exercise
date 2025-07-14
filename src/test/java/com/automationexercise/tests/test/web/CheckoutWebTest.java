@@ -1,7 +1,7 @@
 package com.automationexercise.tests.test.web;
 
-import com.automationexercise.tests.jupiter.Browser;
 import com.automationexercise.tests.jupiter.anno.ApiLogin;
+import com.automationexercise.tests.jupiter.anno.meta.Browser;
 import com.automationexercise.tests.jupiter.anno.meta.WebTest;
 import com.automationexercise.tests.jupiter.anno.tag.ComponentTag.CartListComponentTag;
 import com.automationexercise.tests.jupiter.anno.tag.PageTag.CheckoutPageTag;

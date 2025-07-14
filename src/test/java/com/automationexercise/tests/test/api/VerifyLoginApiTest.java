@@ -45,7 +45,7 @@ class VerifyLoginApiTest extends BaseTest {
     @User
     @Test
     @DisplayName("Should return FALSE if password is invalid")
-    void shouldReturnFalseIfUserExistsWithValidCredentialsTest(UserDTO user) {
+    void shouldReturnFalseIfUserExistsWithInvalidPasswordTest(UserDTO user) {
 
         // Data
         var credentials = new CredentialsDTO(

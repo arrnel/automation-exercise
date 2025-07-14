@@ -24,13 +24,25 @@ public interface Config {
     static Config getInstance() {
         return switch (TEST_ENV) {
             case LOCAL -> LocalConfig.INSTANCE;
-            case DOCKER -> DockerConfig.INSTANCE;
-            case CI -> GithubConfig.INSTANCE;
+            case DOCKER, MOON -> DockerConfig.INSTANCE;
+            case CI, CI_MOON -> GithubConfig.INSTANCE;
         };
+    }
+
+    default boolean isMoon() {
+        return TEST_ENV == TestEnv.MOON || TEST_ENV == TestEnv.CI_MOON;
+    }
+
+    default boolean connectOverCdp(){
+        return getBooleanEnv("CONNECT_OVER_CDP", false);
     }
 
     @Nonnull
     String baseUrl();
+
+    default String remoteHost(){
+       return getStringEnv("REMOTE_HOST_URL", "localhost:4444");
+    }
 
     @Nonnull
     String domain();

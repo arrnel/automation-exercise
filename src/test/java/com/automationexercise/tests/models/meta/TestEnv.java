@@ -1,5 +1,5 @@
 package com.automationexercise.tests.models.meta;
 
 public enum TestEnv {
-    LOCAL, DOCKER, CI
+    LOCAL, DOCKER, MOON, CI, CI_MOON
 }

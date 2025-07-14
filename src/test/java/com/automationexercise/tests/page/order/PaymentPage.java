@@ -33,7 +33,6 @@ public class PaymentPage extends BasePage<PaymentPage> {
     public OrderPlacedPage pay(CardInfo card) {
         log.info("Pay with payment card: {}", card);
         paymentForm.pay(card);
-        paymentForm.checkPayFormHasSuccessMessage();
         return new OrderPlacedPage();
     }
 

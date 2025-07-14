@@ -1,7 +1,7 @@
 package com.automationexercise.tests.util.browser;
 
-import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;
+import com.microsoft.playwright.BrowserType.ConnectOverCDPOptions;
 import com.microsoft.playwright.Playwright;
 
 import javax.annotation.Nonnull;
@@ -14,10 +14,9 @@ public enum FirefoxBrowserFactory implements BrowserFactory {
 
     @Nonnull
     @Override
-    public Browser getBrowser(Playwright playwright) {
+    public BrowserType getBrowserType(Playwright playwright) {
         return playwright
-                .firefox()
-                .launch(getLaunchOptions());
+                .firefox();
     }
 
     @Nonnull
@@ -26,6 +25,21 @@ public enum FirefoxBrowserFactory implements BrowserFactory {
                 .setTimeout(CFG.browserTimeout())
                 .setSlowMo(CFG.browserSlowMotion())
                 .setHeadless(CFG.browserIsHeadless());
+    }
+
+    @Nonnull
+    public BrowserType.ConnectOptions getConnectOptions() {
+        return new BrowserType.ConnectOptions()
+                .setTimeout(CFG.browserTimeout())
+                .setSlowMo(CFG.browserSlowMotion());
+    }
+
+    @Nonnull
+    @Override
+    public ConnectOverCDPOptions getConnectOverCdpOptions() {
+        return new ConnectOverCDPOptions()
+                .setTimeout(CFG.browserTimeout())
+                .setSlowMo(CFG.browserSlowMotion());
     }
 
 }
