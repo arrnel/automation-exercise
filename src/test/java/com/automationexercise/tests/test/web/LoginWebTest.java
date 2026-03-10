@@ -3,18 +3,17 @@ package com.automationexercise.tests.test.web;
 import com.automationexercise.tests.jupiter.anno.ApiLogin;
 import com.automationexercise.tests.jupiter.anno.User;
 import com.automationexercise.tests.jupiter.anno.meta.WebTest;
-import com.automationexercise.tests.jupiter.anno.tag.ComponentTag.LoginComponentTag;
-import com.automationexercise.tests.jupiter.anno.tag.PageTag.LoginPageTag;
 import com.automationexercise.tests.models.UserDTO;
+import com.automationexercise.tests.models.allure.AllureTag;
 import com.automationexercise.tests.page.auth.LoginPage;
 import com.automationexercise.tests.test.BaseTest;
 import com.automationexercise.tests.util.DataGenerator;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag(AllureTag.LOGIN_TEST)
 @WebTest
-@LoginPageTag
-@LoginComponentTag
 @DisplayName("[WEB] Login tests")
 class LoginWebTest extends BaseTest {
 

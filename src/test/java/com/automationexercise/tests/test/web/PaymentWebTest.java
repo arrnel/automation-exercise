@@ -3,26 +3,24 @@ package com.automationexercise.tests.test.web;
 import com.automationexercise.tests.jupiter.anno.ApiLogin;
 import com.automationexercise.tests.jupiter.anno.User;
 import com.automationexercise.tests.jupiter.anno.meta.WebTest;
-import com.automationexercise.tests.jupiter.anno.tag.ComponentTag.InvoiceTag;
-import com.automationexercise.tests.jupiter.anno.tag.ComponentTag.PaymentFormTag;
-import com.automationexercise.tests.jupiter.anno.tag.PageTag.OrderPlacedPageTag;
-import com.automationexercise.tests.jupiter.anno.tag.PageTag.PaymentPageTag;
 import com.automationexercise.tests.models.UserDTO;
+import com.automationexercise.tests.models.allure.AllureTag;
 import com.automationexercise.tests.page.auth.LoginPage;
 import com.automationexercise.tests.page.products.ProductsListPage;
 import com.automationexercise.tests.util.DataGenerator;
 import com.automationexercise.tests.util.ProductUtil;
 import io.qameta.allure.Owner;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag(AllureTag.PAYMENT_TEST)
 @WebTest
 @DisplayName("[WEB] Payment tests")
 class PaymentWebTest {
 
-    @Owner("@arrnel")
-    @PaymentPageTag
-    @PaymentFormTag
+    @Tag(AllureTag.E2E_TEST)
+    @Owner(AllureTag.OWNER)
     @ApiLogin
     @Test
     @DisplayName("Should place order with registration before checkout")
@@ -46,9 +44,8 @@ class PaymentWebTest {
                 .checkOrderPlacedMessageVisible();
     }
 
-    @Owner("@arrnel")
-    @PaymentPageTag
-    @PaymentFormTag
+    @Tag(AllureTag.E2E_TEST)
+    @Owner(AllureTag.OWNER)
     @Test
     @DisplayName("Should place order with registration while checkout")
     void shouldPlaceOrderWithRegistrationWhileCheckoutTest() {
@@ -79,9 +76,9 @@ class PaymentWebTest {
                 .checkOrderPlacedMessageVisible();
     }
 
-    @Owner("@arrnel")
-    @OrderPlacedPageTag
-    @InvoiceTag
+    @Tag(AllureTag.E2E_TEST)
+    @Tag(AllureTag.INVOICE_TEST)
+    @Owner(AllureTag.OWNER)
     @User(email = "validate_invoice_user@test_user.test")
     @ApiLogin(email = "validate_invoice_user@test_user.test")
     @Test

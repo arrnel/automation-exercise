@@ -1,11 +1,7 @@
 package com.automationexercise.tests.test.web.screenshot;
 
 import com.automationexercise.tests.jupiter.anno.meta.ScreenshotTest;
-import com.automationexercise.tests.jupiter.anno.tag.ComponentTag.ProductDetailsComponentTag;
-import com.automationexercise.tests.jupiter.anno.tag.ComponentTag.ProductListComponentTag;
-import com.automationexercise.tests.jupiter.anno.tag.PageTag.MainPageTag;
-import com.automationexercise.tests.jupiter.anno.tag.PageTag.ProductPageTag;
-import com.automationexercise.tests.jupiter.anno.tag.PageTag.ProductsPageTag;
+import com.automationexercise.tests.models.allure.AllureTag;
 import com.automationexercise.tests.page.products.MainPage;
 import com.automationexercise.tests.page.products.ProductPage;
 import com.automationexercise.tests.page.products.ProductsListPage;
@@ -13,8 +9,10 @@ import com.automationexercise.tests.test.BaseTest;
 import com.automationexercise.tests.util.DataGenerator;
 import io.qameta.allure.Owner;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag(AllureTag.PRODUCT_TEST)
 @ScreenshotTest
 @DisplayName("[Screenshot] Product screenshot tests")
 class ProductScreenshotTest extends BaseTest {
@@ -23,9 +21,8 @@ class ProductScreenshotTest extends BaseTest {
     private static final String PRODUCT_CARD_IMG = "/product/product_card.png";
     private static final String PRODUCT_CARD_OVERLAY_IMG = "/product/product_card_overlay.png";
 
-    @Owner("@arrnel")
-    @ProductPageTag
-    @ProductDetailsComponentTag
+    @Tag(AllureTag.PRODUCT_DETAILS_TEST)
+    @Owner(AllureTag.OWNER)
     @Test
     @DisplayName("Should have product details screenshot")
     void shouldHaveProductDetailsScreenshotTest() {
@@ -35,10 +32,8 @@ class ProductScreenshotTest extends BaseTest {
                 .checkProductDetailsHasScreenshot(PRODUCT_DETAILS_IMG, 0.01);
     }
 
-
-    @Owner("@arrnel")
-    @MainPageTag
-    @ProductListComponentTag
+    @Tag(AllureTag.PRODUCT_CARD_TEST)
+    @Owner(AllureTag.OWNER)
     @Test
     @DisplayName("Should have expected screenshot of product card in [Main] page")
     void shouldHaveExpectedProductCardScreenshotInMainPageTest() {
@@ -52,9 +47,8 @@ class ProductScreenshotTest extends BaseTest {
                 .checkProductCardHasScreenshot(productTitle, PRODUCT_CARD_IMG, 0.02);
     }
 
-    @Owner("@arrnel")
-    @MainPageTag
-    @ProductListComponentTag
+    @Tag(AllureTag.PRODUCT_CARD_TEST)
+    @Owner(AllureTag.OWNER)
     @Test
     @DisplayName("Should have expected screenshot product card overlay in [Main] page")
     void shouldHaveExpectedProductCardOverlayScreenshotInMainPageTest() {
@@ -68,9 +62,8 @@ class ProductScreenshotTest extends BaseTest {
                 .checkProductCardOverlayHasScreenshot(productTitle, PRODUCT_CARD_OVERLAY_IMG, 0.02);
     }
 
-    @Owner("@arrnel")
-    @ProductsPageTag
-    @ProductListComponentTag
+    @Tag(AllureTag.PRODUCT_CARD_TEST)
+    @Owner(AllureTag.OWNER)
     @Test
     @DisplayName("Should have expected screenshot of product card in [Products] page")
     void shouldHaveExpectedProductCardScreenshotInProductsPageTest() {
@@ -84,9 +77,8 @@ class ProductScreenshotTest extends BaseTest {
                 .checkProductCardHasScreenshot(productTitle, PRODUCT_CARD_IMG, 0.02);
     }
 
-    @Owner("@arrnel")
-    @ProductsPageTag
-    @ProductListComponentTag
+    @Tag(AllureTag.PRODUCT_CARD_TEST)
+    @Owner(AllureTag.OWNER)
     @Test
     @DisplayName("Should have expected screenshot product card overlay in [Products] page")
     void shouldHaveExpectedProductCardOverlayScreenshotInProductsPageTest() {

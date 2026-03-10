@@ -4,11 +4,13 @@ import com.automationexercise.tests.jupiter.anno.User;
 import com.automationexercise.tests.jupiter.anno.meta.ApiTest;
 import com.automationexercise.tests.models.CredentialsDTO;
 import com.automationexercise.tests.models.UserDTO;
+import com.automationexercise.tests.models.allure.AllureTag;
 import com.automationexercise.tests.models.api.HttpStatus;
 import com.automationexercise.tests.test.BaseTest;
 import com.automationexercise.tests.util.DataGenerator;
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -19,6 +21,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Tag(AllureTag.VERIFY_LOGIN_TEST)
 @ApiTest
 @Feature("[API] Verify login tests")
 @DisplayName("[API] Verify Login test")
