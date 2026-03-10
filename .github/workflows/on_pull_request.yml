@@ -1,0 +1,181 @@
+name: On pull request
+
+on:
+  pull_request:
+    types: [ opened, reopened, synchronize ]
+
+jobs:
+  test-run:
+    runs-on: ubuntu-latest
+    env:
+      WORKFLOW_REPORT_ID: on_pull_request
+      DISPLAY: :0
+      ALLURE_DOCKER_API: ${{ vars.ALLURE_DOCKER_API }}
+      ALLURE_PROJECT_NAME: ${{ vars.ALLURE_PROJECT_NAME }}
+      TEST_ENV: ${{ vars.TEST_ENV }}
+      TEST_DEFAULT_USER_PASSWORD: ${{ secrets.TEST_DEFAULT_USER_PASSWORD }}
+      TEST_IGNORE_DISABLED_BY_ISSUE: ${{ vars.TEST_IGNORE_DISABLED_BY_ISSUE }}
+      TEST_MAX_SCREENSHOT_DIFF: ${{ vars.TEST_MAX_SCREENSHOT_DIFF }}
+      TEST_SAVE_FAILED_TESTS_VIDEO: ${{ vars.TEST_SAVE_FAILED_TESTS_VIDEO }}
+      TEST_REST_LOGS: ${{ vars.TEST_REST_LOGS }}
+      TEST_REWRITE_ALL_SCREENSHOTS: ${{ vars.TEST_REWRITE_ALL_SCREENSHOTS }}
+      TESTS_PASSED_PERCENTAGE: ${{vars.TESTS_PASSED_PERCENTAGE}}
+      PLAYWRIGHT_VERSION: ${{ vars.PLAYWRIGHT_VERSION }}
+      PLAYWRIGHT_BROWSER_NAME: ${{ vars.PLAYWRIGHT_BROWSER_NAME }}
+      PLAYWRIGHT_BROWSER_TIMEOUT: ${{ vars.PLAYWRIGHT_BROWSER_TIMEOUT }}
+      PLAYWRIGHT_HEADLESS: ${{ vars.PLAYWRIGHT_HEADLESS }}
+      PLAYWRIGHT_SLOW_MOTION: ${{ vars.PLAYWRIGHT_SLOW_MOTION }}
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      GH_TOKEN_NAME: ${{ secrets.GH_TOKEN_NAME }}
+      GH_OWNER: ${{ github.repository_owner }}
+      GH_REPO: ${{ vars.GH_REPO }}
+      BUILD_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      EXECUTION_TYPE: github
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.GITHUB_SHA }}
+
+      - name: Get the last commit message
+        run: |
+          echo "HEAD_COMMIT_MESSAGE=$(git show -s --format=%s)" >> $GITHUB_ENV
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Run tests
+        uses: ./.github/actions/run-tests
+        if: always()
+        continue-on-error: true
+
+      - name: Generate and Deploy Allure Report in GitHub Pages
+        uses: ./.github/actions/generate-and-deploy-allure-report
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          subfolder: ${{ env.WORKFLOW_REPORT_ID }}
+          report_name: PR ${{ github.event.pull_request.number }} Report
+          allure_results_path: allure-results
+          allure_history_path: allure-history
+          report_branch: gh-pages
+
+      - name: Parse Test Statistics
+        id: stats
+        if: always()
+        run: |
+          sudo apt-get install -y jq bc
+
+          HISTORY_TREND_FILE="./allure-history/${{ env.WORKFLOW_REPORT_ID }}/last-history/history-trend.json"
+
+          if [ -f "$HISTORY_TREND_FILE" ]; then
+
+            LATEST_STATS=$(jq '.[0].data // {passed:0, failed:0, broken:0, skipped:0, unknown:0, total:0}' "$HISTORY_TREND_FILE")
+
+            PASSED=$(echo "$LATEST_STATS" | jq '.passed')
+            FAILED=$(echo "$LATEST_STATS" | jq '.failed')
+            BROKEN=$(echo "$LATEST_STATS" | jq '.broken')
+            SKIPPED=$(echo "$LATEST_STATS" | jq '.skipped')
+            UNKNOWN=$(echo "$LATEST_STATS" | jq '.unknown')
+            TOTAL=$(echo "$LATEST_STATS" | jq '.total')
+
+          else
+
+            echo "WARNING: `*/last-history/history-trend.json` NOT FOUND → assuming no tests or report generation failed"
+            echo "### ALL history-trend.json files"
+            echo $(find / -type f -name "history-trend.json" 2>/dev/null | head -n 100 || echo "")
+
+            PASSED=0
+            FAILED=0
+            BROKEN=0
+            SKIPPED=0
+            UNKNOWN=0
+            TOTAL=-1
+
+          fi
+
+          VALID_TESTS_COUNT=$((PASSED + SKIPPED + UNKNOWN))
+          ACTUAL_TESTS_PASS_RATE=$(awk '{printf "%.3f\n", ($1 / $2) * 100}' <<< "$VALID_TESTS_COUNT $TOTAL")
+
+          echo "PASSED=$PASSED" >> $GITHUB_OUTPUT
+          echo "FAILED=$FAILED" >> $GITHUB_OUTPUT
+          echo "BROKEN=$BROKEN" >> $GITHUB_OUTPUT
+          echo "SKIPPED=$SKIPPED" >> $GITHUB_OUTPUT
+          echo "UNKNOWN=$UNKNOWN" >> $GITHUB_OUTPUT
+          echo "TOTAL=$TOTAL" >> $GITHUB_OUTPUT
+          echo "ACTUAL_TESTS_PASS_RATE=$ACTUAL_TESTS_PASS_RATE" >> $GITHUB_OUTPUT
+
+      - name: Quality gate
+        id: quality_gate
+        if: always()
+        run: |
+
+          EXPECTED_PASS_RATE=${{ env.EXPECTED_TESTS_PASSED_RATE }}
+          ACTUAL_PASS_RATE=${{steps.stats.outputs.ACTUAL_TESTS_PASS_RATE}}
+          IS_PASSED=$(awk -v a="$ACTUAL_PASS_RATE" -v e="$EXPECTED_PASS_RATE" 'BEGIN {print (a >= e ? "true" : "false")}')
+
+          if [ "$IS_PASSED" != "true" ]; then
+            echo "Quality gate failed: Actual pass rate $ACTUAL_PASS_RATE% < Expected $EXPECTED_PASS_RATE%"
+            exit 1
+          fi
+
+          echo "Quality gate passed: Actual pass rate $ACTUAL_PASS_RATE% >= Expected $EXPECTED_PASS_RATE%"
+          echo "IS_PASSED=$IS_PASSED" >> $GITHUB_OUTPUT
+
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        if: always()
+        with:
+          script: |
+
+            const isPassed = '${{ steps.quality_gate.outputs.IS_PASSED }}' === 'true';
+            const repoName = context.repo.repo
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: repoName,
+              issue_number: context.issue.number,
+            });
+
+            const marker = '<!-- TEST RUN COMMENT -->';
+            const message_existing = comments.find(comment => comment.body.includes(marker));
+
+            const currentReportUrl = `https://${{ github.repository_owner }}.github.io/${repoName}/${{ env.WORKFLOW_REPORT_ID }}/${{ github.run_number }}/index.html`;
+            const allReportsUrl = `https://${{ github.repository_owner }}.github.io/${repoName}`;
+
+            const statsMessage = `${marker}
+            📋 Test Statistics:
+
+            | Status | Count |
+            |--------|-------|
+            | ✅ Passed | ${{ steps.stats.outputs.PASSED }} |
+            | 🔴 Failed | ${{ steps.stats.outputs.FAILED }} |
+            | 🟠 Broken | ${{ steps.stats.outputs.BROKEN }} |
+            | ⏩ Skipped | ${{ steps.stats.outputs.SKIPPED }} |
+            | ❓ Unknown | ${{ steps.stats.outputs.UNKNOWN }} |
+            | 📊 Total | ${{ steps.stats.outputs.TOTAL }} |
+            | 📈 Pass Rate | ${{ steps.stats.outputs.ACTUAL_TESTS_PASS_RATE }}% |
+
+            Current run report: [link](${currentReportUrl})
+            All reports: [link](${allReportsUrl})
+            `;
+
+            const message = isPassed
+              ? `✅ TEST RUN PASSED ✅\n${statsMessage}\n`
+              : `🔴 TEST RUN FAILED 🔴\n${statsMessage}\n`;
+
+            if (message_existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: message_existing.id,
+                body: message
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: message
+              });
+            }
