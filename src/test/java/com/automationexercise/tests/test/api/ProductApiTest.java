@@ -2,10 +2,12 @@ package com.automationexercise.tests.test.api;
 
 import com.automationexercise.tests.jupiter.anno.meta.ApiTest;
 import com.automationexercise.tests.models.*;
+import com.automationexercise.tests.models.allure.AllureTag;
 import com.automationexercise.tests.models.api.HttpStatus;
 import com.automationexercise.tests.test.BaseTest;
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -14,6 +16,7 @@ import static com.automationexercise.tests.api.core.condition.Conditions.bodySta
 import static com.automationexercise.tests.api.core.condition.Conditions.statusCode;
 import static org.junit.jupiter.api.Assertions.*;
 
+@Tag(AllureTag.BRAND_TEST)
 @ApiTest
 @Feature("[API] Products tests")
 @DisplayName("[API] Products test")

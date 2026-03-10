@@ -2,16 +2,19 @@ package com.automationexercise.tests.test.api;
 
 import com.automationexercise.tests.jupiter.anno.meta.ApiTest;
 import com.automationexercise.tests.models.BrandDTO;
+import com.automationexercise.tests.models.allure.AllureTag;
 import com.automationexercise.tests.models.api.HttpStatus;
 import com.automationexercise.tests.test.BaseTest;
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static com.automationexercise.tests.api.core.condition.Conditions.bodyStatusCode;
 import static com.automationexercise.tests.api.core.condition.Conditions.statusCode;
 import static org.junit.jupiter.api.Assertions.*;
 
+@Tag(AllureTag.BRAND_TEST)
 @ApiTest
 @Feature("[API] Brands tests")
 @DisplayName("[API] Brand test")

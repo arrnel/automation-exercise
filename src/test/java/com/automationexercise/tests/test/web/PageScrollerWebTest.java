@@ -2,25 +2,22 @@ package com.automationexercise.tests.test.web;
 
 import com.automationexercise.tests.jupiter.anno.ApiLogin;
 import com.automationexercise.tests.jupiter.anno.meta.ScreenshotTest;
-import com.automationexercise.tests.jupiter.anno.tag.ComponentTag.PageScrollerComponentTag;
-import com.automationexercise.tests.jupiter.anno.tag.PageTag.CheckoutPageTag;
-import com.automationexercise.tests.jupiter.anno.tag.PageTag.MainPageTag;
-import com.automationexercise.tests.jupiter.anno.tag.PageTag.ProductsPageTag;
+import com.automationexercise.tests.models.allure.AllureTag;
 import com.automationexercise.tests.page.order.CheckoutPage;
 import com.automationexercise.tests.page.products.MainPage;
 import com.automationexercise.tests.page.products.ProductsListPage;
 import com.automationexercise.tests.util.DataGenerator;
 import io.qameta.allure.Owner;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag(AllureTag.PAGE_SCROLLER_TEST)
 @ScreenshotTest
-@PageScrollerComponentTag
 @DisplayName("[Screenshot] Page scroller test")
 class PageScrollerWebTest {
 
-    @Owner("@arrnel")
-    @MainPageTag
+    @Owner(AllureTag.OWNER)
     @Test
     @DisplayName("Should scroll to top on [Main] page")
     void shouldScrollToTopOnMainPageTest() {
@@ -36,8 +33,7 @@ class PageScrollerWebTest {
         mainPage.checkPageHasScreenshot("/page/main.png", 0.005);
     }
 
-    @Owner("@arrnel")
-    @ProductsPageTag
+    @Owner(AllureTag.OWNER)
     @Test
     @DisplayName("Should scroll to top on [Products] page")
     void shouldScrollToTopOnProductsPageTest() {
@@ -52,8 +48,7 @@ class PageScrollerWebTest {
         productsPage.checkPageHasScreenshot("/page/products.png", 0.01);
     }
 
-    @Owner("@arrnel")
-    @CheckoutPageTag
+    @Owner(AllureTag.OWNER)
     @Test
     @DisplayName("Should scroll to top on [Cart] page")
     void shouldScrollToTopOnCartPageTest() {
@@ -71,8 +66,7 @@ class PageScrollerWebTest {
         checkoutPage.checkPageHasScreenshot("/page/cart.png");
     }
 
-    @Owner("@arrnel")
-    @CheckoutPageTag
+    @Owner(AllureTag.OWNER)
     @ApiLogin(
             email = "expected_user@test.test",
             password = "12345"
