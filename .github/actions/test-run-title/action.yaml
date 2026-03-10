@@ -1,0 +1,23 @@
+name: 'Set Test Run Title'
+description: 'Generates a env.TEST_TITLE using (workflow_name or custom input) + run number + attempt + timestamp'
+
+inputs:
+  test_title:
+    description: 'Custom title for the test run (optional). If empty → uses workflow name'
+    required: false
+    default: ''
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Calculate test run title
+      id: parse-test-run-title
+      shell: bash
+      run: |
+        BASE_TITLE="${{ inputs.test_title }}"
+        [ -z "$BASE_TITLE" ] && BASE_TITLE="${{ github.workflow }}"
+        
+        RUN_INFO="${{ github.run_number }} #${{ github.run_attempt }}"
+        
+        TEST_TITLE="${BASE_TITLE}. RUN ${RUN_INFO}"
+        echo "TEST_TITLE=$TEST_TITLE" >> "$GITHUB_ENV"
