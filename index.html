@@ -1,0 +1,1985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test runs</title>
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --bg-hover: #1f2937;
+            --bg-active: #1f3a5f;
+            --bg-badge: #388bfd1a;
+            --bg-empty: #161b22;
+
+            --color-border-primary: #30363d;
+            --color-border-hover: #58a6ff;
+            --color-border-dashed: #30363d;
+            --color-border-error: #f78166;
+
+            --color-text-primary: #c9d1d9;
+            --color-text-heading: #f0f6fc;
+            --color-text-secondary: #8b949e;
+            --color-text-accent: #58a6ff;
+            --color-text-warning: #ffb86b;
+            --color-text-error: #f78166;
+            --color-text-badge: #4493f8;
+            --color-text-workflow: #3fb950;
+
+            --shadow-primary: 0 8px 20px rgba(0, 0, 0, 0.4);
+            --shadow-hover: 0 4px 12px rgba(88, 166, 255, 0.2);
+            --shadow-focus: 0 0 0 3px rgba(88, 166, 255, 0.3);
+
+            --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+
+            --font-size-h1: 28px;
+            --font-size-h2: 24px;
+            --font-size-h3: .9rem;
+            --font-size-small: .75rem;
+            --fs-button: 2rem;
+
+            --fs-xs: 0.5rem;
+            --fs-xm: 0.75rem;
+            --fs-md: 0.875rem;
+            --fs-lg: 1rem;
+            --fs-xl: 1.25rem;
+            --fs-2xl: 1.5rem;
+            --fs-3xl: 2rem;
+            --fs-4xl: 2.5rem;
+            --fs-5xl: 3rem;
+            --fs-6xl: 5rem;
+
+            --spacing-xs: 4px;
+            --spacing-sm: 6px;
+            --spacing-md: 8px;
+            --spacing-lg: 12px;
+            --spacing-xl: 14px;
+            --spacing-2xl: 16px;
+            --spacing-3xl: 20px;
+            --spacing-4xl: 24px;
+            --spacing-5xl: 40px;
+
+            --gap-xs: 0.25rem;
+            --gap-xm: 0.5rem;
+            --gap-md: 1rem;
+            --gap-lg: 2rem;
+            --gap-xl: 5rem;
+            --gap-2xl: 8rem;
+
+            --mp-xs: 0.25rem;
+            --mp-xm: 0.5rem;
+            --mp-md: 1rem;
+            --mp-lg: 2rem;
+            --mp-xl: 5rem;
+            --mp-2xl: 8rem;
+            --mp-3xl: 10rem;
+
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 10px;
+            --radius-xl: 12px;
+            --radius-pill: 20px;
+
+            --transition-fast: 0.15s;
+            --transition-normal: 0.2s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--color-text-accent);
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--bg-primary);
+            color: var(--color-text-primary);
+            line-height: 1.5;
+            min-height: 100vh;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            padding: var(--spacing-3xl);
+        }
+
+        .page-layout {
+            max-width: 1280px;
+            max-height: 880px;
+            width: 100%;
+            height: 100%;
+            margin: auto;
+            background: var(--bg-secondary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-3xl);
+            box-shadow: var(--shadow-primary);
+            position: relative;
+        }
+
+        /* Settings button and dropdown */
+        .settings-btn {
+            position: absolute;
+            top: var(--spacing-2xl);
+            right: var(--spacing-2xl);
+            background: var(--bg-tertiary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-sm);
+            padding: var(--spacing-sm);
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-normal);
+            z-index: 5;
+        }
+
+        .settings-btn:hover {
+            background: var(--bg-hover);
+            color: var(--color-text-primary);
+        }
+
+        .settings-btn svg {
+            fill: currentColor;
+            width: 18px;
+            height: 18px;
+        }
+
+        .settings-dropdown {
+            position: absolute;
+            top: 60px;
+            right: var(--spacing-2xl);
+            background: var(--bg-tertiary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-primary);
+            z-index: 15;
+            min-width: 220px;
+            display: none;
+        }
+
+        .settings-dropdown.active {
+            display: block;
+        }
+
+        .settings-dropdown ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .settings-dropdown li {
+            border-bottom: 1px solid var(--color-border-primary);
+        }
+
+        .settings-dropdown li:last-child {
+            border-bottom: none;
+        }
+
+        .settings-dropdown a {
+            display: block;
+            padding: var(--spacing-md) var(--spacing-lg);
+            color: var(--color-text-primary);
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .settings-dropdown a:hover {
+            background: var(--bg-hover);
+        }
+
+        /* Modal overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.2s, opacity 0.2s;
+        }
+
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-4xl);
+            max-width: 700px;
+            width: 90%;
+            box-shadow: var(--shadow-primary);
+            position: relative;
+            color: var(--color-text-primary);
+        }
+
+        .modal-content ul {
+            margin-left: 1rem;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: var(--spacing-2xl);
+            right: var(--spacing-2xl);
+            background: none;
+            border: none;
+            color: var(--color-text-secondary);
+            font-size: var(--fs-button);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: var(--color-text-primary);
+        }
+
+        .modal-title {
+            margin-bottom: var(--spacing-2xl);
+            color: var(--color-text-heading);
+        }
+
+        .modal-description {
+            font-size: var(--fs-lg);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-2xl);
+            line-height: 1.5;
+        }
+
+        .modal-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-xl);
+            gap: 1rem;
+        }
+
+        .modal-row input {
+            width: 60%;
+        }
+
+        .modal-row select {
+            width: auto;
+            display: flex;
+            flex: 1;
+        }
+
+        .modal-field {
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .modal-field label {
+            display: block;
+            margin-bottom: var(--spacing-sm);
+            font-size: var(--fs-xl);
+            font-weight: var(--font-weight-medium);
+            color: var(--color-text-primary);
+        }
+
+        .modal-field input,
+        .modal-field select {
+            padding: 10px 12px;
+            background: var(--bg-primary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-md);
+            color: var(--color-text-primary);
+            font-size: var(--fs-md);
+            transition: var(--transition-normal);
+        }
+
+        .modal-field input:disabled,
+        .modal-field select:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .modal-field input:focus,
+        .modal-field select:focus {
+            outline: none;
+            border-color: var(--color-border-hover);
+            box-shadow: var(--shadow-focus);
+        }
+
+        .modal-field select {
+            appearance: auto;
+        }
+
+        .rate-limit-wrapper {
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .pat-test-info-wrapper,
+        .rate-limit-info-wrapper {
+            display: flex;
+            justify-content: stretch;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: var(--fs-xl);
+        }
+
+        .pat-test-info-wrapper button,
+        .rate-limit-info-wrapper button {
+            max-height: 2.5rem;
+            max-width: 10rem;
+            width: 10rem;
+        }
+
+        .pat-status,
+        .rate-limit-info {
+            background: var(--bg-primary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            font-size: var(--font-size-h3);
+            color: var(--color-text-primary);
+            display: flex;
+            flex: 1 0 0;
+            align-items: center;
+            justify-content: center;
+            width: auto;
+            max-height: 2.5rem;
+        }
+
+        .rate-limit-info.loading {
+            color: var(--color-text-accent);
+        }
+
+        .rate-limit-info .spinner {
+            margin-right: 8px;
+        }
+
+        .pat-test-info-wrapper {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .pat-info {
+            background: var(--bg-primary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-2xl);
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            line-height: 1.4;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--gap-md);
+            margin-top: var(--mp-lg);
+        }
+
+        .modal-btn {
+            padding: 8px 20px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--color-border-primary);
+            background: var(--bg-tertiary);
+            color: var(--color-text-primary);
+            font-size: var(--fs-lg);
+            cursor: pointer;
+            transition: var(--transition-normal);
+        }
+
+        .modal-btn:hover {
+            background: var(--bg-hover);
+        }
+
+        .modal-btn.primary {
+            background: var(--color-text-accent);
+            border-color: var(--color-text-accent);
+            color: white;
+        }
+
+        .modal-btn.primary:hover {
+            background: #4c8ed6;
+        }
+
+        .modal-btn.danger {
+            color: var(--color-text-error);
+            border-color: var(--color-border-error);
+        }
+
+        .modal-btn.danger:hover {
+            background: rgba(247, 129, 102, 0.1);
+        }
+
+        .request-info {
+            font-size: var(--fs-md);
+            color: var(--color-text-secondary);
+            margin-top: var(--spacing-md);
+            text-align: center;
+        }
+
+        .page-heading {
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .page-heading h1 {
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--font-size-h1);
+            color: var(--color-text-heading);
+        }
+
+        .latest-runs {
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .latest-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .latest-header h3 {
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--font-size-h3);
+            color: var(--color-text-heading);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .latest-header h3 svg {
+            fill: var(--color-text-secondary);
+        }
+
+        .latest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .search-section {
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 14px;
+            background-color: var(--bg-primary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-md);
+            color: var(--color-text-primary);
+            font-size: var(--fs-md);
+            transition: var(--transition-normal);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--color-border-hover);
+            box-shadow: var(--shadow-focus);
+        }
+
+        .search-input::placeholder {
+            color: #6e7681;
+        }
+
+        .deployments-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: var(--spacing-3xl);
+            align-items: start;
+        }
+
+        .types-panel {
+            background: var(--bg-primary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .panel-header,
+        .runs-header {
+            display: flex;
+            align-items: center;
+            height: 60px;
+            padding: var(--spacing-2xl) var(--spacing-3xl);
+            background-color: var(--bg-secondary);
+            color: var(--color-text-heading);
+            border-bottom: 1px solid var(--color-border-primary);
+            font-weight: var(--font-weight-semibold);
+            font-size: 14px;
+            gap: var(--spacing-md);
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .panel-header svg {
+            fill: var(--color-text-secondary);
+        }
+
+        .types-list {
+            list-style: none;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .type-item {
+            border-bottom: 1px solid var(--color-border-primary);
+        }
+
+        .type-item:last-child {
+            border-bottom: none;
+        }
+
+        .type-button {
+            width: 100%;
+            text-align: left;
+            padding: var(--spacing-xl) var(--spacing-3xl);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+            transition: var(--transition-fast);
+            color: var(--color-text-primary);
+        }
+
+        .type-button:hover {
+            background-color: var(--bg-hover);
+        }
+
+        .type-button.active {
+            background-color: var(--bg-hover);
+            border-left: var(--spacing-xs) solid var(--color-border-hover);
+            font-weight: var(--font-weight-medium);
+            padding-left: var(--spacing-2xl)
+        }
+
+        .icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        .type-name {
+            flex: 1;
+            text-transform: capitalize;
+        }
+
+        .type-count {
+            background-color: var(--bg-badge);
+            border-radius: var(--radius-pill);
+            padding: var(--spacing-xs) var(--spacing-md);
+            font-size: 12px;
+            color: var(--color-text-secondary);
+        }
+
+        .runs-panel {
+            background: var(--bg-primary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .runs-header {
+            justify-content: space-between;
+        }
+
+        .runs-title {
+            font-weight: var(--font-weight-semibold);
+            font-size: 14px;
+            color: var(--color-text-heading);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .runs-title span:first-child {
+            color: var(--color-text-secondary);
+            font-weight: var(--font-weight-normal);
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .view-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-sm);
+            padding: var(--spacing-sm) 10px;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            transition: var(--transition-normal);
+        }
+
+        .view-btn:hover {
+            background: var(--bg-badge);
+            color: var(--color-text-heading);
+        }
+
+        .view-btn.active {
+            background: var(--bg-active);
+            border-color: var(--color-border-hover);
+            color: var(--color-text-accent);
+        }
+
+        .view-btn svg {
+            fill: currentColor;
+            width: 16px;
+            height: 16px;
+            padding: 0;
+        }
+
+        .view-btn svg.spinning {
+            animation: spin 0.8s linear infinite;
+        }
+
+        .runs-grid {
+            padding: var(--spacing-3xl);
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--spacing-lg);
+            max-height: 500px;
+            overflow-y: auto;
+            transition: var(--transition-normal);
+        }
+
+        .run-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            cursor: pointer;
+            transition: all var(--transition-normal) ease;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+        }
+
+        .run-card:hover {
+            background: var(--bg-hover);
+            border-color: var(--color-border-hover);
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
+        }
+
+        .run-card-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .run-name {
+            font-weight: var(--font-weight-semibold);
+            font-size: 15px;
+            color: var(--color-text-heading);
+            word-break: break-word;
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .branch-badge {
+            background-color: var(--bg-badge);
+            color: var(--color-text-badge);
+            font-size: 11px;
+            font-weight: var(--font-weight-medium);
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: var(--radius-pill);
+            letter-spacing: 0.1px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 160px;
+            display: inline-block;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        .run-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+        }
+
+        .run-duration {
+            color: var(--color-text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .run-date {
+            color: var(--color-text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Стиль для названия workflow в карточке последних прогонов */
+        .run-workflow {
+            color: var(--color-text-workflow);
+            font-size: 11px;
+            margin-top: -4px;
+            margin-bottom: 4px;
+            text-transform: capitalize;
+        }
+
+        .runs-grid.list-view {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+
+        .runs-grid.list-view .run-card {
+            width: 100%;
+            display: grid;
+            grid-template-columns: minmax(120px, 1fr) minmax(150px, 2fr) minmax(100px, 1fr) minmax(140px, 1fr) 40px;
+            align-items: center;
+            gap: var(--spacing-4xl);
+            padding: var(--spacing-lg) var(--spacing-2xl);
+        }
+
+        .runs-grid.list-view .run-name {
+            grid-column: 1;
+            justify-self: start;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .runs-grid.list-view .branch-badge {
+            grid-column: 2;
+            justify-self: start;
+            max-width: none;
+            min-width: 70px;
+        }
+
+        .runs-grid.list-view .run-duration {
+            grid-column: 3;
+            justify-self: start;
+            text-align: left;
+        }
+
+        .runs-grid.list-view .run-date {
+            grid-column: 4;
+            justify-self: end;
+            text-align: left;
+            color: var(--color-text-secondary);
+        }
+
+        .runs-grid.list-view .menu-btn {
+            grid-column: 5;
+            justify-self: end;
+        }
+
+        .menu-btn.active {
+            background: var(--bg-active);
+            color: var(--color-text-accent);
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: var(--spacing-5xl) var(--spacing-3xl);
+            color: var(--color-text-secondary);
+            background: var(--bg-empty);
+            border-radius: var(--radius-lg);
+            border: 1px dashed var(--color-border-dashed);
+        }
+
+        .empty-state svg {
+            fill: #3d444d;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .loading-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: var(--spacing-5xl);
+            color: var(--color-text-secondary);
+            gap: var(--spacing-lg);
+        }
+
+        .spinner {
+            border: 2px solid var(--color-border-primary);
+            border-top-color: var(--color-border-hover);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+            text-align: center;
+            padding: var(--spacing-5xl);
+            color: var(--color-text-error);
+            background: #2d1c1c;
+            border: 1px solid var(--color-border-error);
+            border-radius: var(--radius-lg);
+            margin: var(--spacing-3xl);
+            gap: 20px;
+        }
+
+        .response-body-container {
+            color: var(--color-text-primary);
+        }
+
+        .response-body {
+            text-align: left;
+            max-width: 800px;
+            background-color: var(--bg-tertiary);
+            padding: var(--spacing-2xl);
+            border-radius: var(--radius-sm);
+            overflow-x: auto;
+            color: var(--color-text-primary);
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0 auto;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--color-text-secondary);
+            padding: var(--spacing-xs);
+            border-radius: var(--radius-sm);
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .menu-btn:hover {
+            background: var(--bg-hover);
+            color: var(--color-text-primary);
+        }
+
+        .menu-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .menu-dropdown {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-primary);
+            z-index: 10;
+            min-width: 160px;
+            position: absolute;
+        }
+
+        .menu-dropdown ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu-dropdown li {
+            border-bottom: 1px solid var(--color-border-primary);
+        }
+
+        .menu-dropdown li:last-child {
+            border-bottom: none;
+        }
+
+        .menu-dropdown a {
+            display: block;
+            padding: var(--spacing-md) var(--spacing-lg);
+            color: var(--color-text-primary);
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+
+        .menu-dropdown a:hover {
+            background: var(--bg-hover);
+        }
+
+        @media (max-width: 768px) {
+            .runs-grid.list-view .run-card {
+                grid-template-columns: minmax(120px, 1fr) minmax(120px, 1fr) 40px;
+                grid-template-rows: auto auto auto;
+                gap: var(--spacing-md) var(--spacing-lg);
+            }
+
+            .runs-grid.list-view .run-name {
+                grid-column: 1;
+                grid-row: 1;
+                justify-self: start;
+            }
+
+            .runs-grid.list-view .branch-badge {
+                grid-column: 2;
+                grid-row: 1;
+                justify-self: start;
+                max-width: none;
+            }
+
+            .runs-grid.list-view .menu-btn {
+                grid-column: 3;
+                grid-row: 1;
+                justify-self: end;
+            }
+
+            .runs-grid.list-view .run-duration {
+                grid-column: 1;
+                grid-row: 2;
+                justify-self: start;
+            }
+
+            .runs-grid.list-view .run-date {
+                grid-column: 2;
+                grid-row: 2;
+                justify-self: start;
+            }
+        }
+    </style>
+</head>
+<body>
+<main class="page-layout">
+
+    <button class="settings-btn" id="settingsBtn" title="Settings">
+        <svg width="125px" height="125px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="#ffffff">
+            <path d="M262.29,192.31a64,64,0,1,0,57.4,57.4A64.13,64.13,0,0,0,262.29,192.31ZM416.39,256a154.34,154.34,0,0,1-1.53,20.79l45.21,35.46A10.81,10.81,0,0,1,462.52,326l-42.77,74a10.81,10.81,0,0,1-13.14,4.59l-44.9-18.08a16.11,16.11,0,0,0-15.17,1.75A164.48,164.48,0,0,1,325,400.8a15.94,15.94,0,0,0-8.82,12.14l-6.73,47.89A11.08,11.08,0,0,1,298.77,470H213.23a11.11,11.11,0,0,1-10.69-8.87l-6.72-47.82a16.07,16.07,0,0,0-9-12.22,155.3,155.3,0,0,1-21.46-12.57,16,16,0,0,0-15.11-1.71l-44.89,18.07a10.81,10.81,0,0,1-13.14-4.58l-42.77-74a10.8,10.8,0,0,1,2.45-13.75l38.21-30a16.05,16.05,0,0,0,6-14.08c-.36-4.17-.58-8.33-.58-12.5s.21-8.27.58-12.35a16,16,0,0,0-6.07-13.94l-38.19-30A10.81,10.81,0,0,1,49.48,186l42.77-74a10.81,10.81,0,0,1,13.14-4.59l44.9,18.08a16.11,16.11,0,0,0,15.17-1.75A164.48,164.48,0,0,1,187,111.2a15.94,15.94,0,0,0,8.82-12.14l6.73-47.89A11.08,11.08,0,0,1,213.23,42h85.54a11.11,11.11,0,0,1,10.69,8.87l6.72,47.82a16.07,16.07,0,0,0,9,12.22,155.3,155.3,0,0,1,21.46,12.57,16,16,0,0,0,15.11,1.71l44.89-18.07a10.81,10.81,0,0,1,13.14,4.58l42.77,74a10.8,10.8,0,0,1-2.45,13.75l-38.21,30a16.05,16.05,0,0,0-6.05,14.08C416.17,247.67,416.39,251.83,416.39,256Z" style="fill:none;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"/>
+        </svg>
+    </button>
+
+    <!-- Settings dropdown -->
+    <div class="settings-dropdown" id="settingsDropdown">
+        <ul>
+            <li><a id="addTokenBtn">Add Fine-grained personal access token</a></li>
+        </ul>
+    </div>
+
+    <div class="page-heading">
+        <h1>Test Runs</h1>
+    </div>
+
+    <div id="pageContent">
+        <!-- Latest runs -->
+        <div class="latest-runs">
+            <div class="latest-header">
+                <h3>
+                    <svg width="16px" height="16px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                         stroke="#8b949e" stroke-width="0.9600000000000002">
+                        <path d="M3 5.67541V3C3 2.44772 2.55228 2 2 2C1.44772 2 1 2.44772 1 3V7C1 8.10457 1.89543 9 3 9H7C7.55229 9 8 8.55229 8 8C8 7.44772 7.55229 7 7 7H4.52186C4.54218 6.97505 4.56157 6.94914 4.57995 6.92229C5.621 5.40094 7.11009 4.22911 8.85191 3.57803C10.9074 2.80968 13.173 2.8196 15.2217 3.6059C17.2704 4.3922 18.9608 5.90061 19.9745 7.8469C20.9881 9.79319 21.2549 12.043 20.7247 14.1724C20.1945 16.3018 18.9039 18.1638 17.0959 19.4075C15.288 20.6513 13.0876 21.1909 10.9094 20.9247C8.73119 20.6586 6.72551 19.605 5.27028 17.9625C4.03713 16.5706 3.27139 14.8374 3.06527 13.0055C3.00352 12.4566 2.55674 12.0079 2.00446 12.0084C1.45217 12.0088 0.995668 12.4579 1.04626 13.0078C1.25994 15.3309 2.2082 17.5356 3.76666 19.2946C5.54703 21.3041 8.00084 22.5931 10.6657 22.9188C13.3306 23.2444 16.0226 22.5842 18.2345 21.0626C20.4464 19.541 22.0254 17.263 22.6741 14.6578C23.3228 12.0526 22.9963 9.30013 21.7562 6.91897C20.5161 4.53782 18.448 2.69239 15.9415 1.73041C13.4351 0.768419 10.6633 0.756291 8.14853 1.69631C6.06062 2.47676 4.26953 3.86881 3 5.67541Z"
+                              fill="#8b949e"></path>
+                        <path d="M12 5C11.4477 5 11 5.44771 11 6V12.4667C11 12.4667 11 12.7274 11.1267 12.9235C11.2115 13.0898 11.3437 13.2344 11.5174 13.3346L16.1372 16.0019C16.6155 16.278 17.2271 16.1141 17.5032 15.6358C17.7793 15.1575 17.6155 14.546 17.1372 14.2698L13 11.8812V6C13 5.44772 12.5523 5 12 5Z"
+                              fill="#8b949e"></path>
+                    </svg>
+                    Latest runs
+                </h3>
+            </div>
+            <div class="latest-grid" id="latestRunsContainer">
+                <!-- dynamically -->
+            </div>
+        </div>
+
+        <div class="search-section">
+            <input type="text" class="search-input" id="searchRuns" placeholder="Filter runs by name...">
+        </div>
+
+        <div class="deployments-layout">
+            <div class="types-panel">
+                <div class="panel-header">
+                    <svg class="icon" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4.879-2.773 4.264 2.559a.25.25 0 0 1 0 .428l-4.264 2.559A.25.25 0 0 1 6 10.559V5.442a.25.25 0 0 1 .379-.215Z"></path>
+                    </svg>
+                    <span>Actions</span>
+                </div>
+                <ul class="types-list" id="actionsList"></ul>
+            </div>
+
+            <div class="runs-panel">
+                <div class="runs-header">
+                    <div class="runs-title">
+                        <svg width="16px" height="16px" viewBox="0 0 24 24" fill="none"
+                             xmlns="http://www.w3.org/2000/svg" stroke="#8b949e" stroke-width="0.9600000000000002">
+                            <path d="M3 5.67541V3C3 2.44772 2.55228 2 2 2C1.44772 2 1 2.44772 1 3V7C1 8.10457 1.89543 9 3 9H7C7.55229 9 8 8.55229 8 8C8 7.44772 7.55229 7 7 7H4.52186C4.54218 6.97505 4.56157 6.94914 4.57995 6.92229C5.621 5.40094 7.11009 4.22911 8.85191 3.57803C10.9074 2.80968 13.173 2.8196 15.2217 3.6059C17.2704 4.3922 18.9608 5.90061 19.9745 7.8469C20.9881 9.79319 21.2549 12.043 20.7247 14.1724C20.1945 16.3018 18.9039 18.1638 17.0959 19.4075C15.288 20.6513 13.0876 21.1909 10.9094 20.9247C8.73119 20.6586 6.72551 19.605 5.27028 17.9625C4.03713 16.5706 3.27139 14.8374 3.06527 13.0055C3.00352 12.4566 2.55674 12.0079 2.00446 12.0084C1.45217 12.0088 0.995668 12.4579 1.04626 13.0078C1.25994 15.3309 2.2082 17.5356 3.76666 19.2946C5.54703 21.3041 8.00084 22.5931 10.6657 22.9188C13.3306 23.2444 16.0226 22.5842 18.2345 21.0626C20.4464 19.541 22.0254 17.263 22.6741 14.6578C23.3228 12.0526 22.9963 9.30013 21.7562 6.91897C20.5161 4.53782 18.448 2.69239 15.9415 1.73041C13.4351 0.768419 10.6633 0.756291 8.14853 1.69631C6.06062 2.47676 4.26953 3.86881 3 5.67541Z"
+                                  fill="#8b949e"></path>
+                            <path d="M12 5C11.4477 5 11 5.44771 11 6V12.4667C11 12.4667 11 12.7274 11.1267 12.9235C11.2115 13.0898 11.3437 13.2344 11.5174 13.3346L16.1372 16.0019C16.6155 16.278 17.2271 16.1141 17.5032 15.6358C17.7793 15.1575 17.6155 14.546 17.1372 14.2698L13 11.8812V6C13 5.44772 12.5523 5 12 5Z"
+                                  fill="#8b949e"></path>
+                        </svg>
+                        <span id="selectedCategoryTitle">Select workflow report</span>
+                    </div>
+
+                    <div class="view-toggle">
+                        <button class="view-btn active" id="gridViewBtn" title="Grid view">
+                            <svg class="icon" viewBox="0 0 16 16">
+                                <path d="M1 2.75C1 1.784 1.784 1 2.75 1h2.5C6.216 1 7 1.784 7 2.75v2.5C7 6.216 6.216 7 5.25 7h-2.5C1.784 7 1 6.216 1 5.25v-2.5Zm0 8.5C1 10.784 1.784 10 2.75 10h2.5C6.216 10 7 10.784 7 11.75v2.5C7 15.216 6.216 16 5.25 16h-2.5C1.784 16 1 15.216 1 14.25v-2.5ZM9 2.75C9 1.784 9.784 1 10.75 1h2.5C14.216 1 15 1.784 15 2.75v2.5C15 6.216 14.216 7 13.25 7h-2.5C9.784 7 9 6.216 9 5.25v-2.5Zm0 8.5c0-.966.784-1.75 1.75-1.75h2.5c.966 0 1.75.784 1.75 1.75v2.5c0 .966-.784 1.75-1.75 1.75h-2.5c-.966 0-1.75-.784-1.75-1.75v-2.5Z"/>
+                            </svg>
+                        </button>
+                        <button class="view-btn" id="listViewBtn" title="List view">
+                            <svg class="icon" viewBox="0 0 16 16">
+                                <path d="M2 2.75C2 1.784 2.784 1 3.75 1h8.5c.966 0 1.75.784 1.75 1.75v.5c0 .966-.784 1.75-1.75 1.75h-8.5A1.75 1.75 0 0 1 2 3.25v-.5Zm0 5c0-.966.784-1.75 1.75-1.75h8.5c.966 0 1.75.784 1.75 1.75v.5c0 .966-.784 1.75-1.75 1.75h-8.5A1.75 1.75 0 0 1 2 8.25v-.5Zm0 5c0-.966.784-1.75 1.75-1.75h8.5c.966 0 1.75.784 1.75 1.75v.5c0 .966-.784 1.75-1.75 1.75h-8.5A1.75 1.75 0 0 1 2 13.25v-.5Z"/>
+                            </svg>
+                        </button>
+                        <button class="view-btn" id="refreshBtn" title="Refresh">
+                            <svg class="icon" viewBox="-2.4 -2.4 28.80 28.80" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" stroke="#8b949e" stroke-width="1.608">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                      d="M12 2.181a.75.75 0 0 1 1.177-.616l4.432 3.068a.75.75 0 0 1 0 1.234l-4.432 3.068A.75.75 0 0 1 12 8.32V6a7 7 0 1 0 7 7 1 1 0 1 1 2 0 9 9 0 1 1-9-9V2.181z"
+                                      fill="#8b949e"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div id="runsContainer" class="runs-grid">
+                    <!-- dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div class="modal-overlay" id="tokenModal">
+    <div class="modal-content">
+        <button class="modal-close" id="closeModalBtn">&times;</button>
+        <h2 class="modal-title">Add Fine-grained personal access token</h2>
+        <div class="modal-description">
+            <p>Required permissions for PAT:</p>
+            <ul>
+                <li>Issues (read-only)</li>
+                <li>Actions (read-only)</li>
+                <li>Deployment (read-only)</li>
+                <li>Metadata (read-only)</li>
+            </ul>
+            <p>Permissions required only for private repositories. If you exceeded rate limit in public repo, enough PAT with metadata</p>
+
+        </div>
+        <div class="modal-field">
+            <label for="tokenInput">
+                Personal Access Token
+            </label>
+            <div class="modal-row">
+                <input type="password" id="tokenInput" placeholder="github_pat_...">
+                <select id="scopeSelect" aria-label="scope">
+                    <option value="REPO">Only this repository</option>
+                    <option value="ACCOUNT">All repositories of this account</option>
+                    <option value="GLOBAL">All repositories on GitHub</option>
+                </select>
+            </div>
+            <a href="https://github.com/settings/personal-access-tokens">
+                Link to generate <b>Fine-grained PAT</b> ...
+            </a>
+        </div>
+        <div class="rate-limit-wrapper">
+            <div class="rate-limit-info-wrapper">
+                <button class="modal-btn" id="checkRateLimitBtn">Check rate limit</button>
+                <div class="rate-limit-info" id="rateLimitInfo"></div>
+            </div>
+        </div>
+
+        <div class="pat-test-wrapper">
+            <div class="pat-test-info-wrapper">
+                <button class="modal-btn" id="testPatBtn">Test PAT</button>
+                <div class="pat-status" id="patStatus"></div>
+            </div>
+            <div class="pat-info" id="patInfo"></div>
+        </div>
+
+
+        <div class="modal-actions">
+            <button class="modal-btn" id="closeModalBtn2">Close</button>
+            <button class="modal-btn danger" id="deleteTokenBtn" style="display: none;">Delete</button>
+            <button class="modal-btn primary" id="saveTokenBtn">Save</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+
+        const BRANCH = 'gh-pages';
+        const GH_TEST_RUN_TOKEN_PREFIX = "GH_TEST_RUNS_TOKEN";
+        const REPO_SCOPE = "REPO";
+        const ACCOUNT_SCOPE = "ACCOUNT";
+        const GLOBAL_SCOPE = "GLOBAL";
+
+        const REPO_OWNER = globalThis.location.hostname.split('.')[0];
+        const REPO_NAME = globalThis.location.pathname.split('/')[1];
+        const CAPITALIZE_REPO_NAME = REPO_NAME
+            .replaceAll(/[_-]/g, ' ')
+            .split(' ')
+            .filter(Boolean)
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+        const title = `Test Runs - ${CAPITALIZE_REPO_NAME}`;
+
+        document.title = title;
+        const heading = document.querySelector('.page-heading h1');
+        if (heading) {
+            heading.innerText = title;
+        }
+
+        const EXCLUDED_CATEGORIES = new Set([]);
+        const EXCLUDED_RUN_FOLDERS = new Set(['last-history']);
+
+        let allReports = {};
+        let allRunsFlat = [];
+        let categories = [];
+        let selectedCategory = null;
+        let filterText = '';
+        let viewMode = 'grid';
+        let catToWorkflowId = {};
+        let workflowRunsInfo = {};
+
+        const pageContentEl = document.getElementById('pageContent')
+        const actionsListEl = document.getElementById('actionsList');
+        const runsContainerEl = document.getElementById('runsContainer');
+        const latestRunsContainer = document.getElementById('latestRunsContainer');
+        const selectedCategoryTitleEl = document.getElementById('selectedCategoryTitle');
+        const searchInput = document.getElementById('searchRuns');
+        const gridViewBtn = document.getElementById('gridViewBtn');
+        const listViewBtn = document.getElementById('listViewBtn');
+        const refreshBtn = document.getElementById('refreshBtn');
+
+        function fetchWithToken(url, options = {}) {
+            const headers = new Headers(options.headers || {});
+            if (CURRENT_PAT_TOKEN) {
+                headers.set('Authorization', `Bearer ${CURRENT_PAT_TOKEN}`);
+            }
+            return fetch(url, {...options, headers});
+        }
+
+        async function loadReports() {
+            try {
+                showLoading();
+
+                const [treeData, wfData, runsData] = await Promise.all([
+                    fetchWithToken(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/trees/${BRANCH}?recursive=1`).then(checkResponse),
+                    fetchWithToken(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/workflows`).then(checkResponse),
+                    fetchWithToken(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/runs?per_page=100`).then(checkResponse)
+                ]);
+
+                parseReports(treeData.tree);
+                parseWorkflows(wfData.workflows);
+                parseRuns(runsData.workflow_runs);
+                buildFlatList();
+                if (allRunsFlat.length === 0) {
+                    document.querySelector('.latest-runs').style.display = 'none';
+                }
+                renderCategories();
+                if (categories.length > 0) {
+                    selectCategory(categories[0]);
+                } else {
+                    selectedCategoryTitleEl.innerText = 'Workflow report history is empty';
+                    runsContainerEl.innerHTML = `<div class="empty-state"><p>No runs available</p></div>`;
+                }
+                renderLatestRuns();
+            } catch (error) {
+                console.error(error);
+                showApiError(error);
+            }
+        }
+
+        const settingsBtn = document.getElementById('settingsBtn');
+        const settingsDropdown = document.getElementById('settingsDropdown');
+        const addTokenBtn = document.getElementById('addTokenBtn');
+        const tokenModal = document.getElementById('tokenModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const closeModalBtn2 = document.getElementById('closeModalBtn2');
+        const saveTokenBtn = document.getElementById('saveTokenBtn');
+        const deleteTokenBtn = document.getElementById('deleteTokenBtn');
+        const checkRateLimitBtn = document.getElementById('checkRateLimitBtn');
+        const tokenInput = document.getElementById('tokenInput');
+        const scopeSelect = document.getElementById('scopeSelect');
+        const rateLimitInfo = document.getElementById('rateLimitInfo');
+        const testPatBtn = document.getElementById('testPatBtn');
+        const patStatus = document.getElementById('patStatus');
+        const patInfo = document.getElementById('patInfo');
+
+
+        function getExistingToken() {
+
+            const repoToken = getTokenFromLocalStorage(REPO_SCOPE, REPO_NAME);
+            if (repoToken.value) {
+                console.log(`Found ${REPO_SCOPE} token: ${repoToken.value}`);
+                return {scope: REPO_SCOPE, token: repoToken.value, key: repoToken.key};
+            }
+
+            const accountToken = getTokenFromLocalStorage(ACCOUNT_SCOPE, REPO_OWNER);
+            if (accountToken.value) {
+                console.log(`Found ${ACCOUNT_SCOPE} token: ${accountToken.value}`);
+                return {scope: ACCOUNT_SCOPE, token: accountToken.value, key: accountToken.key};
+            }
+
+            const globalToken = getTokenFromLocalStorage(GLOBAL_SCOPE, null);
+            if (globalToken.value) {
+                console.log(`Found ${GLOBAL_SCOPE} token: ${globalToken.value}`);
+                return {scope: GLOBAL_SCOPE, token: globalToken.value, key: globalToken.key};
+            }
+
+            console.log('Not found token');
+            return null;
+        }
+
+        function getTokenFromLocalStorage(scope, scopeId) {
+            const storeKey = getStoreKeyByScopeAndTitle(scope, scopeId);
+            return {
+                key: storeKey,
+                value: localStorage.getItem(storeKey),
+            };
+        }
+
+        let tokenData = getExistingToken();
+        let CURRENT_PAT_TOKEN = null;
+        let CURRENT_PAT_TOKEN_STORE_KEY = null;
+        if (tokenData) {
+            CURRENT_PAT_TOKEN = tokenData.token;
+            CURRENT_PAT_TOKEN_STORE_KEY = tokenData.key;
+        }
+
+        function setFormForExisting(tokenData) {
+            tokenInput.value = tokenData.token;
+            tokenInput.disabled = true;
+            scopeSelect.value = tokenData.scope;
+            scopeSelect.disabled = true;
+            saveTokenBtn.style.display = 'none';
+            deleteTokenBtn.style.display = 'inline-block';
+            patStatus.textContent = '';
+            patInfo.textContent = 'Verify that the token has the required permissions ...';
+        }
+
+        function setFormForNew() {
+            tokenInput.value = '';
+            tokenInput.disabled = false;
+            scopeSelect.disabled = false;
+            scopeSelect.value = REPO_SCOPE;
+            saveTokenBtn.style.display = 'inline-block';
+            deleteTokenBtn.style.display = 'none';
+            rateLimitInfo.innerHTML = 'Click "Check request limits" to verify token';
+            patStatus.textContent = 'Not tested';
+            patInfo.textContent = 'Verify that the token has the required permissions ...';
+        }
+
+
+        settingsBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            settingsDropdown.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!settingsBtn.contains(e.target) && !settingsDropdown.contains(e.target)) {
+                settingsDropdown.classList.remove('active');
+            }
+        });
+
+        addTokenBtn.addEventListener('click', () => {
+            const existing = getExistingToken();
+            if (existing && existing.token) {
+                setFormForExisting(existing);
+            } else {
+                setFormForNew();
+            }
+            tokenModal.classList.add('active');
+            settingsDropdown.classList.remove('active');
+        });
+
+        function closeModal() {
+            tokenModal.classList.remove('active');
+        }
+
+        closeModalBtn.addEventListener('click', closeModal);
+        closeModalBtn2.addEventListener('click', closeModal);
+        tokenModal.addEventListener('click', (e) => {
+            if (e.target === tokenModal) closeModal();
+        });
+
+        checkRateLimitBtn.addEventListener('click', async () => {
+            const token = tokenInput.value.trim();
+            if (!token) {
+                rateLimitInfo.innerHTML = '<span style="color: var(--color-text-error);">Please enter a token first.</span>';
+                return;
+            }
+            rateLimitInfo.innerHTML = '<span class="spinner"></span> Checking...';
+            try {
+                const response = await fetch('https://api.github.com/rate_limit', {
+                    headers: {'Authorization': `Bearer ${token}`}
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                const data = await response.json();
+                const core = data.resources.core;
+                rateLimitInfo.innerHTML = `Remaining requests: ${core.remaining}/${core.limit} (resets at ${new Date(core.reset * 1000).toLocaleTimeString()})`;
+            } catch (error) {
+                rateLimitInfo.innerHTML = `<span style="color: var(--color-text-error);">Failed to check limits: ${error.message}</span>`;
+            }
+        });
+
+        function getStoreKeyByScopeAndTitle(scope, scopeIdentity) {
+            let scopeIdentityText = (scope === GLOBAL_SCOPE || scopeIdentity === null)
+                ? ''
+                : `/${scopeIdentity}`
+            return `${GH_TEST_RUN_TOKEN_PREFIX}/${scope}${scopeIdentityText}`;
+        }
+
+        testPatBtn.addEventListener('click', async () => {
+            let token;
+            if (tokenInput.disabled && CURRENT_PAT_TOKEN) {
+                token = CURRENT_PAT_TOKEN;
+            } else {
+                token = tokenInput.value.trim();
+            }
+
+            if (!token) {
+                patStatus.textContent = 'No token provided';
+                patStatus.style.color = 'var(--color-text-error)';
+                patInfo.textContent = 'Please enter a token first.';
+                return;
+            }
+
+            patStatus.textContent = 'Checking...';
+            patStatus.style.color = '';
+            patInfo.textContent = '';
+
+            try {
+                const userRes = await fetch('https://api.github.com/user', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!userRes.ok) {
+                    patStatus.style.color = 'var(--color-text-error)';
+                    if (userRes.status === 401) {
+                        patStatus.textContent = 'Invalid or expired';
+                        patInfo.textContent = 'The token is either invalid, revoked, or expired. Please generate a new one.';
+                    } else {
+                        patStatus.textContent = 'Error checking token';
+                        patInfo.textContent = `Unexpected response (${userRes.status}). Please try again.`;
+                    }
+                    return;
+                }
+
+                const repoRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!repoRes.ok) {
+                    if (repoRes.status === 404 || repoRes.status === 403) {
+                        patStatus.textContent = 'No repository access';
+                        patStatus.style.color = 'var(--color-text-warning)';
+                        patInfo.textContent = 'The token does not have access to this repository. Check the token’s repository permissions or generate a token that includes this repository.';
+                    } else {
+                        patStatus.textContent = 'Error checking repository';
+                        patStatus.style.color = 'var(--color-text-error)';
+                        patInfo.textContent = `Unexpected response (${repoRes.status}).`;
+                    }
+                    return;
+                }
+
+                const wfRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/workflows`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!wfRes.ok) {
+                    patStatus.style.color = 'var(--color-text-error)';
+                    if (wfRes.status === 403) {
+                        patStatus.textContent = 'Insufficient permissions';
+                        patInfo.textContent = 'The token lacks required permissions. Ensure it has at least: Issues (read), Actions (read), Deployment (read), Metadata (read).';
+                    } else {
+                        patStatus.textContent = 'Error checking permissions';
+                        patInfo.textContent = `Unexpected response (${wfRes.status}).`;
+                    }
+                    return;
+                }
+
+                patStatus.textContent = 'Valid';
+                patStatus.style.color = '#3fb950';
+                patInfo.textContent = 'Token is valid, has access to this repository, and has sufficient permissions.';
+            } catch (error) {
+                patStatus.textContent = 'Network error';
+                patStatus.style.color = 'var(--color-text-error)';
+                patInfo.textContent = error.message;
+            }
+        });
+
+        saveTokenBtn.addEventListener('click', () => {
+            const token = tokenInput.value.trim();
+            if (!token) {
+                alert('Token cannot be empty.');
+                return;
+            }
+            if (!token.startsWith('ghp_') && !token.startsWith('github_pat_')) {
+                if (!confirm('Token does not look like a GitHub personal access token. Save anyway?')) {
+                    return;
+                }
+            }
+            const scope = scopeSelect.value;
+            let scopeIdentity = '';
+            if (scope === REPO_SCOPE) {
+                scopeIdentity = "/" + REPO_NAME;
+            } else if (scope === ACCOUNT_SCOPE) {
+                scopeIdentity = "/" + ACCOUNT_SCOPE;
+            }
+
+            const key = getStoreKeyByScopeAndTitle(scope, scopeIdentity);
+            console.log(`Saved token in local storage by key: ${key}. Actual value: ${token}`);
+            localStorage.setItem(key, token);
+            alert('Token saved successfully!');
+            closeModal();
+        });
+
+
+        deleteTokenBtn.addEventListener('click', () => {
+            if (!CURRENT_PAT_TOKEN_STORE_KEY) return;
+            const scope = scopeSelect.value;
+            if (scope === 'account' || scope === 'global') {
+                if (!confirm(`Are you sure you want to delete this token? It affects ${scope === 'account' ? 'all repositories of this account' : 'all repositories everywhere'}.`)) {
+                    return;
+                }
+            } else {
+                if (!confirm('Delete this token?')) return;
+            }
+            localStorage.removeItem(CURRENT_PAT_TOKEN_STORE_KEY);
+            setFormForNew();
+        });
+
+        async function checkResponse(response) {
+            if (!response.ok) {
+                let body;
+                try {
+                    body = await response.json();
+                } catch (e) {
+                    body = {message: await response.text()};
+                }
+                const error = new Error(`GitHub API error: ${response.status}`);
+                error.status = response.status;
+                error.body = body;
+                error.headers = response.headers;
+                throw error;
+            }
+            return response.json();
+        }
+
+        function parseReports(files) {
+            const reports = {};
+
+            files.forEach(file => {
+                if (file.type !== 'tree') return;
+                const parts = file.path.split('/');
+
+                if (parts.length === 1) {
+                    const cat = parts[0];
+                    if (!EXCLUDED_CATEGORIES.has(cat) && !cat.startsWith('.')) {
+                        if (!reports[cat]) reports[cat] = {runs: new Set()};
+                    }
+                } else if (parts.length === 2) {
+                    const [cat, sub] = parts;
+                    if (!EXCLUDED_CATEGORIES.has(cat) && !cat.startsWith('.') && !EXCLUDED_RUN_FOLDERS.has(sub) && !sub.startsWith('.')) {
+                        if (!reports[cat]) reports[cat] = {runs: new Set()};
+                        reports[cat].runs.add(sub);
+                    }
+                }
+            });
+
+            allReports = {};
+            Object.keys(reports).sort().forEach(cat => {
+                const data = reports[cat];
+                allReports[cat] = {
+                    runs: Array.from(data.runs).sort((a, b) => {
+                        const numA = parseInt(a, 10);
+                        const numB = parseInt(b, 10);
+                        if (!isNaN(numA) && !isNaN(numB)) return numB - numA;
+                        return a.localeCompare(b);
+                    })
+                };
+            });
+
+            categories = Object.keys(allReports).sort();
+        }
+
+        function parseWorkflows(workflows) {
+            catToWorkflowId = {};
+            workflows.forEach(wf => {
+                let normName = wf.name.toLowerCase().replace(/[\s-]/g, '_');
+                if (categories.includes(normName)) {
+                    catToWorkflowId[normName] = wf.id;
+                }
+                let normPath = wf.path.replace('.github/workflows/', '').replace(/\.ya?ml$/, '').toLowerCase().replace(/[\s-]/g, '_');
+                if (categories.includes(normPath)) {
+                    catToWorkflowId[normPath] = wf.id;
+                }
+            });
+        }
+
+        function parseRuns(workflow_runs) {
+            workflowRunsInfo = {};
+            workflow_runs.forEach(run => {
+                const wid = run.workflow_id;
+                if (!workflowRunsInfo[wid]) workflowRunsInfo[wid] = {};
+                workflowRunsInfo[wid][run.run_number] = {
+                    branch: run.head_branch,
+                    start: new Date(run.run_started_at || run.created_at),
+                    stop: new Date(run.updated_at),
+                    attempt: run.run_attempt || 1,
+                    id: run.id
+                };
+            });
+        }
+
+        function getStartDate(category, runName) {
+            const num = parseInt(runName, 10);
+            if (isNaN(num)) return null;
+            const wid = catToWorkflowId[category];
+            if (!wid || !workflowRunsInfo[wid] || !workflowRunsInfo[wid][num]) return null;
+            return workflowRunsInfo[wid][num].start;
+        }
+
+        function buildFlatList() {
+            allRunsFlat = [];
+            Object.entries(allReports).forEach(([cat, data]) => {
+                data.runs.forEach(run => {
+                    const startTime = getStartDate(cat, run);
+                    allRunsFlat.push({category: cat, name: run, startTime});
+                });
+            });
+
+            allRunsFlat.sort((a, b) => {
+                if (a.startTime && b.startTime) return b.startTime - a.startTime;
+                if (a.startTime) return -1;
+                if (b.startTime) return 1;
+                const numA = parseInt(a.name, 10);
+                const numB = parseInt(b.name, 10);
+                if (!isNaN(numA) && !isNaN(numB)) return numB - numA;
+                return b.name.localeCompare(a.name);
+            });
+        }
+
+        function renderCategories() {
+            if (categories.length === 0) {
+                actionsListEl.innerHTML = `<li style="padding:20px;color:#6e7681;">No types found</li>`;
+                return;
+            }
+
+            const items = categories.map(cat => {
+                const total = (allReports[cat]?.runs.length || 0);
+                const activeClass = (selectedCategory === cat) ? 'active' : '';
+                return `
+                        <li class="type-item">
+                            <button class="type-button ${activeClass}" data-category="${cat}">
+                                <svg class="icon" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4.879-2.773 4.264 2.559a.25.25 0 0 1 0 .428l-4.264 2.559A.25.25 0 0 1 6 10.559V5.442a.25.25 0 0 1 .379-.215Z"></path>
+                                </svg>
+                                <span class="type-name">${formatCategory(cat)}</span>
+                                <span class="type-count">${total}</span>
+                            </button>
+                        </li>
+                    `;
+            }).join('');
+            actionsListEl.innerHTML = items;
+
+            document.querySelectorAll('.type-button').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    selectCategory(btn.dataset.category);
+                });
+            });
+        }
+
+        function formatCategory(cat) {
+            return cat.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        }
+
+        function selectCategory(category) {
+            selectedCategory = category;
+            document.querySelectorAll('.type-button').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.category === category);
+            });
+            selectedCategoryTitleEl.innerText = formatCategory(category);
+            renderRuns(category);
+        }
+
+        function renderRuns(category) {
+            if (!category || !allReports[category]) {
+                runsContainerEl.innerHTML = `<div class="empty-state"><p>No runs</p></div>`;
+                return;
+            }
+
+            const data = allReports[category];
+            const filterLower = filterText.toLowerCase();
+            const filteredRuns = data.runs.filter(r => r.toLowerCase().includes(filterLower));
+
+            if (filteredRuns.length === 0) {
+                runsContainerEl.innerHTML = `<div class="empty-state"><p>No matches</p></div>`;
+                return;
+            }
+
+            const runCards = filteredRuns.map(run => {
+                const runId = getRunId(category, run);
+                const runUrl = runId ? `https://github.com/${REPO_OWNER}/${REPO_NAME}/actions/runs/${runId}` : '';
+                const folderUrl = `https://github.com/${REPO_OWNER}/${REPO_NAME}/tree/${BRANCH}/${category}/${run}`;
+                const branchName = getBranchName(category, run);
+                const duration = getDuration(category, run);
+                const dateTitle = getFullDate(category, run);
+                const dateText = getStartTime(category, run);
+                const path = `${category}/${run}`;
+                if (viewMode === 'grid') {
+                    return `
+                        <div class="run-card" data-run-url="${runUrl}" data-folder-url="${folderUrl}" data-path="${path}">
+                            <div class="run-card-header">
+                                <span class="run-name">#${run}</span>
+                                <span class="branch-badge" title="${branchName}">${branchName}</span>
+                                <button class="menu-btn">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                        <path d="M8 2.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM8 6.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM8 10.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" fill="currentColor"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="run-card-footer">
+                                <span class="run-duration">${duration}</span>
+                                <span class="run-date" title="${dateTitle}">${dateText}</span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <div class="run-card" data-run-url="${runUrl}" data-folder-url="${folderUrl}" data-path="${path}">
+                            <span class="run-name">#${run}</span>
+                            <span class="branch-badge" title="${branchName}">${branchName}</span>
+                            <span class="run-duration">${duration}</span>
+                            <span class="run-date" title="${dateTitle}">${dateText}</span>
+                            <button class="menu-btn">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M8 2.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM8 6.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM8 10.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" fill="currentColor"/>
+                                </svg>
+                            </button>
+                        </div>
+                    `;
+                }
+            }).join('');
+
+            runsContainerEl.innerHTML = runCards;
+            runsContainerEl.className = `runs-grid ${viewMode === 'list' ? 'list-view' : ''}`;
+
+            document.querySelectorAll('#runsContainer .run-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (e.target.closest('.menu-btn')) return;
+                    openRun(card.dataset.path);
+                });
+            });
+
+            attachMenuListeners('#runsContainer');
+        }
+
+        function renderLatestRuns() {
+            const latest = allRunsFlat.slice(0, 2);
+
+            if (latest.length === 0) {
+                latestRunsContainer.innerHTML = `<div class="empty-state">No recent runs</div>`;
+                return;
+            }
+
+            const cards = latest.map(item => {
+                const runId = getRunId(item.category, item.name);
+                const runUrl = runId ? `https://github.com/${REPO_OWNER}/${REPO_NAME}/actions/runs/${runId}` : '';
+                const folderUrl = `https://github.com/${REPO_OWNER}/${REPO_NAME}/tree/${BRANCH}/${item.category}/${item.name}`;
+                const branchName = getBranchName(item.category, item.name);
+                const duration = getDuration(item.category, item.name);
+                const dateTitle = getFullDate(item.category, item.name);
+                const dateText = getStartTime(item.category, item.name);
+                const path = `${item.category}/${item.name}`;
+                return `
+                        <div class="run-card" data-run-url="${runUrl}" data-folder-url="${folderUrl}" data-path="${path}">
+                            <div class="run-card-header">
+                                <span class="run-name">#${item.name}</span>
+                                <span class="branch-badge" title="${branchName}">${branchName}</span>
+                                <button class="menu-btn">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                        <path d="M8 2.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM8 6.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM8 10.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" fill="currentColor"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="run-workflow">${formatCategory(item.category)}</div>
+                            <div class="run-card-footer">
+                                <span class="run-duration">${duration}</span>
+                                <span class="run-date" title="${dateTitle}">${dateText}</span>
+                            </div>
+                        </div>
+                    `;
+            }).join('');
+
+            latestRunsContainer.innerHTML = cards;
+
+            document.querySelectorAll('#latestRunsContainer .run-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (e.target.closest('.menu-btn')) return;
+                    openRun(card.dataset.path);
+                });
+            });
+
+            attachMenuListeners('#latestRunsContainer');
+        }
+
+        function attachMenuListeners(containerSelector) {
+            const container = document.querySelector(containerSelector);
+            if (!container) return;
+
+            container.querySelectorAll('.menu-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isOpen = btn.classList.contains('active');
+                    closeAllMenus();
+                    if (isOpen) {
+                        return;
+                    }
+                    btn.classList.add('active');
+                    const card = btn.closest('.run-card');
+                    const runUrl = card.dataset.runUrl;
+                    const folderUrl = card.dataset.folderUrl;
+
+                    const dropdown = document.createElement('div');
+                    dropdown.className = 'menu-dropdown';
+                    let menuHtml = '<ul>';
+                    if (runUrl) {
+                        menuHtml += `<li><a href="${runUrl}" target="_blank" rel="noopener noreferrer">Open run</a></li>`;
+                    }
+                    menuHtml += `<li><a href="${folderUrl}" target="_blank" rel="noopener noreferrer">Open report folder</a></li>`;
+                    menuHtml += '</ul>';
+                    dropdown.innerHTML = menuHtml;
+
+                    document.body.appendChild(dropdown);
+
+                    dropdown.querySelectorAll('a').forEach(a => {
+                        a.addEventListener('click', () => {
+                            closeAllMenus();
+                        });
+                    });
+
+                    const rect = btn.getBoundingClientRect();
+                    const ddHeight = dropdown.offsetHeight;
+                    const ddWidth = dropdown.offsetWidth;
+                    const scrollY = window.pageYOffset;
+                    const scrollX = window.pageXOffset;
+                    const viewportHeight = window.innerHeight;
+                    const spaceBelow = viewportHeight + scrollY - rect.bottom;
+                    const spaceAbove = rect.top;
+                    let top;
+                    if (spaceBelow >= ddHeight || spaceBelow > spaceAbove) {
+                        top = rect.bottom + scrollY;
+                    } else {
+                        top = rect.top + scrollY - ddHeight;
+                    }
+                    if (top < scrollY) {
+                        top = scrollY;
+                    }
+                    if (top + ddHeight > viewportHeight + scrollY) {
+                        top = viewportHeight + scrollY - ddHeight;
+                    }
+                    let left = rect.right + scrollX - ddWidth;
+                    if (left < scrollX) {
+                        left = scrollX;
+                    }
+                    dropdown.style.top = `${top}px`;
+                    dropdown.style.left = `${left}px`;
+                });
+            });
+        }
+
+        function closeAllMenus() {
+            document.querySelectorAll('.menu-dropdown').forEach(dd => {
+                dd.remove();
+            });
+            document.querySelectorAll('.menu-btn.active').forEach(btn => {
+                btn.classList.remove('active');
+            });
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.menu-btn') && !e.target.closest('.menu-dropdown')) {
+                closeAllMenus();
+            }
+        });
+
+        function getRunId(category, runName) {
+            const num = parseInt(runName, 10);
+            if (isNaN(num)) return null;
+            const wid = catToWorkflowId[category];
+            if (!wid || !workflowRunsInfo[wid] || !workflowRunsInfo[wid][num]) return null;
+            return workflowRunsInfo[wid][num].id;
+        }
+
+        function getBranchName(category, runName) {
+            const num = parseInt(runName, 10);
+            if (isNaN(num)) return 'main';
+            const wid = catToWorkflowId[category];
+            if (!wid || !workflowRunsInfo[wid] || !workflowRunsInfo[wid][num]) return 'main';
+            return workflowRunsInfo[wid][num].branch;
+        }
+
+        function getDuration(category, runName) {
+            const num = parseInt(runName, 10);
+            if (isNaN(num)) return 'UNKNOWN_DURATION';
+
+            const wid = catToWorkflowId[category];
+            if (!wid || !workflowRunsInfo[wid] || !workflowRunsInfo[wid][num]) {
+                return 'NO_DATA';
+            }
+
+            const info = workflowRunsInfo[wid][num];
+            const durationMs = info.stop - info.start;
+            if (durationMs <= 0) return 'NO_DATA';
+
+            const secs = Math.round(durationMs / 1000);
+            const min = Math.floor(secs / 60);
+            const sec = secs % 60;
+            return `${min}m ${sec.toString().padStart(2, '0')}s`;
+        }
+
+        function getStartTime(category, runName) {
+            const num = parseInt(runName, 10);
+            if (isNaN(num)) return 'UNKNOWN_START_TIME';
+
+            const wid = catToWorkflowId[category];
+            if (!wid || !workflowRunsInfo[wid] || !workflowRunsInfo[wid][num]) {
+                return 'NO_DATA';
+            }
+
+            const info = workflowRunsInfo[wid][num];
+            return timeAgo(info.start);
+        }
+
+        function getFullDate(category, runName) {
+            const num = parseInt(runName, 10);
+            if (isNaN(num)) return 'Unknown';
+
+            const wid = catToWorkflowId[category];
+            if (!wid || !workflowRunsInfo[wid] || !workflowRunsInfo[wid][num]) {
+                return 'No data';
+            }
+
+            const info = workflowRunsInfo[wid][num];
+            return info.start.toISOString();
+        }
+
+        function timeAgo(date) {
+            const now = new Date();
+            const diff = Math.floor((now - date) / 1000);
+            if (diff < 0) return 'just now';
+            if (diff < 60) return `${diff} second${diff > 1 ? 's' : ''} ago`;
+            const min = Math.floor(diff / 60);
+            if (min < 60) return `${min} minute${min > 1 ? 's' : ''} ago`;
+            const hr = Math.floor(min / 60);
+            if (hr < 24) return `${hr} hour${hr > 1 ? 's' : ''} ago`;
+            const day = Math.floor(hr / 24);
+            if (day < 30) return `${day} day${day > 1 ? 's' : ''} ago`;
+            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+        }
+
+        function openRun(path) {
+            const baseUrl = `https://${REPO_OWNER}.github.io/${REPO_NAME}/`
+            const reportUrl = `${baseUrl}${path}/index.html`;
+            window.open(reportUrl, '_blank');
+        }
+
+        function setViewMode(mode) {
+            viewMode = mode;
+            gridViewBtn.classList.toggle('active', mode === 'grid');
+            listViewBtn.classList.toggle('active', mode === 'list');
+            if (selectedCategory) {
+                renderRuns(selectedCategory);
+            }
+        }
+
+        gridViewBtn.addEventListener('click', () => setViewMode('grid'));
+        listViewBtn.addEventListener('click', () => setViewMode('list'));
+
+        refreshBtn.addEventListener('click', () => {
+            const refreshIcon = refreshBtn.querySelector('svg');
+            refreshIcon.classList.add('spinning');
+            loadReports().finally(() => {
+                refreshIcon.classList.remove('spinning');
+            });
+        });
+
+        function handleSearch() {
+            filterText = searchInput.value;
+            if (selectedCategory) {
+                renderRuns(selectedCategory);
+            }
+        }
+
+        searchInput.addEventListener('input', handleSearch);
+
+        function showLoading() {
+            runsContainerEl.innerHTML = `<div class="loading-indicator"><div class="spinner"></div><span>Loading...</span></div>`;
+            latestRunsContainer.innerHTML = `<div class="loading-indicator"><div class="spinner"></div><span>Loading...</span></div>`;
+        }
+
+        function showApiError(error) {
+            let errorHtml;
+            const responseBodyContainer = `
+                    <div class="response-body-container">
+                        <h4>GitHub response body</h4>
+                        <p class="response-body">${JSON.stringify(error.body, null, 2).trim()}</p>
+                    </div>
+                `
+            const isRateLimit = error.status === 403 && error.body.message?.includes('API rate limit exceeded');
+            if (isRateLimit) {
+                const resetTime = error.headers.get('x-ratelimit-reset');
+                const resetDate = new Date(resetTime * 1000);
+                errorHtml = `
+                        <div class="error-container">
+                            <h3>⚠️ Rate limit exceeded</h3>
+                            <p>Try to disable your VPN, if it is enabled.</p>
+                            <p>Rate limit resets at ${resetDate.toISOString()}</p>
+                            ${responseBodyContainer}
+                        </div>
+                    `;
+            } else {
+                errorHtml = `
+                        <div class="error-container">
+                            <h3>⚠️ Unknown Error</h3>
+                           ${responseBodyContainer}
+                        </div>
+                    `;
+            }
+            pageContentEl.innerHTML = errorHtml;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadReports();
+            setViewMode('grid');
+        });
+    })();
+
+</script>
+</body>
+</html>
