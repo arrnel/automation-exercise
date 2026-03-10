@@ -1,22 +1,21 @@
 package com.automationexercise.tests.test.web;
 
 import com.automationexercise.tests.jupiter.anno.meta.WebTest;
-import com.automationexercise.tests.jupiter.anno.tag.ComponentTag.SubscriptionComponentTag;
-import com.automationexercise.tests.jupiter.anno.tag.PageTag.MainPageTag;
+import com.automationexercise.tests.models.allure.AllureTag;
 import com.automationexercise.tests.page.contact.ContactUsPage;
 import com.automationexercise.tests.page.products.MainPage;
 import com.automationexercise.tests.util.DataGenerator;
 import io.qameta.allure.Owner;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag(AllureTag.SUBSCRIPTION_TEST)
 @WebTest
-@SubscriptionComponentTag
 @DisplayName("[WEB] Subscription test")
 class SubscriptionWebTest {
 
-    @Owner("@arrnel")
-    @MainPageTag
+    @Owner(AllureTag.OWNER)
     @Test
     @DisplayName("Should subscribe")
     void shouldSubscribeTest() {
@@ -29,8 +28,7 @@ class SubscriptionWebTest {
                 .checkSuccessSubscribeStatusMessageHasCorrectText();
     }
 
-    @Owner("@arrnel")
-    @MainPageTag
+    @Owner(AllureTag.OWNER)
     @Test
     @DisplayName("Success subscribe message should have expected text after sending contact form")
     void shouldVisibleCorrectSuccessSubscriptionStatusAfterSendingContactFormTest() {

@@ -2,28 +2,26 @@ package com.automationexercise.tests.test.web;
 
 import com.automationexercise.tests.jupiter.anno.meta.DisabledByIssue;
 import com.automationexercise.tests.jupiter.anno.meta.WebTest;
-import com.automationexercise.tests.jupiter.anno.tag.ComponentTag.RegisterComponentTag;
-import com.automationexercise.tests.jupiter.anno.tag.PageTag.RegisterPageTag;
 import com.automationexercise.tests.jupiter.extension.UsersRemoverExtension;
 import com.automationexercise.tests.models.UserDTO;
+import com.automationexercise.tests.models.allure.AllureTag;
 import com.automationexercise.tests.page.auth.LoginPage;
 import com.automationexercise.tests.test.BaseTest;
 import com.automationexercise.tests.util.DataGenerator;
 import io.qameta.allure.Owner;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+@Tag(AllureTag.REGISTRATION_TEST)
 @WebTest
-@RegisterPageTag
-@RegisterComponentTag
 @DisplayName("[WEB] Registration tests")
 class RegisterWebTest extends BaseTest {
 
-    @Owner("@arrnel")
+    @Owner(AllureTag.OWNER)
 
-    @RegisterComponentTag
     @Test
     @DisplayName("Should register with valid data")
     void shouldRegisterWithValidDataTest() {
@@ -46,7 +44,7 @@ class RegisterWebTest extends BaseTest {
     }
 
     @DisabledByIssue(issueId = "2")
-    @Owner("@arrnel")
+    @Owner(AllureTag.OWNER)
     @ParameterizedTest(name = "Case: {0}")
     @MethodSource("com.automationexercise.tests.test.data.UserDataProvider#validAnotherSensitiveDataProvider")
     @DisplayName("Should register with valid data")
@@ -65,7 +63,7 @@ class RegisterWebTest extends BaseTest {
     }
 
     @DisabledByIssue(issueId = "2")
-    @Owner("@arrnel")
+    @Owner(AllureTag.OWNER)
     @ParameterizedTest(name = "Case: {0}")
     @MethodSource("com.automationexercise.tests.test.data.UserDataProvider#invalidAnotherSensitiveDataProvider")
     @DisplayName("Should not register with invalid data")

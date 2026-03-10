@@ -5,10 +5,12 @@ import com.automationexercise.tests.jupiter.anno.meta.ApiTest;
 import com.automationexercise.tests.jupiter.anno.meta.DisabledByIssue;
 import com.automationexercise.tests.jupiter.extension.UsersRemoverExtension;
 import com.automationexercise.tests.models.UserDTO;
+import com.automationexercise.tests.models.allure.AllureTag;
 import com.automationexercise.tests.test.BaseTest;
 import com.automationexercise.tests.util.DataGenerator;
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -19,6 +21,7 @@ import static com.automationexercise.tests.util.matcher.AppMatchers.matchUserReq
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Tag(AllureTag.USER_TEST)
 @ApiTest
 @Feature("[API] Users tests")
 @DisplayName("[API] Users test")
