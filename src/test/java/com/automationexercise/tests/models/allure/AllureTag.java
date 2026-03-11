@@ -12,6 +12,7 @@ public class AllureTag {
     public static final String SCREENSHOT_TEST = "screenshot";
     public static final String WEB_TEST = "web";
     public static final String E2E_TEST = "e2e";
+    public static final String DEBUG_TEST = "debug";
 
     // =============
     // TEST_ENTITY
