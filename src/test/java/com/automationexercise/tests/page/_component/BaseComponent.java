@@ -1,8 +1,7 @@
 package com.automationexercise.tests.page._component;
 
 import com.automationexercise.tests.config.test.Config;
-import com.automationexercise.tests.ex.ScreenshotException;
-import com.automationexercise.tests.util.AllureUtil;
+import com.automationexercise.tests.models.ScreenshotCheckContext;
 import com.automationexercise.tests.util.ImageUtil;
 import com.microsoft.playwright.Locator;
 import io.qameta.allure.Allure;
@@ -11,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.nio.file.Files;
+import java.awt.*;
 import java.nio.file.Paths;
 
 import static com.microsoft.playwright.options.WaitForSelectorState.DETACHED;
@@ -78,35 +77,28 @@ public abstract class BaseComponent<T> {
     @Nonnull
     @SneakyThrows
     @SuppressWarnings("unchecked")
-    public T checkElementHasScreenshot(Locator locator,
-                                       String pathToScreenshot,
-                                       double percentOfTolerance,
-                                       boolean rewriteScreenshot
+    public T checkElementHasScreenshot(
+            Locator locator,
+            String path,
+            double percentOfTolerance,
+            boolean rewriteScreenshot
     ) {
-        var path = Paths.get(CFG.pathToScreenshotsDirectory(), pathToScreenshot);
 
-        var actualScreenshot = locator.screenshot();
-        var screenDiff = ImageUtil.getScreenDiff(
-                Files.readAllBytes(path),
-                actualScreenshot,
-                percentOfTolerance
+        var box = locator.boundingBox();
+        if (box == null) {
+            throw new IllegalStateException("Элемент невидим");
+        }
+
+        var ctx = new ScreenshotCheckContext(
+                Paths.get(CFG.pathToScreenshotsDirectory(), path),
+                locator.screenshot(),
+                new Dimension((int) box.width, (int) box.height),
+                percentOfTolerance,
+                rewriteScreenshot
         );
 
-        if (CFG.rewriteAllScreenshots()) {
-            ImageUtil.rewriteImage(actualScreenshot, path);
-        }
-
-        if (screenDiff.isHasDiff()) {
-            if (rewriteScreenshot && !CFG.rewriteAllScreenshots())
-                ImageUtil.rewriteImage(actualScreenshot, path);
-            AllureUtil.addScreenDiffAttachment(screenDiff);
-            throw new ScreenshotException(
-                    "Expected and actual screenshots has difference greater then: %s".formatted(percentOfTolerance)
-            );
-        }
-
+        ImageUtil.performScreenshotCheck(ctx);
         return (T) this;
-
     }
 
     public abstract T shouldVisibleComponent();
