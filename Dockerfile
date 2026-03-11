@@ -24,4 +24,6 @@ ENV XAUTHORITY=/tmp/.docker.xauth
 
 RUN if [ -x "$(command -v node)" ]; then apt-get remove -y nodejs npm; fi
 
+RUN chmod +x ./entrypoint.sh ./gradlew
+
 CMD ["./entrypoint.sh"]
