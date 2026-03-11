@@ -1,0 +1,38 @@
+name: Run tests
+description: Run tests
+author: arrnel
+
+inputs:
+  show_logs:
+    description: Show logs after tests
+    required: false
+    default: "true"
+  remove_compose_data:
+    description: Remove compose containers and test image
+    required: false
+    default: "false"
+  compose_file_path:
+    description: Docker compose file path
+    required: true
+    default: "docker-compose.ci.yaml"
+  image_prefix:
+    description: Test image prefix
+    required: true
+    default: "arrnel"
+  test_container_title:
+    description: Test container title
+    required: true
+    default: "playwright-tests"
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        chmod +x "${{ github.action_path }}/run_tests.sh"
+        "${{ github.action_path }}/run_tests.sh" \
+          "${{ inputs.show_logs }}" \
+          "${{ inputs.remove_compose_data }}" \
+          "${{ inputs.compose_file_path }}" \
+          "${{ inputs.image_prefix }}" \
+          "${{ inputs.test_container_title }}"

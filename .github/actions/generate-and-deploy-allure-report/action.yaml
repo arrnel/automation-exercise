@@ -1,0 +1,56 @@
+name: 'Generate and deploy Allure Report in GitHub Pages'
+description: 'Checks out Allure history from gh-pages, generates Allure report, and deploys to GitHub Pages'
+
+inputs:
+  report_name:
+    description: 'Name of the report'
+    required: true
+  allure_results_path:
+    description: 'Path to Allure results directory'
+    required: true
+    default: 'allure-results'
+  allure_history_path:
+    description: 'Path to Allure history directory'
+    required: true
+    default: 'allure-history'
+  report_branch:
+    description: 'Path to checked out gh-pages branch'
+    required: true
+    default: 'gh-pages'
+  subfolder:
+    description: 'Subfolder title for the report in report_branch'
+    required: true
+  github_token:
+    description: 'Set a generated GITHUB_TOKEN for pushing to the remote branch.'
+    required: true
+
+runs:
+  using: composite
+  steps:
+
+    - name: Get Allure history
+      uses: actions/checkout@v4
+      if: always()
+      continue-on-error: true
+      with:
+        ref: ${{ inputs.report_branch }}
+        path: ${{ inputs.report_branch }}
+
+    - name: Generate Allure Report
+      uses: simple-elf/allure-report-action@master
+      if: always()
+      continue-on-error: true
+      with:
+        subfolder: ${{ inputs.subfolder }}
+        report_name: ${{ inputs.report_name }}
+        allure_results: ${{ inputs.allure_results_path }}
+        allure_history: ${{ inputs.allure_history_path }}
+
+    - name: Deploy report to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      if: always()
+      continue-on-error: true
+      with:
+        github_token: ${{ inputs.github_token }}
+        publish_branch: ${{ inputs.report_branch }}
+        publish_dir: ${{ inputs.allure_history_path }}

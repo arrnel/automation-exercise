@@ -9,8 +9,8 @@ services:
     container_name: playwright-tests
     working_dir: /automation-exercise
     volumes:
-      - ./src/.screen-output/screenshots/remote:/automation-exercise/src/.screen-output/screenshots/remote
-      - ./build/allure-results:/automation-exercise/build/allure-results
+      - ./workflow-resources/screenshot:/rococo/rococo-tests/.screen-output/screenshots/remote
+      - ./allure-results:/automation-exercise/build/allure-results
     environment:
       - DISPLAY=${DISPLAY}
       - ALLURE_DOCKER_API=${ALLURE_DOCKER_API}
