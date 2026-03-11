@@ -24,5 +24,4 @@ ENV XAUTHORITY=/tmp/.docker.xauth
 
 RUN if [ -x "$(command -v node)" ]; then apt-get remove -y nodejs npm; fi
 
-CMD xvfb-run --server-args="-screen ${DISPLAY#:} ${XVFB_WHD}" -a ./gradlew test \
-    -Djunit.jupiter.extensions.autodetection.enabled=true
+CMD ["./entrypoint.sh"]

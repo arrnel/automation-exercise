@@ -110,10 +110,19 @@ tasks.register('printVersion') {
 test {
     options {
         systemProperties(System.getProperties())
-        systemProperty("junit.jupiter.extensions.autodetection.enabled", true)
     }
     environment(System.getenv())
     testLogging.showStandardStreams = true
     testLogging.exceptionFormat = 'full'
-    useJUnitPlatform()
+    useJUnitPlatform {
+
+        var includedTags = System.getenv('TAG_EXPR')
+        if (includedTags != null && !includedTags.trim().isEmpty()) {
+
+            includeTags Arrays.stream(includedTags.toLowerCase().split(","))
+                    .map { v -> v.trim() }
+                    .toArray(String[]::new)
+
+        }
+    }
 }
