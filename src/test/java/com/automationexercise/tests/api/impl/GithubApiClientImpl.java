@@ -18,20 +18,20 @@ import static com.automationexercise.tests.api.core.condition.Conditions.statusC
 public class GithubApiClientImpl extends RestClient implements GithubApiClient {
 
     public GithubApiClientImpl() {
-        super(CFG.gitHubApiUrl());
+        super(CFG.ghApiUrl());
     }
 
     @Nonnull
     public IssueState getIssueState(String issueId) {
-        var issueUrl = "/repos/%s/%s/issues/%s".formatted(CFG.gitHubAccountName(), CFG.gitHubRepoName(), issueId);
+        var issueUrl = "/repos/%s/%s/issues/%s".formatted(CFG.githubOwner(), CFG.gitHubRepo(), issueId);
         var stepDescription = "[API] Send get issue state request. [GET]:%s".formatted(issueUrl);
         log.info(stepDescription);
         String state = Allure.step(stepDescription, () ->
                 new AssertableResponse(
                         given()
                                 .accept("application/vnd.github+json")
-                                .header("user-agent", CFG.githubTokenName())
-                                .header("authorization", CFG.githubToken())
+                                .header("user-agent", CFG.ghTokenName())
+                                .header("authorization", CFG.ghToken())
                                 .get(issueUrl)
                 )
                         .shouldHave(statusCode(HttpStatus.OK))
