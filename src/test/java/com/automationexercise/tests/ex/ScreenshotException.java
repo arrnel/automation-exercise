@@ -6,4 +6,8 @@ public class ScreenshotException extends RuntimeException {
         super(message);
     }
 
+    public ScreenshotException(String message, Throwable cause) {
+        super(message);
+    }
+
 }

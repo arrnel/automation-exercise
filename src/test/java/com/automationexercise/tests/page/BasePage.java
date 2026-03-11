@@ -1,12 +1,11 @@
 package com.automationexercise.tests.page;
 
 import com.automationexercise.tests.config.test.Config;
-import com.automationexercise.tests.ex.ScreenshotException;
+import com.automationexercise.tests.models.ScreenshotCheckContext;
 import com.automationexercise.tests.page._component.common.HeaderComponent;
 import com.automationexercise.tests.page._component.common.NotificationComponent;
 import com.automationexercise.tests.page._component.common.PageScrollerComponent;
 import com.automationexercise.tests.page._component.common.SubscriptionComponent;
-import com.automationexercise.tests.util.AllureUtil;
 import com.automationexercise.tests.util.ImageUtil;
 import com.automationexercise.tests.util.browser.PageStore;
 import com.microsoft.playwright.Locator;
@@ -18,8 +17,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.nio.file.Files;
+import java.awt.*;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 import static com.microsoft.playwright.options.WaitForSelectorState.DETACHED;
 import static com.microsoft.playwright.options.WaitForSelectorState.VISIBLE;
@@ -152,33 +152,21 @@ public abstract class BasePage<T> {
     @Nonnull
     @SneakyThrows
     @SuppressWarnings("unchecked")
-    public T checkPageHasScreenshot(String pathToScreenshot,
-                                    double percentOfTolerance,
-                                    boolean rewriteScreenshot
-    ) {
-        var path = Paths.get(CFG.pathToScreenshotsDirectory(), pathToScreenshot);
-        var actualScreenshot = page.screenshot();
-        var screenDiff = ImageUtil.getScreenDiff(
-                Files.readAllBytes(path),
-                actualScreenshot,
-                percentOfTolerance
+    public T checkPageHasScreenshot(String path, double percentOfTolerance, boolean rewriteScreenshot) {
+        var size = Arrays.stream(CFG.browserSize().split("x"))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+
+        var ctx = new ScreenshotCheckContext(
+                Paths.get(CFG.pathToScreenshotsDirectory(), path),
+                page.screenshot(),
+                new Dimension(size[0], size[1]),
+                percentOfTolerance,
+                rewriteScreenshot
         );
 
-        if (CFG.rewriteAllScreenshots()) {
-            ImageUtil.rewriteImage(actualScreenshot, path);
-        }
-
-        if (screenDiff.isHasDiff()) {
-            if (rewriteScreenshot && !CFG.rewriteAllScreenshots())
-                ImageUtil.rewriteImage(actualScreenshot, path);
-            AllureUtil.addScreenDiffAttachment(screenDiff);
-            throw new ScreenshotException(
-                    "Expected and actual screenshots has difference greater then: %s".formatted(percentOfTolerance)
-            );
-        }
-
+        ImageUtil.performScreenshotCheck(ctx);
         return (T) this;
-
     }
 
     @Nonnull
