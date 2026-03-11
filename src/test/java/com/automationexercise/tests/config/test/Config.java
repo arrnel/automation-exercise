@@ -53,28 +53,28 @@ public interface Config {
     }
 
     @Nonnull
-    default String gitHubApiUrl() {
+    default String ghApiUrl() {
         return "https://api.github.com";
     }
 
     @Nonnull
-    default String githubToken() {
-        return System.getenv("GITHUB_TOKEN");
+    default String ghToken() {
+        return System.getenv("GH_TOKEN");
     }
 
     @Nonnull
-    default String githubTokenName() {
-        return System.getenv("GITHUB_TOKEN_NAME");
+    default String ghTokenName() {
+        return System.getenv("GH_TOKEN_NAME");
     }
 
     @Nonnull
-    default String gitHubAccountName() {
-        return System.getenv("GITHUB_ACCOUNT_NAME");
+    default String githubOwner() {
+        return System.getenv("GH_OWNER");
     }
 
     @Nonnull
-    default String gitHubRepoName() {
-        return System.getenv("GITHUB_REPO_NAME");
+    default String gitHubRepo() {
+        return System.getenv("GH_REPO");
     }
 
     @Nonnull
@@ -167,7 +167,7 @@ public interface Config {
                         domain(),
                         defaultPassword(),
                         defaultRestLogLevel(),
-                        gitHubApiUrl(),
+                        ghApiUrl(),
                         ignoreDisabledByIssue(),
                         maxScreenshotDiff(),
                         pathToFiles(),
@@ -188,14 +188,19 @@ public interface Config {
                     "playwrightSlowMotion": %s
                 }""".formatted(browserIsHeadless(), browserName(), browserSize(), browserTimeout(), browserSlowMotion());
 
+        var ghToken = ghToken();
+        ghToken = ghToken.contains("github_pat_")
+                ? ghToken.substring(0, 20) + "***" + ghToken.substring(ghToken.length() - 4)
+                : "WRONG_GITHUB_PAT_TOKEN";
+
         var githubData = """
                 {
-                    "githubAccountName": "%s"
-                    "githubApiUrl": "%s",
-                    "githubRepoName": "%s",
-                    "githubToken": "%s",
-                    "githubTokenName": "%s",
-                }""".formatted(gitHubApiUrl(), githubToken(), githubTokenName(), gitHubRepoName(), gitHubAccountName());
+                    "ghApiUrl": "%s",
+                    "ghOwner": "%s",
+                    "ghRepo": "%s",
+                    "ghToken": "%s",
+                    "ghTokenName": "%s",
+                }""".formatted(ghApiUrl(), ghToken, ghTokenName(), gitHubRepo(), githubOwner());
 
         return """
                 {
