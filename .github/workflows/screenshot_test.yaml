@@ -115,7 +115,7 @@ jobs:
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           subfolder: ${{ env.WORKFLOW_REPORT_ID }}
-          report_name: PR ${{ github.event.pull_request.number }} Report
+          report_name: ${{ env.TEST_TITLE }}
           allure_results_path: allure-results
           allure_history_path: allure-history
           report_branch: gh-pages
