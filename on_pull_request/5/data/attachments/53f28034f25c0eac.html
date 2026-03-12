@@ -1,0 +1,320 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="This is for automation practice">
+	<meta name="robots" content="index">
+	<meta name="keywords" content="Automation Exercise / Automation Practice / Practice website for automation / demo website for practice / dummy website for testing / testing website / dummy website for practice automation / API Testing / API automation">
+	<meta name="google-site-verification" content="VS1KtEV7m0Pp9MRMwCpyR7rGwUVYH6N8l1zoVepsGWs">
+
+    <title>Automation Exercise - Checkout</title>
+
+	
+
+	<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/css/prettyPhoto.css" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+	<link href="/static/css/main.css" rel="stylesheet">
+	<link href="/static/css/responsive.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link href="/static/css/checkout.css" rel="stylesheet">
+	<link href="/static/css/cart_checkout.css" rel="stylesheet">
+
+	<style>
+
+
+		@media only screen and (max-width: 1199px) {
+			.check_out {
+				margin-bottom: 30px;
+			}
+		}
+
+		/* Extra large devices (large laptops and desktops, 1200px and up) */
+		@media only screen and (min-width: 1200px) {
+			.check_out {
+				margin-left: 970px;
+				margin-top: -5px;
+				margin-bottom: 30px;
+			}
+		}
+	</style>
+
+    <!--[if lt IE 9]>
+    <script src="/static/js/html5.js"></script>
+    <script src="/static/js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="/static/images/home/short_logo.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/static/images/ico/apple-touch-icon-57-precomposed.png">
+
+
+	<script src="https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202603050101/reactive_library_fy2021.js"></script><script src="https://pagead2.googlesyndication.com/pagead/js/r20260311/r20190131/rum_fy2021.js"></script><script src="https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202603050101/show_ads_impl_fy2021.js"></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1677597403311019" crossorigin="anonymous" data-checked-head="true"></script>
+
+
+<meta http-equiv="origin-trial" content="AlK2UR5SkAlj8jjdEc9p3F3xuFYlF6LYjAML3EOqw1g26eCwWPjdmecULvBH5MVPoqKYrOfPhYVL71xAXI1IBQoAAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="Amm8/NmvvQfhwCib6I7ZsmUxiSCfOxWxHayJwyU1r3gRIItzr7bNQid6O8ZYaE1GSQTa69WwhPC9flq/oYkRBwsAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="A9nrunKdU5m96PSN1XsSGr3qOP0lvPFUB2AiAylCDlN5DTl17uDFkpQuHj1AFtgWLxpLaiBZuhrtb2WOu7ofHwEAAACKeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElNdWx0aW1vZGFsSW5wdXQiLCJleHBpcnkiOjE3NzQzMTA0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A93bovR+QVXNx2/38qDbmeYYf1wdte9EO37K9eMq3r+541qo0byhYU899BhPB7Cv9QqD7wIbR1B6OAc9kEfYCA4AAACQeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElNdWx0aW1vZGFsSW5wdXQiLCJleHBpcnkiOjE3NzQzMTA0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A1S5fojrAunSDrFbD8OfGmFHdRFZymSM/1ss3G+NEttCLfHkXvlcF6LGLH8Mo5PakLO1sCASXU1/gQf6XGuTBgwAAACQeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElNdWx0aW1vZGFsSW5wdXQiLCJleHBpcnkiOjE3NzQzMTA0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><script async="" src="https://fundingchoicesmessages.google.com/i/ca-pub-1677597403311019?href=https%3A%2F%2Fautomationexercise.com%2Fcheckout&amp;ers=2"></script><script async="" src="https://fundingchoicesmessages.google.com/f/AGSKWxUWCWmvbyz6TWo8gu0DgvO0_aaUPCzGYH94sihfGHPnr-xwY5cTBdij-j_r5RmOrwP3LiBUpuGsBvZWX_TWmvafc904lPOkwB5HS1I8vjyQtqY1uDbjg5aBBtRKADkFaqZfco5-gw==?fccs=W1siQUtzUm9sXzdPaldhZ2FRUk16QmUtWVQyQ0NhS18wcXg5MnVuTG9ienhpTE54VmN5Ukt5dWhVaE5zVkdiWXhVOUg5TmowY3lWZmg1Y0U1X3hmdFdhZ0FWdFZRLVFjdmEyeWxRRS1oUkxjQ0xQdmtxRS03T2NaMkh6UGhTc0dsc1ZfOG1obURFM1JmcVc5QS1LSzN6MDlCZ2JiYWRtVDhjQjJRPT0iXSxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsWzE3NzMzNDA1MjcsMTM5MDAwMDAwXSxudWxsLG51bGwsbnVsbCxbbnVsbCxbN11dLCJodHRwczovL2F1dG9tYXRpb25leGVyY2lzZS5jb20vY2hlY2tvdXQiLG51bGwsW1s4LCJ6VVVVRXpLdEpKayJdLFs5LCJlbi1VUyJdLFsxOCwiW1tbbnVsbCwxNDY4XV1dIl0sWzIzLCIxNzczMzQwNTIyIl0sWzE5LCIyIl0sWzE3LCJbMF0iXSxbMjQsImF1dG9tYXRpb25leGVyY2lzZS5jb20iXSxbMjUsIltbMzEwNjE2OTEsMzEwNjE2OTJdXSJdLFsyOSwiZmFsc2UiXV1d"></script><script async="" src="https://fundingchoicesmessages.google.com/f/AGSKWxVnJCNXLPxDsuXltz3KILzozs0qdOOUrwzCAGXD6rmAuk2RXjHM7tpZjozTg0qYB_lZ1uJZ6Eev0jRhM4iRYtN_jCqD6ALcIJBbAB8fkQuy8UuQu8CXyA14OOYbm_v5MYp2pOQtYg==?fccs=W1siQUtzUm9sXzdPaldhZ2FRUk16QmUtWVQyQ0NhS18wcXg5MnVuTG9ienhpTE54VmN5Ukt5dWhVaE5zVkdiWXhVOUg5TmowY3lWZmg1Y0U1X3hmdFdhZ0FWdFZRLVFjdmEyeWxRRS1oUkxjQ0xQdmtxRS03T2NaMkh6UGhTc0dsc1ZfOG1obURFM1JmcVc5QS1LSzN6MDlCZ2JiYWRtVDhjQjJRPT0iXSxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsWzE3NzMzNDA1MjcsMTk4MDAwMDAwXSxudWxsLG51bGwsbnVsbCxbbnVsbCxbNyw5XSxudWxsLDIsbnVsbCwiZW4iXSwiaHR0cHM6Ly9hdXRvbWF0aW9uZXhlcmNpc2UuY29tL2NoZWNrb3V0IixudWxsLFtbOCwielVVVUV6S3RKSmsiXSxbOSwiZW4tVVMiXSxbMTgsIltbW251bGwsMTQ2OF1dXSJdLFsyMywiMTc3MzM0MDUyMiJdLFsxOSwiMiJdLFsxNywiWzBdIl0sWzI0LCJhdXRvbWF0aW9uZXhlcmNpc2UuY29tIl0sWzI1LCJbWzMxMDYxNjkxLDMxMDYxNjkyXV0iXSxbMjksImZhbHNlIl1dXQ"></script><script async="" src="https://fundingchoicesmessages.google.com/f/AGSKWxUWBWeMhV2ioYtmrX7kZa1r1MMKy8VSrMYTSJOUJdyfs4OPrL9IIMY4A7a7wysPdcD9nou5PAWqaMxLymTsLkWQrrLW4XAV6-rlIt-MDyAppTUiC-8IMiEMRl1dNoT29_xJ14d9uA==?fccs=W1siQUtzUm9sXzdPaldhZ2FRUk16QmUtWVQyQ0NhS18wcXg5MnVuTG9ienhpTE54VmN5Ukt5dWhVaE5zVkdiWXhVOUg5TmowY3lWZmg1Y0U1X3hmdFdhZ0FWdFZRLVFjdmEyeWxRRS1oUkxjQ0xQdmtxRS03T2NaMkh6UGhTc0dsc1ZfOG1obURFM1JmcVc5QS1LSzN6MDlCZ2JiYWRtVDhjQjJRPT0iXSxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsWzE3NzMzNDA1MjcsODg0MDAwMDAwXSxudWxsLG51bGwsbnVsbCxbbnVsbCxbNyw5LDZdLG51bGwsMixudWxsLCJlbiIsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLDFdLCJodHRwczovL2F1dG9tYXRpb25leGVyY2lzZS5jb20vY2hlY2tvdXQiLG51bGwsW1s4LCJ6VVVVRXpLdEpKayJdLFs5LCJlbi1VUyJdLFsxOCwiW1tbbnVsbCwxNDY4XV1dIl0sWzIzLCIxNzczMzQwNTIyIl0sWzE5LCIyIl0sWzE3LCJbMF0iXSxbMjQsImF1dG9tYXRpb25leGVyY2lzZS5jb20iXSxbMjUsIltbMzEwNjE2OTEsMzEwNjE2OTJdXSJdLFsyOSwiZmFsc2UiXV1d"></script></head>
+
+<body style="" aria-hidden="false">
+
+	<header id="header">
+		<div class="header-middle">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="logo pull-left">
+							<a href="/"><img src="/static/images/home/logo.png" alt="Website for automation practice"></a>
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="shop-menu pull-right">
+							<ul class="nav navbar-nav">
+								<li><a href="/"><i class="fa fa-home"></i> Home</a></li>
+								<li><a href="/products"><i class="material-icons card_travel" style="font-size: 16px;"></i> Products</a></li>
+								<li><a href="/view_cart" style="color: orange;"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								
+								<li><a href="/logout" style="color:brown;"><i class="fa fa-lock"></i> Logout</a></li>
+								<li><a href="/delete_account" style="color:brown;"><i class="fa fa-trash-o"></i> Delete Account</a></li>
+								
+								<li><a href="/test_cases"><i class="fa fa-list"></i> Test Cases</a></li>
+								<li><a href="/api_list"><i class="fa fa-list"></i> API Testing</a></li>
+								<li><a href="https://www.youtube.com/c/AutomationExercise"><i class="fa fa-youtube-play"></i> Video Tutorials</a></li>
+								<li><a href="/contact_us"><i class="fa fa-envelope"></i> Contact us</a></li>
+								
+								<li><a><i class="fa fa-user"></i> Logged in as <b>Tony Funk</b></a></li>
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<section id="cart_items">
+		<div class="container">
+			<div class="breadcrumbs">
+				<ol class="breadcrumb">
+				  <li><a href="/">Home</a></li>
+				  <li class="active">Checkout</li>
+				</ol>
+			</div>
+
+			<div class="step-one">
+				<h2 class="heading">Address Details</h2>
+			</div>
+
+			<div class="checkout-information" data-qa="checkout-info">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<ul class="address item box" id="address_delivery">
+							<li class="address_title"><h3 class="page-subheading">Your delivery address</h3></li>
+							<li class="address_firstname address_lastname">Mr. Idella Howe</li>
+							<li class="address_address1 address_address2">MacGyver, Klocko and Armstrong</li>
+							<li class="address_address1 address_address2">8517 Santos Corner</li>
+							<li class="address_address1 address_address2">Suite 571</li>
+							<li class="address_city address_state_name address_postcode">Lake Marlonmouth Ohio
+								52393</li>
+							<li class="address_country_name">India</li>
+							<li class="address_phone">(305) 617-5828</li>
+						</ul>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<ul class="address alternate_item box" id="address_invoice">
+							<li class="address_title"><h3 class="page-subheading">Your billing address</h3></li>
+							<li class="address_firstname address_lastname">Mr. Idella Howe</li>
+							<li class="address_address1 address_address2">MacGyver, Klocko and Armstrong</li>
+							<li class="address_address1 address_address2">8517 Santos Corner</li>
+							<li class="address_address1 address_address2">Suite 571</li>
+							<li class="address_city address_state_name address_postcode">Lake Marlonmouth Ohio
+								52393</li>
+							<li class="address_country_name">India</li>
+							<li class="address_phone">(305) 617-5828</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="step-one">
+				<h2 class="heading">Review Your Order</h2>
+			</div>
+
+			<div class="table-responsive cart_info" id="cart_info">
+				<table class="table table-condensed">
+					<thead>
+						<tr class="cart_menu">
+							<td class="image">Item</td>
+							<td class="description">Description</td>
+							<td class="price">Price</td>
+							<td class="quantity">Quantity</td>
+							<td class="total">Total</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+						
+						<tr id="product-39">
+							<td class="cart_product">
+								<a href=""><img src="get_product_picture/39" style="width:80px; height: 80px;" alt="Product Image"></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="/product_details/39">Cotton Silk Hand Block Print Saree</a></h4>
+								<p>Women &gt; Saree</p>
+							</td>
+							<td class="cart_price">
+								<p>Rs. 3000</p>
+							</td>
+							<td class="cart_quantity">
+								<button class="disabled">2</button>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">Rs. 6000</p>
+							</td>
+						</tr>
+						
+						<tr id="product-12">
+							<td class="cart_product">
+								<a href=""><img src="get_product_picture/12" style="width:80px; height: 80px;" alt="Product Image"></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="/product_details/12">Half Sleeves Top Schiffli Detailing - Pink</a></h4>
+								<p>Kids &gt; Tops &amp; Shirts</p>
+							</td>
+							<td class="cart_price">
+								<p>Rs. 359</p>
+							</td>
+							<td class="cart_quantity">
+								<button class="disabled">1</button>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">Rs. 359</p>
+							</td>
+						</tr>
+						
+						<tr id="product-19">
+							<td class="cart_product">
+								<a href=""><img src="get_product_picture/19" style="width:80px; height: 80px;" alt="Product Image"></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="/product_details/19">Sleeveless Unicorn Patch Gown - Pink</a></h4>
+								<p>Kids &gt; Dress</p>
+							</td>
+							<td class="cart_price">
+								<p>Rs. 1050</p>
+							</td>
+							<td class="cart_quantity">
+								<button class="disabled">1</button>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">Rs. 1050</p>
+							</td>
+						</tr>
+						
+						<tr id="product-15">
+							<td class="cart_product">
+								<a href=""><img src="get_product_picture/15" style="width:80px; height: 80px;" alt="Product Image"></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="/product_details/15">Printed Off Shoulder Top - White</a></h4>
+								<p>Kids &gt; Tops &amp; Shirts</p>
+							</td>
+							<td class="cart_price">
+								<p>Rs. 315</p>
+							</td>
+							<td class="cart_quantity">
+								<button class="disabled">1</button>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">Rs. 315</p>
+							</td>
+						</tr>
+						
+						<tr id="product-16">
+							<td class="cart_product">
+								<a href=""><img src="get_product_picture/16" style="width:80px; height: 80px;" alt="Product Image"></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="/product_details/16">Sleeves Top and Short - Blue &amp; Pink</a></h4>
+								<p>Kids &gt; Dress</p>
+							</td>
+							<td class="cart_price">
+								<p>Rs. 478</p>
+							</td>
+							<td class="cart_quantity">
+								<button class="disabled">1</button>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">Rs. 478</p>
+							</td>
+						</tr>
+						
+
+						<tr>
+							<td></td>
+							<td></td>
+							<td colspan="2">
+								<h4><b>Total Amount</b></h4>
+							</td>
+							<td>
+								<p class="cart_total_price">Rs. 8202</p>
+							</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+
+			<div id="ordermsg" class="form-group">
+				<label>If you would like to add a comment about your order, please write it in the field below.</label>
+				<textarea class="form-control" cols="60" rows="6" name="message"></textarea>
+			</div>
+			<div>
+				<a href="/payment" class="btn btn-default check_out">Place Order</a>
+			</div>
+		</div>
+	</section> <!--/#cart_items-->
+
+	<div style="width: 100%; height: auto; clear: none; text-align: center;" class="google-auto-placed"><ins style="display: block; margin: 10px auto; background-color: transparent; height: 0px;" data-ad-format="auto" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-1677597403311019" data-adsbygoogle-status="done" data-ad-status="unfilled"><div id="aswift_1_host" style="border: medium; height: 0px; width: 1200px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block; overflow: hidden; opacity: 0;"><iframe id="aswift_1" name="aswift_1" style="left: 0px; position: absolute; top: 0px; border: 0px; width: 1200px; height: 0px; min-height: auto; max-height: none; min-width: auto; max-width: none;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="1200" height="0" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="https://googleads.g.doubleclick.net/pagead/ads?gdpr=0&amp;client=ca-pub-1677597403311019&amp;output=html&amp;h=280&amp;adk=3809598800&amp;adf=854766408&amp;pi=t.aa~a.736490994~rp.1&amp;w=1200&amp;fwrn=4&amp;fwrnh=100&amp;lmt=1773340527&amp;rafmt=1&amp;to=qs&amp;pwprc=4334590153&amp;format=1200x280&amp;url=https%3A%2F%2Fautomationexercise.com%2Fcheckout&amp;fwr=0&amp;pra=3&amp;rpe=1&amp;resp_fmts=3&amp;aieuf=1&amp;aicrs=1&amp;fa=40&amp;abgtt=6&amp;dt=1773340527059&amp;bpp=2&amp;bdt=1413&amp;idt=-M&amp;shv=r20260311&amp;mjsv=m202603050101&amp;ptt=9&amp;saldr=aa&amp;abxe=1&amp;cookie=ID%3Dfe89d7b0c1a5d33b%3AT%3D1773340522%3ART%3D1773340522%3AS%3DALNI_MbIN-HgmjC4SeA95CABdUUReVI4-A&amp;gpic=UID%3D0000134d6f3d3595%3AT%3D1773340522%3ART%3D1773340522%3AS%3DALNI_MbgFm1YVEF36OpmE84Z60JKGCJO0w&amp;eo_id_str=ID%3D9f3bb4a1db0a677f%3AT%3D1773340522%3ART%3D1773340522%3AS%3DAA-Afja5Wlq4T1RzlChXByLitNUb&amp;prev_fmts=0x0&amp;nras=2&amp;correlator=3315659754487&amp;rume=1&amp;frm=20&amp;pv=1&amp;u_tz=0&amp;u_his=3&amp;u_h=1080&amp;u_w=1920&amp;u_ah=1080&amp;u_aw=1920&amp;u_cd=24&amp;u_sd=1&amp;adx=360&amp;ady=1684&amp;biw=1920&amp;bih=1080&amp;scr_x=0&amp;scr_y=0&amp;eid=95385581%2C31097043%2C31097122%2C42531706%2C95378425%2C95383701%2C95384193%2C95385044%2C95384713%2C95382196%2C31061691%2C31061692&amp;oid=2&amp;pvsid=458238313913883&amp;tmod=1075059916&amp;uas=3&amp;nvt=1&amp;ref=https%3A%2F%2Fautomationexercise.com%2Fview_cart&amp;fc=1920&amp;brdim=0%2C0%2C0%2C0%2C1920%2C0%2C1920%2C1080%2C1920%2C1080&amp;vis=1&amp;rsz=%7C%7Cs%7C&amp;abl=NS&amp;fu=128&amp;bc=31&amp;plas=366x854_l%7C366x854_r&amp;bz=1&amp;ifi=2&amp;uci=a!2&amp;btvi=1&amp;fsb=1&amp;dtd=89" data-google-container-id="a!2" tabindex="0" title="Advertisement" aria-label="Advertisement" data-google-query-id="CJvMxqGAm5MDFRsBewcd74YMpA" data-load-complete="true"></iframe></div></ins></div><footer id="footer">
+		<div class="footer-widget">
+			<div class="container">
+				<div class="row">
+					<div class="form-row">
+						<div class="col-md-9 hide form-group" id="success-subscribe">
+							<div class="alert-success alert">You have been successfully subscribed!</div>
+						</div>
+					</div>
+					<div class="col-sm-3 col-sm-offset-1">
+						<div class="single-widget">
+							<h2>Subscription</h2>
+							<form class="searchform" method="POST">
+								<input type="hidden" name="csrfmiddlewaretoken" value="w8wax6cPPnxkWZfo0XYmJ0PqV1OPSflzZim13fDe1AHfP8Swn9IJUr18D3jjFIJB">
+								<input type="email" id="susbscribe_email" required="" placeholder="Your email address">
+								<button type="submit" id="subscribe" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+								<p>Get the most recent updates from <br>our site and be updated your self...</p>
+							</form>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row">
+					<p class="pull-left">Copyright © 2021 All rights reserved</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	
+
+
+    <script src="/static/js/jquery.js"></script>
+	<script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/jquery.scrollUp.min.js"></script>
+    <script src="/static/js/jquery.prettyPhoto.js"></script>
+    <script src="/static/js/main.js"></script>
+	<script src="/static/js/subscription.js"></script>
+<script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;cd4e8a3390ec4a29b8f61484a473eff3&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+
+<a id="scrollUp" href="#top" style="display: none; position: fixed; z-index: 2147483647;"><i class="fa fa-angle-up"></i></a><ins class="adsbygoogle adsbygoogle-noablate" style="display: none !important;" data-ad-hi="true" data-adsbygoogle-status="done" data-ad-status="unfilled"><div id="aswift_0_host" style="border: medium; height: 0px; width: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx;min-height:auto;max-height:none;min-width:auto;max-width:none;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="https://googleads.g.doubleclick.net/pagead/ads?client=ca-pub-1677597403311019&amp;output=html&amp;adk=1812271804&amp;adf=3025194257&amp;lmt=1773340526&amp;plat=9%3A32776%2C16%3A8388608%2C17%3A32%2C24%3A32%2C25%3A32%2C30%3A1081344%2C32%3A32%2C41%3A32%2C42%3A32%2C43%3A32&amp;format=0x0&amp;url=https%3A%2F%2Fautomationexercise.com%2Fcheckout&amp;pra=5&amp;aiof=9&amp;asro=0&amp;aiapm=0.1542&amp;aiapmd=0.1423&amp;aiapmi=0.16&amp;aiapmid=1&amp;aiact=0.0001&amp;aiactd=0.0001&amp;aicct=0.0001&amp;aicctd=0.0001&amp;ailct=0.0001&amp;ailctd=0.0001&amp;aimart=4&amp;aimartd=4&amp;aieuf=1&amp;aicrs=1&amp;abgtt=6&amp;dt=1773340526067&amp;bpp=4&amp;bdt=420&amp;idt=97&amp;shv=r20260311&amp;mjsv=m202603050101&amp;ptt=9&amp;saldr=aa&amp;abxe=1&amp;cookie=ID%3Dfe89d7b0c1a5d33b%3AT%3D1773340522%3ART%3D1773340522%3AS%3DALNI_MbIN-HgmjC4SeA95CABdUUReVI4-A&amp;gpic=UID%3D0000134d6f3d3595%3AT%3D1773340522%3ART%3D1773340522%3AS%3DALNI_MbgFm1YVEF36OpmE84Z60JKGCJO0w&amp;eo_id_str=ID%3D9f3bb4a1db0a677f%3AT%3D1773340522%3ART%3D1773340522%3AS%3DAA-Afja5Wlq4T1RzlChXByLitNUb&amp;nras=1&amp;correlator=3315659754487&amp;rume=1&amp;frm=20&amp;pv=2&amp;u_tz=0&amp;u_his=3&amp;u_h=1080&amp;u_w=1920&amp;u_ah=1080&amp;u_aw=1920&amp;u_cd=24&amp;u_sd=1&amp;adx=-12245933&amp;ady=-12245933&amp;biw=1920&amp;bih=1080&amp;scr_x=0&amp;scr_y=0&amp;eid=95385581%2C31097043%2C31097122%2C42531706%2C95378425%2C95383701%2C95384193%2C95385044%2C95384713%2C95382196%2C31061691%2C31061692&amp;oid=2&amp;pvsid=458238313913883&amp;tmod=1075059916&amp;uas=3&amp;nvt=1&amp;fsapi=1&amp;ref=https%3A%2F%2Fautomationexercise.com%2Fview_cart&amp;fc=1920&amp;brdim=0%2C0%2C0%2C0%2C1920%2C0%2C1920%2C1080%2C1920%2C1080&amp;vis=1&amp;rsz=%7C%7Cs%7C&amp;abl=NS&amp;fu=32768&amp;bc=31&amp;plas=366x854_l%7C366x854_r&amp;bz=1&amp;ifi=1&amp;uci=a!1&amp;fsb=1&amp;dtd=120" data-google-container-id="a!1" tabindex="0" title="Advertisement" aria-label="Advertisement" data-load-complete="true"></iframe></div></ins><iframe style="display: none; width: 0px; height: 0px; border: medium; z-index: -1000; left: -1000px; top: -1000px;" name="googlefcPresent"></iframe><iframe src="https://www.google.com/recaptcha/api2/aframe" width="0" height="0" style="display: none;"></iframe><iframe name="__tcfapiLocator" src="about:blank" style="display: none; width: 0px; height: 0px; border: medium; z-index: -1000; left: -1000px; top: -1000px;"></iframe><iframe name="googlefcInactive" src="about:blank" style="display: none; width: 0px; height: 0px; border: medium; z-index: -1000; left: -1000px; top: -1000px;"></iframe><iframe name="googlefcLoaded" src="about:blank" style="display: none; width: 0px; height: 0px; border: medium; z-index: -1000; left: -1000px; top: -1000px;"></iframe></body><iframe id="google_esf" name="google_esf" src="https://googleads.g.doubleclick.net/pagead/html/r20260311/r20190131/zrt_lookup_fy2021.html" style="display: none;"></iframe><ins class="adsbygoogle adsbygoogle-noablate" style="display: none !important; width: 100vw !important; height: 100vh !important; inset: 0px auto auto 0px !important; clear: none !important; float: none !important; margin: 0px !important; max-height: none !important; max-width: none !important; opacity: 1 !important; overflow: visible !important; padding: 0px !important; position: fixed !important; vertical-align: baseline !important; visibility: visible !important; z-index: 2147483647 !important; background: transparent !important;" data-adsbygoogle-status="done" aria-hidden="true" data-ad-status="filled" data-vignette-loaded="true"><div id="aswift_2_host" style="border: medium !important; height: 100vh !important; width: 100vw !important; margin: 0px !important; padding: 0px !important; position: relative !important; visibility: visible !important; background-color: transparent !important; display: inline-block !important; inset: auto !important; clear: none !important; float: none !important; max-height: none !important; max-width: none !important; opacity: 1 !important; overflow: visible !important; vertical-align: baseline !important; z-index: auto !important;"><iframe id="aswift_2" name="aswift_2" style="width: 100vw !important; height: 100vh !important; min-height: auto !important; max-height: none !important; min-width: auto !important; max-width: none !important; inset: 0px auto auto 0px !important; position: absolute !important; clear: none !important; display: inline !important; float: none !important; margin: 0px !important; opacity: 1 !important; overflow: visible !important; padding: 0px !important; vertical-align: baseline !important; visibility: visible !important; z-index: auto !important;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="" height="" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="https://googleads.g.doubleclick.net/pagead/html/r20260311/r20190131/zrt_lookup_fy2021.html#RS-0-&amp;adk=1812271808&amp;client=ca-pub-1677597403311019&amp;fa=8&amp;ifi=3&amp;uci=a!3" data-google-container-id="a!3" tabindex="0" title="Advertisement" aria-label="Advertisement" data-google-query-id="CLu_i6GAm5MDFbjYTAIdKY8V9A" data-load-complete="true"></iframe></div></ins></html>
