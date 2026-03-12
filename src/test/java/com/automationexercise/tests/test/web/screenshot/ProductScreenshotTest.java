@@ -1,6 +1,7 @@
 package com.automationexercise.tests.test.web.screenshot;
 
 import com.automationexercise.tests.jupiter.anno.meta.ScreenshotTest;
+import com.automationexercise.tests.models.ScreenshotParam;
 import com.automationexercise.tests.models.allure.AllureTag;
 import com.automationexercise.tests.page.products.MainPage;
 import com.automationexercise.tests.page.products.ProductPage;
@@ -59,7 +60,13 @@ class ProductScreenshotTest extends BaseTest {
         new MainPage().open()
 
                 // Assertions
-                .checkProductCardOverlayHasScreenshot(productTitle, PRODUCT_CARD_OVERLAY_IMG);
+                .checkProductCardOverlayHasScreenshot(
+                        productTitle,
+                        ScreenshotParam.builder()
+                                .expectedScreenshotUrl(PRODUCT_CARD_OVERLAY_IMG)
+                                .timeout(500)
+                                .build()
+                );
     }
 
     @Tag(AllureTag.PRODUCT_CARD_TEST)
@@ -77,6 +84,7 @@ class ProductScreenshotTest extends BaseTest {
                 .checkProductCardHasScreenshot(productTitle, PRODUCT_CARD_IMG);
     }
 
+    @Tag(AllureTag.DEBUG_TEST)
     @Tag(AllureTag.PRODUCT_CARD_TEST)
     @Owner(AllureTag.OWNER)
     @Test
@@ -89,7 +97,13 @@ class ProductScreenshotTest extends BaseTest {
         new ProductsListPage().open()
 
                 // Assertions
-                .checkProductCardOverlayHasScreenshot(productTitle, PRODUCT_CARD_OVERLAY_IMG);
+                .checkProductCardOverlayHasScreenshot(
+                        productTitle,
+                        ScreenshotParam.builder()
+                                .expectedScreenshotUrl(PRODUCT_CARD_OVERLAY_IMG)
+                                .timeout(500)
+                                .build()
+                );
     }
 
 }
