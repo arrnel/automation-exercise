@@ -31,6 +31,7 @@ jobs:
       GH_REPO: ${{ vars.GH_REPO }}
       BUILD_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
       EXECUTION_TYPE: github
+      IMAGE_PREFIX: ${{ vars.IMAGE_PREFIX }}
 
     steps:
       - name: Checkout repository
