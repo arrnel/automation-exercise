@@ -1,0 +1,20 @@
+ARG PLAYWRIGHT_VERSION="1.58.0"
+FROM mcr.microsoft.com/playwright/java:v${PLAYWRIGHT_VERSION}-noble
+
+RUN apt-get update && \
+    apt-get install -y \
+        xvfb \
+        dbus \
+        dbus-x11 \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+
+WORKDIR /automation-exercise
+COPY . /automation-exercise
+
+RUN chmod +x ./entrypoint.sh ./gradlew
+
+RUN if [ -x "$(command -v node)" ]; then apt-get remove -y nodejs npm; fi
+
+CMD ["./entrypoint.sh"]

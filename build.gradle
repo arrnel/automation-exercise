@@ -1,5 +1,7 @@
 buildscript {
     ext {
+        def envPlaywrightVersion = System.getenv('PLAYWRIGHT_VERSION')
+
         allureEnvironmentWritterVersion = '1.0.0'
         allureGradleVersion = '2.12.0'
         allureVersion = '2.29.0'
@@ -12,9 +14,11 @@ buildscript {
         jsr305Version = '3.0.2'
         junitJupiterVersion = '5.13.0'
         lombokVersion = '1.18.38'
-        playwriteVersion = '1.49.0'
+        playwrightVersion = envPlaywrightVersion ?: '1.58.0'
         restAssuredVersion = '5.5.5'
         slf4jVersion = '2.0.17'
+
+        println "Playwright version: ${playwrightVersion}"
     }
 }
 
@@ -92,7 +96,7 @@ dependencies {
     testImplementation "org.slf4j:slf4j-simple:${slf4jVersion}"
 
     // WEB
-    testImplementation "com.microsoft.playwright:playwright:${playwriteVersion}"
+    testImplementation "com.microsoft.playwright:playwright:${playwrightVersion}"
     testImplementation "com.github.automatedowl:allure-environment-writer:${allureEnvironmentWritterVersion}"
 
 }

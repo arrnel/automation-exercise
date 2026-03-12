@@ -22,7 +22,7 @@ inputs:
   test_container_title:
     description: Test container title
     required: true
-    default: "playwright-tests"
+    default: "automation-exercise-tests"
 
 runs:
   using: composite
