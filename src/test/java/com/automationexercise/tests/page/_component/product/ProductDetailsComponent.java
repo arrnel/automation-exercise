@@ -1,6 +1,7 @@
 package com.automationexercise.tests.page._component.product;
 
 import com.automationexercise.tests.models.PriceDTO;
+import com.automationexercise.tests.models.ScreenshotParam;
 import com.automationexercise.tests.models.UserType;
 import com.automationexercise.tests.page._component.BaseComponent;
 import com.microsoft.playwright.Locator;
@@ -49,8 +50,13 @@ public class ProductDetailsComponent extends BaseComponent<ProductDetailsCompone
     }
 
     @Step("Check product image has expected photo")
-    public ProductDetailsComponent checkProductHasPhoto(String pathToPhoto, double percentOfTolerance, boolean rewriteScreenshot) {
-        return checkElementHasScreenshot(locator.photo(), pathToPhoto, percentOfTolerance, rewriteScreenshot);
+    public ProductDetailsComponent checkProductHasPhoto(String expectedScreenshotUrl) {
+        return checkElementHasScreenshot(self, expectedScreenshotUrl);
+    }
+
+    @Step("Check product image has expected photo")
+    public ProductDetailsComponent checkProductHasPhoto(ScreenshotParam screenshotParam) {
+        return checkElementHasScreenshot(self, screenshotParam);
     }
 
     @Step("Check product has title: {title}")
@@ -99,13 +105,19 @@ public class ProductDetailsComponent extends BaseComponent<ProductDetailsCompone
         return this;
     }
 
+
     @Step("Check product has rating: {rating}")
     public ProductDetailsComponent checkProductHasRating(int rating) {
         log.info("Check product has rating: {}", rating);
         if (rating < 0 || rating > 10)
             throw new IllegalArgumentException("Rating can not be less than 0 or greater than 10");
         var ratingPhoto = "%s/rating/%d.png".formatted(CFG.pathToScreenshotsDirectory(), rating);
-        checkElementHasScreenshot(locator.rating(), ratingPhoto, 0.02, false);
+        checkElementHasScreenshot(locator.rating(),
+                ScreenshotParam.builder()
+                        .expectedScreenshotUrl(ratingPhoto)
+                        .tolerance(0.02)
+                        .rewrite(false)
+                        .build());
         return this;
     }
 
@@ -115,7 +127,12 @@ public class ProductDetailsComponent extends BaseComponent<ProductDetailsCompone
         if (rating < 0 || rating > 10)
             throw new IllegalArgumentException("Rating can not be less than 0 or greater than 10");
         var ratingPhoto = "/rating/%d.png".formatted(rating);
-        checkElementHasScreenshot(locator.rating(), ratingPhoto, 0.02, rewriteScreenshot);
+        checkElementHasScreenshot(locator.rating(),
+                ScreenshotParam.builder()
+                        .expectedScreenshotUrl(ratingPhoto)
+                        .tolerance(0.02)
+                        .rewrite(rewriteScreenshot)
+                        .build());
         return this;
     }
 
@@ -157,9 +174,16 @@ public class ProductDetailsComponent extends BaseComponent<ProductDetailsCompone
     }
 
     @Step("Check product details has screenshot")
-    public ProductDetailsComponent checkProductDetailsHasScreenshot(String pathToScreenshot, double percentOfTolerance, boolean rewriteScreenshot) {
+    public ProductDetailsComponent checkProductDetailsHasScreenshot(String pathToScreenshot) {
         log.info("Check product details has screenshot");
-        checkElementHasScreenshot(self, pathToScreenshot, percentOfTolerance, rewriteScreenshot);
+        checkElementHasScreenshot(self, pathToScreenshot);
+        return this;
+    }
+
+    @Step("Check product details has screenshot")
+    public ProductDetailsComponent checkProductDetailsHasScreenshot(ScreenshotParam screenshotParam) {
+        log.info("Check product details has screenshot");
+        checkElementHasScreenshot(self, screenshotParam);
         return this;
     }
 

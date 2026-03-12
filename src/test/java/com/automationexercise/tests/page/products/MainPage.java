@@ -2,6 +2,7 @@ package com.automationexercise.tests.page.products;
 
 import com.automationexercise.tests.ex.ProductNotFoundException;
 import com.automationexercise.tests.models.PriceDTO;
+import com.automationexercise.tests.models.ScreenshotParam;
 import com.automationexercise.tests.page._component._type.ProductsListType;
 import com.automationexercise.tests.page._component.carousel.ImageCarouselComponent;
 import com.automationexercise.tests.page._component.carousel.ProductCarouselComponent;
@@ -67,33 +68,17 @@ public class MainPage extends AbstractProductsPage<MainPage> {
     }
 
     @Nonnull
-    public MainPage checkImageCarouselHasScreenshot(String pathToScreenshot) {
-        return checkImageCarouselHasScreenshot(pathToScreenshot, 0, false);
-    }
-
-    @Nonnull
-    public MainPage checkImageCarouselHasScreenshot(String pathToScreenshot,
-                                                    double percentOfTolerance
-    ) {
-        return checkImageCarouselHasScreenshot(pathToScreenshot, percentOfTolerance, false);
-    }
-
-    @Nonnull
-    public MainPage checkImageCarouselHasScreenshot(String pathToScreenshot,
-                                                    boolean rewriteScreenshot
-    ) {
-        return checkImageCarouselHasScreenshot(pathToScreenshot, 0, rewriteScreenshot);
-    }
-
-    @Nonnull
-    @Step("Check image carousel has expected screenshot")
-    public MainPage checkImageCarouselHasScreenshot(String pathToScreenshot,
-                                                    double percentOfTolerance,
-                                                    boolean rewriteScreenshot
-    ) {
-        imageCarousel.checkCarouselHasScreenshot(pathToScreenshot, percentOfTolerance, rewriteScreenshot);
+    public MainPage checkImageCarouselHasScreenshot(String expectedScreenshotUrl) {
+        imageCarousel.checkCarouselHasScreenshot(expectedScreenshotUrl);
         return this;
     }
+
+    @Nonnull
+    public MainPage checkImageCarouselHasScreenshot(ScreenshotParam screenshotParam) {
+        imageCarousel.checkCarouselHasScreenshot(screenshotParam);
+        return this;
+    }
+
 
     // COMPONENT: RECOMMENDED PRODUCTS CAROUSEL
     @Nonnull
@@ -194,32 +179,17 @@ public class MainPage extends AbstractProductsPage<MainPage> {
     }
 
     @Nonnull
-    public MainPage checkRecommendedProductsCarouselHasScreenshot(String pathToScreenshot) {
-        return checkRecommendedProductsCarouselHasScreenshot(pathToScreenshot, 0, false);
-    }
-
-    @Nonnull
-    public MainPage checkRecommendedProductsCarouselHasScreenshot(String pathToScreenshot,
-                                                                  double percentOfTolerance
-    ) {
-        return checkRecommendedProductsCarouselHasScreenshot(pathToScreenshot, percentOfTolerance, false);
-    }
-
-    @Nonnull
-    public MainPage checkRecommendedProductsCarouselHasScreenshot(String pathToScreenshot,
-                                                                  boolean rewriteScreenshot
-    ) {
-        return checkRecommendedProductsCarouselHasScreenshot(pathToScreenshot, 0, rewriteScreenshot);
-    }
-
-    @Nonnull
-    public MainPage checkRecommendedProductsCarouselHasScreenshot(String pathToScreenshot,
-                                                                  double percentOfTolerance,
-                                                                  boolean rewriteScreenshot
-    ) {
-        recommendedProductsCarousel.checkCarouselHasScreenshot(pathToScreenshot, percentOfTolerance, rewriteScreenshot);
+    public MainPage checkRecommendedProductsCarouselHasScreenshot(String expectedScreenshotUrl) {
+        recommendedProductsCarousel.checkCarouselHasScreenshot(expectedScreenshotUrl);
         return this;
     }
+
+    @Nonnull
+    public MainPage checkRecommendedProductsCarouselHasScreenshot(ScreenshotParam screenshotParam) {
+        recommendedProductsCarousel.checkCarouselHasScreenshot(screenshotParam);
+        return this;
+    }
+
 
     // Assertions
     @Nonnull

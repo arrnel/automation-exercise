@@ -20,19 +20,19 @@ public class ScreenDiffResult implements BooleanSupplier {
     private static final double MAX_PERCENT = CFG.maxScreenshotDiff();
 
     private final BufferedImage actual;
-    private final double percentOfTolerance;
+    private final double tolerance;
     private final boolean hasDiff;
 
     @Getter
     private final ImageDiff diff;
 
-    public ScreenDiffResult(BufferedImage expected, BufferedImage actual, double percentOfTolerance) {
+    public ScreenDiffResult(BufferedImage expected, BufferedImage actual, double tolerance) {
 
-        if (percentOfTolerance < 0.0 || percentOfTolerance > MAX_PERCENT)
+        if (tolerance < 0.0 || tolerance > MAX_PERCENT)
             throw new IllegalArgumentException("Illegal percent of tolerance value. Allowed between [0, %f]".formatted(MAX_PERCENT));
 
         this.actual = actual;
-        this.percentOfTolerance = percentOfTolerance;
+        this.tolerance = tolerance;
         this.diff = new ImageDiffer().makeDiff(expected, actual);
         this.hasDiff = hasDiff();
 
@@ -41,16 +41,16 @@ public class ScreenDiffResult implements BooleanSupplier {
     private boolean hasDiff() {
 
         int totalPixels = actual.getWidth() * actual.getHeight();
-        long expectedDiffSize = Math.round(totalPixels * percentOfTolerance);
+        long expectedDiffSize = Math.round(totalPixels * tolerance);
 
         double diffPercent = (double) diff.getDiffSize() / totalPixels;
         var roundedActualPercentage = Double.parseDouble(new DecimalFormat("#.###").format(diffPercent));
-        var hasDiff = roundedActualPercentage > percentOfTolerance;
+        var hasDiff = roundedActualPercentage > tolerance;
         if (hasDiff) {
             var table = ScreenDiffTable.builder()
                     .expectedDiffSize(expectedDiffSize)
                     .actualDiffSize(diff.getDiffSize())
-                    .expectedDiffPercent(percentOfTolerance)
+                    .expectedDiffPercent(tolerance)
                     .actualDiffPercent(diffPercent)
                     .build()
                     .getDiffTable();

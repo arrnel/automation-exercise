@@ -45,13 +45,13 @@ public class ImageUtil {
 
     public static ScreenDiff getScreenDiff(byte[] expectedScreenshot,
                                            byte[] actualScreenshot,
-                                           double percentOfTolerance
+                                           double tolerance
     ) {
 
         var diffResult = new ScreenDiffResult(
                 ImageUtil.convertBytesToBufferedImage(expectedScreenshot),
                 ImageUtil.convertBytesToBufferedImage(actualScreenshot),
-                percentOfTolerance
+                tolerance
         );
 
         var diffResultImage = convertBufferedImageToBytes(
@@ -118,8 +118,8 @@ public class ImageUtil {
                 ctx.tolerance()
         );
 
-
-        if (CFG.rewriteAllScreenshots() || ctx.forceRewrite() || isNew)
+        var rewriteOldOnFailure = diff.isHasDiff() && (CFG.rewriteAllScreenshots() || ctx.rewriteScreenshot());
+        if (isNew || rewriteOldOnFailure)
             ImageUtil.rewriteImage(ctx.actualScreenshot(), ctx.expectedScreenshotPath());
 
         AllureUtil.addScreenDiffAttachment(diff);

@@ -8,5 +8,6 @@ public record ScreenshotCheckContext(
         byte[] actualScreenshot,
         Dimension actualScreenshotSize,
         double tolerance,
-        boolean forceRewrite
-) {}
+        boolean rewriteScreenshot
+) {
+}

@@ -28,7 +28,7 @@ class ProductCarouselScreenshotTest extends BaseTest {
 
                 // Assertion
                 .checkRecommendedProductsCarouselHasActiveSlide(1)
-                .checkRecommendedProductsCarouselHasScreenshot(SECOND_SLIDE_IMG, 0.01);
+                .checkRecommendedProductsCarouselHasScreenshot(SECOND_SLIDE_IMG);
     }
 
     @Owner(AllureTag.OWNER)
@@ -41,7 +41,7 @@ class ProductCarouselScreenshotTest extends BaseTest {
                 .showPreviousRecommendedProductsCarouselSlide()
                 // Assertion
                 .checkRecommendedProductsCarouselHasActiveSlide(0)
-                .checkRecommendedProductsCarouselHasScreenshot(FIRST_SLIDE_IMG, 0.01);
+                .checkRecommendedProductsCarouselHasScreenshot(FIRST_SLIDE_IMG);
     }
 
 }

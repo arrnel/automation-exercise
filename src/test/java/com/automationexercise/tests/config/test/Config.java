@@ -110,7 +110,15 @@ public interface Config {
     }
 
     default double maxScreenshotDiff() {
-        return getDoubleEnv("TEST_MAX_SCREENSHOT_DIFF", 0.2);
+        return EnvUtil.envVar("TEST_MAX_SCREENSHOT_DIFF", 0.2);
+    }
+
+    default double defaultScreenshotTolerance() {
+        return EnvUtil.envVar("TEST_DEFAULT_SCREENSHOT_TOLERANCE", 0.01);
+    }
+
+    default int defaultScreenshotTimeout() {
+        return EnvUtil.envVar("TEST_DEFAULT_SCREENSHOT_TIMEOUT", 200);
     }
 
     default long searchTimeout() {
@@ -118,7 +126,7 @@ public interface Config {
     }
 
     default boolean rewriteAllScreenshots() {
-        return getBooleanEnv("TEST_REWRITE_ALL_SCREENSHOTS", false);
+        return EnvUtil.envVar("TEST_REWRITE_ALL_SCREENSHOTS", false);
     }
 
     @Nonnull

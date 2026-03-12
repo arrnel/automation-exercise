@@ -29,7 +29,7 @@ class ProductScreenshotTest extends BaseTest {
         // Data
         var product = DataGenerator.expectedProduct();
         new ProductPage().open(product.id())
-                .checkProductDetailsHasScreenshot(PRODUCT_DETAILS_IMG, 0.01);
+                .checkProductDetailsHasScreenshot(PRODUCT_DETAILS_IMG);
     }
 
     @Tag(AllureTag.PRODUCT_CARD_TEST)
@@ -44,7 +44,7 @@ class ProductScreenshotTest extends BaseTest {
         new MainPage().open()
 
                 // Assertions
-                .checkProductCardHasScreenshot(productTitle, PRODUCT_CARD_IMG, 0.02);
+                .checkProductCardHasScreenshot(productTitle, PRODUCT_CARD_IMG);
     }
 
     @Tag(AllureTag.PRODUCT_CARD_TEST)
@@ -59,7 +59,7 @@ class ProductScreenshotTest extends BaseTest {
         new MainPage().open()
 
                 // Assertions
-                .checkProductCardOverlayHasScreenshot(productTitle, PRODUCT_CARD_OVERLAY_IMG, 0.02);
+                .checkProductCardOverlayHasScreenshot(productTitle, PRODUCT_CARD_OVERLAY_IMG);
     }
 
     @Tag(AllureTag.PRODUCT_CARD_TEST)
@@ -74,7 +74,7 @@ class ProductScreenshotTest extends BaseTest {
         new ProductsListPage().open()
 
                 // Assertions
-                .checkProductCardHasScreenshot(productTitle, PRODUCT_CARD_IMG, 0.02);
+                .checkProductCardHasScreenshot(productTitle, PRODUCT_CARD_IMG);
     }
 
     @Tag(AllureTag.PRODUCT_CARD_TEST)
@@ -89,7 +89,7 @@ class ProductScreenshotTest extends BaseTest {
         new ProductsListPage().open()
 
                 // Assertions
-                .checkProductCardOverlayHasScreenshot(productTitle, PRODUCT_CARD_OVERLAY_IMG, 0.02);
+                .checkProductCardOverlayHasScreenshot(productTitle, PRODUCT_CARD_OVERLAY_IMG);
     }
 
 }
