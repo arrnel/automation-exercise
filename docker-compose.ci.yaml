@@ -4,32 +4,34 @@ services:
     image: ${IMAGE_PREFIX}/automation-exercise-tests:latest
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile_ci
+      args:
+        PLAYWRIGHT_VERSION: ${PLAYWRIGHT_VERSION:-1.58.0}
     ports:
-      - "5900:5900"
-    container_name: playwright-tests
+      - "6080:6080"
     container_name: automation-exercise-tests
     working_dir: /automation-exercise
     volumes:
-      - ./workflow-resources/screenshot:/rococo/rococo-tests/.screen-output/screenshots/remote
+      - ./workflow-resources/screenshot:/automation-exercise/src/.screen-output/screenshots/remote
       - ./allure-results:/automation-exercise/build/allure-results
     environment:
-      - DISPLAY=${DISPLAY}
-      - ALLURE_DOCKER_API=${ALLURE_DOCKER_API}
-      - ALLURE_PROJECT_NAME=${ALLURE_PROJECT_NAME}
-      - TEST_ENV=${TEST_ENV:-ci}
+      - TEST_ENV=ci
+      - PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+      - TAG_EXPR=${TAG_EXPR}
+      - TEST_ARGS=${TEST_ARGS}
+      - TEST_ANIMATION_DURATION=${TEST_ANIMATION_DURATION:-1000}
       - TEST_DEFAULT_USER_PASSWORD=${TEST_DEFAULT_USER_PASSWORD}
-      - TEST_IGNORE_DISABLED_BY_ISSUE=${TEST_IGNORE_DISABLED_BY_ISSUE}
-      - TEST_MAX_SCREENSHOT_DIFF=${TEST_MAX_SCREENSHOT_DIFF}
-      - TEST_SAVE_FAILED_TESTS_VIDEO=${TEST_SAVE_FAILED_TESTS_VIDEO}
-      - TEST_REST_LOGS=${TEST_REST_LOGS}
-      - TEST_REWRITE_ALL_SCREENSHOTS=${TEST_REWRITE_ALL_SCREENSHOTS}
+      - TEST_IGNORE_DISABLED_BY_ISSUE=${TEST_IGNORE_DISABLED_BY_ISSUE:-false}
+      - TEST_MAX_SCREENSHOT_DIFF=${TEST_MAX_SCREENSHOT_DIFF:-0.2}
+      - TEST_SAVE_FAILED_TESTS_VIDEO=${TEST_SAVE_FAILED_TESTS_VIDEO:-false}
+      - TEST_REST_LOGS=${TEST_REST_LOGS:-ALL}
+      - TEST_REWRITE_ALL_SCREENSHOTS=${TEST_REWRITE_ALL_SCREENSHOTS:-false}
       - TESTS_PASSED_PERCENTAGE=${TESTS_PASSED_PERCENTAGE}
-      - PLAYWRIGHT_VERSION=${PLAYWRIGHT_VERSION}
+      - PLAYWRIGHT_VERSION=${PLAYWRIGHT_VERSION:-1.58.0}
       - PLAYWRIGHT_BROWSER_NAME=${PLAYWRIGHT_BROWSER_NAME}
-      - PLAYWRIGHT_BROWSER_TIMEOUT=${PLAYWRIGHT_BROWSER_TIMEOUT}
-      - PLAYWRIGHT_HEADLESS=${PLAYWRIGHT_HEADLESS}
-      - PLAYWRIGHT_SLOW_MOTION=${PLAYWRIGHT_SLOW_MOTION}
+      - PLAYWRIGHT_BROWSER_TIMEOUT=${PLAYWRIGHT_BROWSER_TIMEOUT:-10000}
+      - PLAYWRIGHT_HEADLESS=${PLAYWRIGHT_HEADLESS:-false}
+      - PLAYWRIGHT_SLOW_MOTION=${PLAYWRIGHT_SLOW_MOTION:-50.0}
       - GH_TOKEN=${GH_TOKEN}
       - GH_TOKEN_NAME=${GH_TOKEN_NAME}
       - GH_OWNER=${GH_OWNER}

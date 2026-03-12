@@ -6,7 +6,7 @@ export PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
 cd /automation-exercise
 chmod +x ./gradlew 2>/dev/null || true
 
-if [ "${ENABLE_VNC:-false}" = "true" ]; then
+if [ "${TEST_ENV}" != "ci" ] && [ "${ENABLE_VNC:-false}" = "true" ]; then
     echo "### Start VNC + noVNC..."
 
     mkdir -p /root/.vnc
