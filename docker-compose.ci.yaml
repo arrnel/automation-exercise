@@ -1,12 +1,14 @@
 services:
 
-  playwright-tests:
+  automation-exercise-tests:
+    image: ${IMAGE_PREFIX}/automation-exercise-tests:latest
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "5900:5900"
     container_name: playwright-tests
+    container_name: automation-exercise-tests
     working_dir: /automation-exercise
     volumes:
       - ./workflow-resources/screenshot:/rococo/rococo-tests/.screen-output/screenshots/remote
