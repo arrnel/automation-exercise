@@ -2,6 +2,7 @@ package com.automationexercise.tests.page.products;
 
 import com.automationexercise.tests.models.PriceDTO;
 import com.automationexercise.tests.models.ReviewInfo;
+import com.automationexercise.tests.models.ScreenshotParam;
 import com.automationexercise.tests.models.UserType;
 import com.automationexercise.tests.page.BasePage;
 import com.automationexercise.tests.page._component.filter.BrandFilter;
@@ -89,26 +90,14 @@ public class ProductPage extends BasePage<ProductPage> {
     }
 
     @Nonnull
-    public ProductPage checkProductHasPhoto(String pathToPhoto) {
-        return checkProductHasPhoto(pathToPhoto, 0, false);
+    public ProductPage checkProductHasPhoto(String expectedScreenshotUrl) {
+        productDetails.checkProductHasPhoto(expectedScreenshotUrl);
+        return this;
     }
 
     @Nonnull
-    public ProductPage checkProductHasPhoto(String pathToPhoto, boolean rewriteScreenshot) {
-        return checkProductHasPhoto(pathToPhoto, 0, rewriteScreenshot);
-    }
-
-    @Nonnull
-    public ProductPage checkProductHasPhoto(String pathToPhoto, double percentOfTolerance) {
-        return checkProductHasPhoto(pathToPhoto, percentOfTolerance, false);
-    }
-
-    @Nonnull
-    public ProductPage checkProductHasPhoto(String pathToPhoto,
-                                            double percentOfTolerance,
-                                            boolean rewriteScreenshot
-    ) {
-        productDetails.checkProductHasPhoto(pathToPhoto, percentOfTolerance, rewriteScreenshot);
+    public ProductPage checkProductHasPhoto(ScreenshotParam screenshotParam) {
+        productDetails.checkProductHasPhoto(screenshotParam);
         return this;
     }
 
@@ -192,25 +181,14 @@ public class ProductPage extends BasePage<ProductPage> {
 
     @Nonnull
     public ProductPage checkProductDetailsHasScreenshot(String pathToScreenshot) {
-        return checkProductDetailsHasScreenshot(pathToScreenshot, 0, false);
+        productDetails.checkProductDetailsHasScreenshot(pathToScreenshot);
+        return this;
     }
 
-    @Nonnull
-    public ProductPage checkProductDetailsHasScreenshot(String pathToScreenshot, boolean rewriteScreenshot) {
-        return checkProductDetailsHasScreenshot(pathToScreenshot, 0, rewriteScreenshot);
-    }
 
     @Nonnull
-    public ProductPage checkProductDetailsHasScreenshot(String pathToScreenshot, double percentOfTolerance) {
-        return checkProductDetailsHasScreenshot(pathToScreenshot, percentOfTolerance, false);
-    }
-
-    @Nonnull
-    public ProductPage checkProductDetailsHasScreenshot(String pathToScreenshot,
-                                                        double percentOfTolerance,
-                                                        boolean rewriteScreenshot
-    ) {
-        productDetails.checkProductDetailsHasScreenshot(pathToScreenshot, percentOfTolerance, rewriteScreenshot);
+    public ProductPage checkProductDetailsHasScreenshot(ScreenshotParam screenshotParam) {
+        productDetails.checkProductDetailsHasScreenshot(screenshotParam);
         return this;
     }
 

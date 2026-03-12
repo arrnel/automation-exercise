@@ -1,5 +1,6 @@
 package com.automationexercise.tests.page._component.common;
 
+import com.automationexercise.tests.models.ScreenshotParam;
 import com.automationexercise.tests.page._component.BaseComponent;
 import com.microsoft.playwright.Locator;
 import io.qameta.allure.Step;
@@ -78,12 +79,16 @@ public class NotificationComponent extends BaseComponent<NotificationComponent> 
     }
 
     @Step("Check notification has expected screenshot")
-    public NotificationComponent checkNotificationHasScreenshot(String pathToScreenshot,
-                                                                double percentOfTolerance,
-                                                                boolean rewriteScreenshot
-    ) {
+    public NotificationComponent checkNotificationHasScreenshot(String expectedScreenshotUrl) {
         log.info("Check notification has expected screenshot");
-        checkElementHasScreenshot(self, pathToScreenshot, percentOfTolerance, rewriteScreenshot);
+        checkElementHasScreenshot(self, expectedScreenshotUrl);
+        return this;
+    }
+
+    @Step("Check notification has expected screenshot")
+    public NotificationComponent checkNotificationHasScreenshot(ScreenshotParam screenshotParam) {
+        log.info("Check notification has expected screenshot");
+        checkElementHasScreenshot(self, screenshotParam);
         return this;
     }
 

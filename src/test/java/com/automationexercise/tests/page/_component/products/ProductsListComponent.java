@@ -1,6 +1,7 @@
 package com.automationexercise.tests.page._component.products;
 
 import com.automationexercise.tests.models.PriceDTO;
+import com.automationexercise.tests.models.ScreenshotParam;
 import com.automationexercise.tests.page._component.BaseComponent;
 import com.automationexercise.tests.page._component._type.ProductsListType;
 import com.automationexercise.tests.page.products.ProductPage;
@@ -56,36 +57,56 @@ public class ProductsListComponent extends BaseComponent<ProductsListComponent> 
     @Nonnull
     @Step("Check product card has expected screenshot in [{this.componentTitle}]: {productTitle}")
     public ProductsListComponent checkProductCardHasScreenshot(String productTitle,
-                                                               String pathToScreenshot,
-                                                               double percentOfTolerance,
-                                                               boolean rewriteScreenshot
+                                                               String pathToScreenshot
     ) {
-        checkElementHasScreenshot(locator.productWrapper(productTitle), pathToScreenshot, percentOfTolerance, rewriteScreenshot);
+        checkElementHasScreenshot(locator.productWrapper(productTitle), pathToScreenshot);
         return this;
+    }
+
+    @Nonnull
+    @Step("Check product card has expected screenshot in [{this.componentTitle}]: {productTitle}")
+    public ProductsListComponent checkProductCardHasScreenshot(String productTitle,
+                                                               ScreenshotParam screenshotParam
+    ) {
+        checkElementHasScreenshot(locator.productWrapper(productTitle), screenshotParam);
+        return this;
+    }
+
+    public ProductsListComponent checkProductCardOverlayHasScreenshot(String productTitle,
+                                                                      String expectedScreenshotUrl
+    ) {
+        return checkProductCardOverlayHasScreenshot(
+                productTitle,
+                ScreenshotParam.builder()
+                        .expectedScreenshotUrl(expectedScreenshotUrl)
+                        .build()
+        );
     }
 
     @Nonnull
     @SneakyThrows
     @Step("Check product card overlay has expected screenshot in [{this.componentTitle}]: {productTitle}")
     public ProductsListComponent checkProductCardOverlayHasScreenshot(String productTitle,
-                                                                      String pathToScreenshot,
-                                                                      double percentOfTolerance,
-                                                                      boolean rewriteScreenshot
+                                                                      ScreenshotParam screenshotParam
     ) {
         var productOverlay = locator.productWrapper(productTitle).locator("//*[@class='product-overlay']");
         locator.productContent(productTitle).hover();
-        self.page().waitForFunction(
-                "([overlay, content]) => { " +
-                        "const overlayDisplay = getComputedStyle(overlay, null).getPropertyValue(\"display\"); " +
-                        "const overlayHeight = getComputedStyle(overlay, null).getPropertyValue(\"height\"); " +
-                        "const contentHeight = getComputedStyle(content, null).getPropertyValue(\"height\"); " +
-                        "return overlayDisplay === 'block' && overlayHeight === contentHeight; " +
-                        "}",
-                new Object[]{productOverlay.elementHandle(), locator.productContent(productTitle).elementHandle()},
-                new Page.WaitForFunctionOptions().setTimeout(CFG.browserTimeout())
+        Runnable r = () -> {
+            self.page().waitForFunction(
+                    "([overlay, content]) => { " +
+                            "const overlayDisplay = getComputedStyle(overlay, null).getPropertyValue(\"display\"); " +
+                            "const overlayHeight = getComputedStyle(overlay, null).getPropertyValue(\"height\"); " +
+                            "const contentHeight = getComputedStyle(content, null).getPropertyValue(\"height\"); " +
+                            "return overlayDisplay === 'block' && overlayHeight === contentHeight; " +
+                            "}",
+                    new Object[]{productOverlay.elementHandle(), locator.productContent(productTitle).elementHandle()},
+                    new Page.WaitForFunctionOptions().setTimeout(CFG.browserTimeout())
+            );
+        };
+        checkElementHasScreenshot(
+                locator.productWrapper(productTitle),
+                screenshotParam.setAction(r)
         );
-        Thread.sleep(100);
-        checkElementHasScreenshot(locator.productWrapper(productTitle), pathToScreenshot, percentOfTolerance, rewriteScreenshot);
         return this;
     }
 

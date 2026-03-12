@@ -2,6 +2,7 @@ package com.automationexercise.tests.page;
 
 import com.automationexercise.tests.config.test.Config;
 import com.automationexercise.tests.models.ScreenshotCheckContext;
+import com.automationexercise.tests.models.ScreenshotParam;
 import com.automationexercise.tests.page._component.common.HeaderComponent;
 import com.automationexercise.tests.page._component.common.NotificationComponent;
 import com.automationexercise.tests.page._component.common.PageScrollerComponent;
@@ -105,26 +106,14 @@ public abstract class BasePage<T> {
     }
 
     @Nonnull
-    public T checkNotificationHasScreenshot(String pathToScreenshot) {
-        return checkNotificationHasScreenshot(pathToScreenshot, 0.0, false);
+    public T checkNotificationHasScreenshot(String expectedScreenshotUrl) {
+        notification.checkNotificationHasScreenshot(expectedScreenshotUrl);
+        return (T) this;
     }
 
     @Nonnull
-    public T checkNotificationHasScreenshot(String pathToScreenshot, boolean rewriteScreenshot) {
-        return checkNotificationHasScreenshot(pathToScreenshot, 0.0, rewriteScreenshot);
-    }
-
-    @Nonnull
-    public T checkNotificationHasScreenshot(String pathToScreenshot, double percentOfTolerance) {
-        return checkNotificationHasScreenshot(pathToScreenshot, percentOfTolerance, false);
-    }
-
-    @Nonnull
-    public T checkNotificationHasScreenshot(String pathToScreenshot,
-                                            double percentOfTolerance,
-                                            boolean rewriteScreenshot
-    ) {
-        notification.checkNotificationHasScreenshot(pathToScreenshot, percentOfTolerance, rewriteScreenshot);
+    public T checkNotificationHasScreenshot(ScreenshotParam screenshotParam) {
+        notification.checkNotificationHasScreenshot(screenshotParam);
         return (T) this;
     }
 
@@ -135,34 +124,29 @@ public abstract class BasePage<T> {
     }
 
     @Nonnull
-    public T checkPageHasScreenshot(String pathToScreenshot) {
-        return checkPageHasScreenshot(pathToScreenshot, 0.0, false);
+    public T checkPageHasScreenshot(String expectedScreenshotUrl) {
+        return checkPageHasScreenshot(
+                ScreenshotParam.builder()
+                        .expectedScreenshotUrl(expectedScreenshotUrl)
+                        .build()
+        );
     }
 
-    @Nonnull
-    public T checkPageHasScreenshot(String pathToScreenshot, double percentOfTolerance) {
-        return checkPageHasScreenshot(pathToScreenshot, percentOfTolerance, false);
-    }
-
-    @Nonnull
-    public T checkPageHasScreenshot(String pathToScreenshot, boolean rewriteScreenshot) {
-        return checkPageHasScreenshot(pathToScreenshot, 0.0, rewriteScreenshot);
-    }
 
     @Nonnull
     @SneakyThrows
     @SuppressWarnings("unchecked")
-    public T checkPageHasScreenshot(String path, double percentOfTolerance, boolean rewriteScreenshot) {
+    public T checkPageHasScreenshot(ScreenshotParam screenshotParam) {
         var size = Arrays.stream(CFG.browserSize().split("x"))
                 .mapToInt(Integer::parseInt)
                 .toArray();
 
         var ctx = new ScreenshotCheckContext(
-                Paths.get(CFG.pathToScreenshotsDirectory(), path),
+                Paths.get(CFG.pathToScreenshotsDirectory(), screenshotParam.getExpectedScreenshotUrl()),
                 page.screenshot(),
                 new Dimension(size[0], size[1]),
-                percentOfTolerance,
-                rewriteScreenshot
+                screenshotParam.getTolerance(),
+                screenshotParam.isRewrite()
         );
 
         ImageUtil.performScreenshotCheck(ctx);

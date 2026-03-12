@@ -2,6 +2,7 @@ package com.automationexercise.tests.test.web;
 
 import com.automationexercise.tests.jupiter.anno.ApiLogin;
 import com.automationexercise.tests.jupiter.anno.meta.ScreenshotTest;
+import com.automationexercise.tests.models.ScreenshotParam;
 import com.automationexercise.tests.models.allure.AllureTag;
 import com.automationexercise.tests.page.order.CheckoutPage;
 import com.automationexercise.tests.page.products.MainPage;
@@ -30,7 +31,12 @@ class PageScrollerWebTest {
                 .scrollToTop();
 
         // Assertions
-        mainPage.checkPageHasScreenshot("/page/main.png", 0.005);
+        mainPage.checkPageHasScreenshot(
+                ScreenshotParam.builder()
+                        .expectedScreenshotUrl("/page/main.png")
+                        .tolerance(0.005)
+                        .build()
+        );
     }
 
     @Owner(AllureTag.OWNER)
@@ -45,7 +51,7 @@ class PageScrollerWebTest {
                 .scrollToTop();
 
         // Assertions
-        productsPage.checkPageHasScreenshot("/page/products.png", 0.01);
+        productsPage.checkPageHasScreenshot("/page/products.png");
     }
 
     @Owner(AllureTag.OWNER)

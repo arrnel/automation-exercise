@@ -2,6 +2,7 @@ package com.automationexercise.tests.page.products;
 
 import com.automationexercise.tests.ex.ProductNotFoundException;
 import com.automationexercise.tests.models.PriceDTO;
+import com.automationexercise.tests.models.ScreenshotParam;
 import com.automationexercise.tests.models.UserType;
 import com.automationexercise.tests.page.BasePage;
 import com.automationexercise.tests.page._component._type.ProductsListType;
@@ -180,61 +181,37 @@ public abstract class AbstractProductsPage<T> extends BasePage<T> {
         return (T) this;
     }
 
-    public T checkProductCardHasScreenshot(String productTitle, String pathToScreenshot) {
-        return checkProductCardHasScreenshot(productTitle, pathToScreenshot, 0.0);
+    public T checkProductCardHasScreenshot(String productTitle,
+                                           String expectedScreenshotUrl
+    ) {
+        productsList.checkProductCardHasScreenshot(productTitle, expectedScreenshotUrl);
+        return (T) this;
     }
 
     public T checkProductCardHasScreenshot(String productTitle,
-                                           String pathToScreenshot,
-                                           boolean rewriteScreenshot
+                                           ScreenshotParam screenshotParam
     ) {
-        return checkProductCardHasScreenshot(productTitle, pathToScreenshot, 0.0, rewriteScreenshot);
-    }
-
-    public T checkProductCardHasScreenshot(String productTitle,
-                                           String pathToScreenshot,
-                                           double percentOfTolerance
-    ) {
-        return checkProductCardHasScreenshot(productTitle, pathToScreenshot, percentOfTolerance, false);
-    }
-
-    public T checkProductCardHasScreenshot(String productTitle,
-                                           String pathToScreenshot,
-                                           double percentOfTolerance,
-                                           boolean rewriteScreenshot
-    ) {
-        productsList.checkProductCardHasScreenshot(productTitle, pathToScreenshot, percentOfTolerance, rewriteScreenshot);
+        productsList.checkProductCardHasScreenshot(productTitle, screenshotParam);
         return (T) this;
     }
 
     @Nonnull
-    public T checkProductCardOverlayHasScreenshot(String productTitle, String pathToScreenshot) {
-        return checkProductCardOverlayHasScreenshot(productTitle, pathToScreenshot, 0.0);
+    public T checkProductCardOverlayHasScreenshot(String productTitle, String expectedScreenshotUrl) {
+        productsList.checkProductCardOverlayHasScreenshot(
+                productTitle,
+                ScreenshotParam.builder()
+                        .expectedScreenshotUrl(expectedScreenshotUrl)
+                        .hover(true)
+                        .timeout(300)
+                        .build());
+        return (T) this;
     }
 
     @Nonnull
     public T checkProductCardOverlayHasScreenshot(String productTitle,
-                                                  String pathToScreenshot,
-                                                  boolean rewriteScreenshot
+                                                  ScreenshotParam screenshotParam
     ) {
-        return checkProductCardOverlayHasScreenshot(productTitle, pathToScreenshot, 0.0, rewriteScreenshot);
-    }
-
-    @Nonnull
-    public T checkProductCardOverlayHasScreenshot(String productTitle,
-                                                  String pathToScreenshot,
-                                                  double percentOfTolerance
-    ) {
-        return checkProductCardOverlayHasScreenshot(productTitle, pathToScreenshot, percentOfTolerance, false);
-    }
-
-    @Nonnull
-    public T checkProductCardOverlayHasScreenshot(String productTitle,
-                                                  String pathToScreenshot,
-                                                  double percentOfTolerance,
-                                                  boolean rewriteScreenshot
-    ) {
-        productsList.checkProductCardOverlayHasScreenshot(productTitle, pathToScreenshot, percentOfTolerance, rewriteScreenshot);
+        productsList.checkProductCardOverlayHasScreenshot(productTitle, screenshotParam.setHover(true));
         return (T) this;
     }
 

@@ -1,5 +1,6 @@
 package com.automationexercise.tests.page._component.carousel;
 
+import com.automationexercise.tests.models.ScreenshotParam;
 import com.automationexercise.tests.page._component.BaseComponent;
 import com.automationexercise.tests.page._component._type.CarouselType;
 import com.microsoft.playwright.Locator;
@@ -92,12 +93,16 @@ abstract class BaseCarouselComponent<T> extends BaseComponent<T> {
 
     @Nonnull
     @Step("Check [{this.componentTitle}] has expected screenshot")
-    public T checkCarouselHasScreenshot(String pathToScreenshot,
-                                        double percentOfTolerance,
-                                        boolean rewriteScreenshot
-    ) {
+    public T checkCarouselHasScreenshot(String expectedScreenshotUrl) {
         log.info("Check [{}] has expected screenshot", this.componentTitle);
-        return checkElementHasScreenshot(self, pathToScreenshot, percentOfTolerance, rewriteScreenshot);
+        return checkElementHasScreenshot(self, expectedScreenshotUrl);
+    }
+
+    @Nonnull
+    @Step("Check [{this.componentTitle}] has expected screenshot")
+    public T checkCarouselHasScreenshot(ScreenshotParam screenshotParam) {
+        log.info("Check [{}] has expected screenshot", this.componentTitle);
+        return checkElementHasScreenshot(self, screenshotParam);
     }
 
     protected int getActiveSlideNumber() {

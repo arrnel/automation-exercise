@@ -28,7 +28,7 @@ class NotificationScreenshotTest {
                 .addProductToCart(product.title())
 
                 // Assertions
-                .checkNotificationHasScreenshot(ADD_TO_CART_NOTIFICATION_IMG, 0.01);
+                .checkNotificationHasScreenshot(ADD_TO_CART_NOTIFICATION_IMG);
     }
 
 }

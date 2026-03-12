@@ -2,6 +2,7 @@ package com.automationexercise.tests.page._component;
 
 import com.automationexercise.tests.config.test.Config;
 import com.automationexercise.tests.models.ScreenshotCheckContext;
+import com.automationexercise.tests.models.ScreenshotParam;
 import com.automationexercise.tests.util.ImageUtil;
 import com.microsoft.playwright.Locator;
 import io.qameta.allure.Allure;
@@ -74,27 +75,45 @@ public abstract class BaseComponent<T> {
                 """);
     }
 
+    public T checkElementHasScreenshot(Locator locator, String expectedScreenshotUrl) {
+        return checkElementHasScreenshot(
+                locator,
+                ScreenshotParam.builder()
+                        .expectedScreenshotUrl(expectedScreenshotUrl)
+                        .build()
+        );
+    }
+
     @Nonnull
     @SneakyThrows
     @SuppressWarnings("unchecked")
     public T checkElementHasScreenshot(
             Locator locator,
-            String path,
-            double percentOfTolerance,
-            boolean rewriteScreenshot
+            ScreenshotParam screenshotParam
     ) {
+
+        locator.waitFor(VISIBLE_CONDITION);
+
+        if (screenshotParam.isHover())
+            locator.hover();
+
+        if (screenshotParam.getAction() != null) {
+            screenshotParam.getAction().run();
+        } else {
+            Thread.sleep(screenshotParam.getTimeout());
+        }
 
         var box = locator.boundingBox();
         if (box == null) {
-            throw new IllegalStateException("Элемент невидим");
+            throw new IllegalStateException("Component not visible");
         }
 
         var ctx = new ScreenshotCheckContext(
-                Paths.get(CFG.pathToScreenshotsDirectory(), path),
+                Paths.get(CFG.pathToScreenshotsDirectory(), screenshotParam.getExpectedScreenshotUrl()),
                 locator.screenshot(),
                 new Dimension((int) box.width, (int) box.height),
-                percentOfTolerance,
-                rewriteScreenshot
+                screenshotParam.getTolerance(),
+                screenshotParam.isRewrite()
         );
 
         ImageUtil.performScreenshotCheck(ctx);
