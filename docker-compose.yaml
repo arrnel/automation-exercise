@@ -8,20 +8,23 @@ services:
       args:
         PLAYWRIGHT_VERSION: ${PLAYWRIGHT_VERSION:-1.58.0}
     ports:
-      - "5900:5900"
-    container_name: playwright-tests
+      - "6080:6080"
     container_name: automation-exercise-tests
     working_dir: /automation-exercise
     volumes:
       - ./src/.screen-output/screenshots/docker:/automation-exercise/src/.screen-output/screenshots/docker
       - ./src/.screen-output/video/docker:/automation-exercise/src/.screen-output/video/docker
-      - ./build/allure-results:/automation-exercise/build/allure-results
+      - ./allure-results:/automation-exercise/build/allure-results
     cpu_count: 2
     mem_limit: 3500MB
     environment:
-      - DISPLAY=${DISPLAY}
-      - TEST_ANIMATION_DURATION=${TEST_ANIMATION_DURATION:-1000}
       - TEST_ENV=docker
+      - PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+      - ENABLE_VNC=${ENABLE_VNC:-false}
+      - VNC_PASS=${VNC_PASS}
+      - TAG_EXPR=${TAG_EXPR}
+      - TEST_ARGS=${TEST_ARGS}
+      - TEST_ANIMATION_DURATION=${TEST_ANIMATION_DURATION:-1000}
       - TEST_DEFAULT_USER_PASSWORD=${TEST_DEFAULT_USER_PASSWORD:-12345}
       - TEST_IGNORE_DISABLED_BY_ISSUE=${TEST_SAVE_FAILED_TESTS_VIDEO:-false}
       - TEST_MAX_SCREENSHOT_DIFF=${TEST_MAX_SCREENSHOT_DIFF:-0.2}
