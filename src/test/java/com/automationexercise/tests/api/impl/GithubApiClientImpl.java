@@ -23,7 +23,7 @@ public class GithubApiClientImpl extends RestClient implements GithubApiClient {
 
     @Nonnull
     public IssueState getIssueState(String issueId) {
-        var issueUrl = "/repos/%s/%s/issues/%s".formatted(CFG.githubOwner(), CFG.gitHubRepo(), issueId);
+        var issueUrl = "/repos/%s/%s/issues/%s".formatted(CFG.ghOwner(), CFG.ghRepo(), issueId);
         var stepDescription = "[API] Send get issue state request. [GET]:%s".formatted(issueUrl);
         log.info(stepDescription);
         String state = Allure.step(stepDescription, () ->
