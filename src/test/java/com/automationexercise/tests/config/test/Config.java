@@ -67,12 +67,12 @@ public interface Config {
     }
 
     @Nonnull
-    default String githubOwner() {
+    default String ghOwner() {
         return System.getenv("GH_OWNER");
     }
 
     @Nonnull
-    default String gitHubRepo() {
+    default String ghRepo() {
         return System.getenv("GH_REPO");
     }
 
@@ -207,7 +207,7 @@ public interface Config {
                     "ghRepo": "%s",
                     "ghToken": "%s",
                     "ghTokenName": "%s",
-                }""".formatted(ghApiUrl(), ghToken, ghTokenName(), gitHubRepo(), githubOwner());
+                }""".formatted(ghApiUrl(), ghOwner(), ghRepo(), ghToken, ghTokenName());
 
         return """
                 {
