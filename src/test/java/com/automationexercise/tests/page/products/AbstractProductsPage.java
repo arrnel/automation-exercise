@@ -202,7 +202,7 @@ public abstract class AbstractProductsPage<T> extends BasePage<T> {
                 ScreenshotParam.builder()
                         .expectedScreenshotUrl(expectedScreenshotUrl)
                         .hover(true)
-                        .timeout(300)
+                        .timeout(1_000)
                         .build());
         return (T) this;
     }

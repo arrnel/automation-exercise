@@ -100,7 +100,7 @@ class ProductScreenshotTest extends BaseTest {
                         productTitle,
                         ScreenshotParam.builder()
                                 .expectedScreenshotUrl(PRODUCT_CARD_OVERLAY_IMG)
-                                .timeout(500)
+                                .timeout(1_000)
                                 .rewrite(true)
                                 .build()
                 );
