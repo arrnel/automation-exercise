@@ -1,0 +1,463 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="This is for automation practice">
+	<meta name="robots" content="index">
+	<meta name="keywords" content="Automation Exercise / Automation Practice / Practice website for automation / demo website for practice / dummy website for testing / testing website / dummy website for practice automation / API Testing / API automation">
+	<meta name="google-site-verification" content="VS1KtEV7m0Pp9MRMwCpyR7rGwUVYH6N8l1zoVepsGWs">
+
+    <title>Automation Exercise - Checkout</title>
+
+	
+
+	<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/css/prettyPhoto.css" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+	<link href="/static/css/main.css" rel="stylesheet">
+	<link href="/static/css/responsive.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link href="/static/css/cart.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="/static/js/html5.js"></script>
+    <script src="/static/js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="/static/images/home/short_logo.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/static/images/ico/apple-touch-icon-57-precomposed.png">
+
+	<script src="https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202603090101/reactive_library_fy2021.js?bust=31097117"></script><script src="https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202603090101/show_ads_impl_fy2021.js?bust=31097117"></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1677597403311019" crossorigin="anonymous" data-checked-head="true"></script>
+
+
+	<style>
+          /* Extra small devices (phones, 600px and down) */
+            @media only screen and (max-width: 600px) {
+				.product_image {
+					margin-left: -25px;
+				}
+
+				.cart_delete {
+					display: block;
+					margin-right: 0px;
+					overflow: hidden;
+				}
+            }
+
+            /* Small devices (portrait tablets and large phones, 600px and up) */
+            @media only screen and (min-width: 600px) and (max-width: 768px) {
+
+            }
+
+            /* Medium devices (landscape tablets, 768px and up) */
+            @media only screen and (min-width: 768px) {
+
+            }
+
+            /* Large devices (laptops/desktops, 992px and up) */
+            @media only screen and (min-width: 992px) {
+            	.check_out {
+					margin-left: 900px;
+					margin-top: -30px;
+            	}
+            }
+
+            /* Extra large devices (large laptops and desktops, 1200px and up) */
+            @media only screen and (min-width: 1200px) {
+				.check_out {
+					margin-left: 900px;
+					margin-top: -30px;
+            	}
+            }
+      </style>
+
+<meta http-equiv="origin-trial" content="AlK2UR5SkAlj8jjdEc9p3F3xuFYlF6LYjAML3EOqw1g26eCwWPjdmecULvBH5MVPoqKYrOfPhYVL71xAXI1IBQoAAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="Amm8/NmvvQfhwCib6I7ZsmUxiSCfOxWxHayJwyU1r3gRIItzr7bNQid6O8ZYaE1GSQTa69WwhPC9flq/oYkRBwsAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="A9nrunKdU5m96PSN1XsSGr3qOP0lvPFUB2AiAylCDlN5DTl17uDFkpQuHj1AFtgWLxpLaiBZuhrtb2WOu7ofHwEAAACKeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElNdWx0aW1vZGFsSW5wdXQiLCJleHBpcnkiOjE3NzQzMTA0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A93bovR+QVXNx2/38qDbmeYYf1wdte9EO37K9eMq3r+541qo0byhYU899BhPB7Cv9QqD7wIbR1B6OAc9kEfYCA4AAACQeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElNdWx0aW1vZGFsSW5wdXQiLCJleHBpcnkiOjE3NzQzMTA0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A1S5fojrAunSDrFbD8OfGmFHdRFZymSM/1ss3G+NEttCLfHkXvlcF6LGLH8Mo5PakLO1sCASXU1/gQf6XGuTBgwAAACQeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElNdWx0aW1vZGFsSW5wdXQiLCJleHBpcnkiOjE3NzQzMTA0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><script async="" src="https://fundingchoicesmessages.google.com/i/ca-pub-1677597403311019?href=https%3A%2F%2Fautomationexercise.com%2Fview_cart&amp;ers=2"></script><script async="" src="https://fundingchoicesmessages.google.com/f/AGSKWxWcEpryyRnE-jeXAe1YiOLz1xqnH9461JmWUck6qbtPnUk0yTzvYIFGDstldflbw_4ks4SQengdR099w6gKPQxVif5uL3p69ayiFGKQAcxgZsWITX9LBrS8asDs_EGwRS0L4ffisA==?fccs=W1siQUtzUm9sOEVsV3k2b1dZaVZxc2Nxc203MHBHZFdKRnRjLVNUX2tKeTZvaHo5X0ljeFYxWkMwYzR0VmM2N0hLN2ljaGZ6SWZEdEdBaHF5Y2FJLVlmcHoyYk9rVU5DRXYtYTNkMVVORnR3cGNwa0ZiUlhrb29mdW5aTkJGNlN0Vm5PaWNIRjRISDhFNl9SdTF6ZnhjWEFlMF9PVmpQcHJpSEZBPT0iXSxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsWzE3NzMzODU2MjcsNzQzMDAwMDAwXSxudWxsLG51bGwsbnVsbCxbbnVsbCxbN11dLCJodHRwczovL2F1dG9tYXRpb25leGVyY2lzZS5jb20vdmlld19jYXJ0IixudWxsLFtbOCwielVVVUV6S3RKSmsiXSxbOSwiZW4tVVMiXSxbMjMsIjE3NzMzODU2MjEiXSxbMTksIjIiXSxbMTcsIlswXSJdLFsyNCwiYXV0b21hdGlvbmV4ZXJjaXNlLmNvbSJdLFsyOSwiZmFsc2UiXV1d"></script><script async="" src="https://fundingchoicesmessages.google.com/f/AGSKWxXAeb-PRt7H4Uoc1O6uan0RetXQOUHerfgYDHIPbzEiqLSGWDp-VmLZ_btiMpHNofF73ISfKuQC4kXoyIuX5wyPXQsYNjwlrIIU3w651gqeB9fyPU6LPZrptEN4_QEmtyjbCZkJhQ==?fccs=W1siQUtzUm9sOEVsV3k2b1dZaVZxc2Nxc203MHBHZFdKRnRjLVNUX2tKeTZvaHo5X0ljeFYxWkMwYzR0VmM2N0hLN2ljaGZ6SWZEdEdBaHF5Y2FJLVlmcHoyYk9rVU5DRXYtYTNkMVVORnR3cGNwa0ZiUlhrb29mdW5aTkJGNlN0Vm5PaWNIRjRISDhFNl9SdTF6ZnhjWEFlMF9PVmpQcHJpSEZBPT0iXSxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsWzE3NzMzODU2MjcsODI4MDAwMDAwXSxudWxsLG51bGwsbnVsbCxbbnVsbCxbNyw5XSxudWxsLDIsbnVsbCwiZW4iXSwiaHR0cHM6Ly9hdXRvbWF0aW9uZXhlcmNpc2UuY29tL3ZpZXdfY2FydCIsbnVsbCxbWzgsInpVVVVFekt0SkprIl0sWzksImVuLVVTIl0sWzIzLCIxNzczMzg1NjIxIl0sWzE5LCIyIl0sWzE3LCJbMF0iXSxbMjQsImF1dG9tYXRpb25leGVyY2lzZS5jb20iXSxbMjksImZhbHNlIl1dXQ"></script><script async="" src="https://fundingchoicesmessages.google.com/f/AGSKWxU3zE_7r-OrieW40ZqBLZClVEsYGtm759MGm3_Bg-B4i9mVqTzl6xjbmQ405kCrhvpKpKq4Z0iIN-nVxUUZR-uVmQIOFLGZIogrRvbXF4r7BcQRTEgMqNwCUq8f0o5MIEglSEUKRQ==?fccs=W1siQUtzUm9sOEVsV3k2b1dZaVZxc2Nxc203MHBHZFdKRnRjLVNUX2tKeTZvaHo5X0ljeFYxWkMwYzR0VmM2N0hLN2ljaGZ6SWZEdEdBaHF5Y2FJLVlmcHoyYk9rVU5DRXYtYTNkMVVORnR3cGNwa0ZiUlhrb29mdW5aTkJGNlN0Vm5PaWNIRjRISDhFNl9SdTF6ZnhjWEFlMF9PVmpQcHJpSEZBPT0iXSxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsWzE3NzMzODU2MjgsNTU0MDAwMDAwXSxudWxsLG51bGwsbnVsbCxbbnVsbCxbNyw5LDZdLG51bGwsMixudWxsLCJlbiIsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLDFdLCJodHRwczovL2F1dG9tYXRpb25leGVyY2lzZS5jb20vdmlld19jYXJ0IixudWxsLFtbOCwielVVVUV6S3RKSmsiXSxbOSwiZW4tVVMiXSxbMjMsIjE3NzMzODU2MjEiXSxbMTksIjIiXSxbMTcsIlswXSJdLFsyNCwiYXV0b21hdGlvbmV4ZXJjaXNlLmNvbSJdLFsyOSwiZmFsc2UiXV1d"></script></head>
+
+
+
+<body aria-hidden="true" style="top: -811px;">
+
+
+	<ins class="adsbygoogle adsbygoogle-noablate" data-ad-hi="true" data-adsbygoogle-status="done" style="display: none !important;" data-ad-status="unfilled"><div id="aswift_0_host" style="border: none; height: 0px; width: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx;min-height:auto;max-height:none;min-width:auto;max-width:none;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allow="attribution-reporting; run-ad-auction" src="https://googleads.g.doubleclick.net/pagead/ads?client=ca-pub-1677597403311019&amp;output=html&amp;adk=1812271804&amp;adf=3025194257&amp;lmt=1773385626&amp;plat=9%3A32776%2C16%3A8388608%2C17%3A32%2C24%3A32%2C25%3A32%2C30%3A1081344%2C32%3A32%2C41%3A32%2C42%3A32%2C43%3A32&amp;format=0x0&amp;url=https%3A%2F%2Fautomationexercise.com%2Fview_cart&amp;pra=5&amp;aiof=9&amp;asro=0&amp;aiapm=0.1542&amp;aiapmd=0.1423&amp;aiapmi=0.16&amp;aiapmid=1&amp;aiact=0.0001&amp;aiactd=0.0001&amp;aicct=0.0001&amp;aicctd=0.0001&amp;ailct=0.0001&amp;ailctd=0.0001&amp;aimart=4&amp;aimartd=4&amp;aieuf=1&amp;aicrs=1&amp;uach=WyJMaW51eCIsIjYuMTQuMCIsIng4NiIsIiIsIjEzOC4wLjcyMDQuMjMiLG51bGwsMCxudWxsLCI2NCIsW1siTm90KUE7QnJhbmQiLCI4LjAuMC4wIl0sWyJDaHJvbWl1bSIsIjEzOC4wLjcyMDQuMjMiXV0sMF0.&amp;abgtt=6&amp;dt=1773385626644&amp;bpp=27&amp;bdt=90&amp;idt=202&amp;shv=r20260312&amp;mjsv=m202603090101&amp;ptt=9&amp;saldr=aa&amp;abxe=1&amp;cookie=ID%3D26ca44412a9dec3c%3AT%3D1773385621%3ART%3D1773385621%3AS%3DALNI_MbHj9SDxU267p0bCQHRBEH4hlOEIQ&amp;gpic=UID%3D0000139b8ce0b2e4%3AT%3D1773385621%3ART%3D1773385621%3AS%3DALNI_MbPKudEcWH9Qep8XOcaQw9fu7qxbg&amp;eo_id_str=ID%3D8fdad7d9ef781fc3%3AT%3D1773385621%3ART%3D1773385621%3AS%3DAA-AfjbKRZmxQAO0sbW8kprgfBhB&amp;nras=1&amp;correlator=5706528210772&amp;frm=20&amp;pv=2&amp;u_tz=0&amp;u_his=4&amp;u_h=1080&amp;u_w=1920&amp;u_ah=1080&amp;u_aw=1920&amp;u_cd=24&amp;u_sd=1&amp;dmc=8&amp;adx=-12245933&amp;ady=-12245933&amp;biw=1905&amp;bih=1080&amp;scr_x=0&amp;scr_y=0&amp;eid=31097123%2C95378429%2C95381490%2C95383701%2C95384194%2C95385044%2C31097117%2C42533294&amp;oid=2&amp;pvsid=6420555458704272&amp;tmod=1242588551&amp;uas=0&amp;nvt=1&amp;fsapi=1&amp;ref=https%3A%2F%2Fautomationexercise.com%2Fproducts&amp;fc=1920&amp;brdim=10%2C10%2C10%2C10%2C1920%2C0%2C1928%2C1165%2C1920%2C1080&amp;vis=1&amp;rsz=%7C%7Cs%7C&amp;abl=NS&amp;fu=32768&amp;bc=31&amp;plas=366x854_l%7C366x854_r&amp;bz=1&amp;ifi=1&amp;uci=a!1&amp;fsb=1&amp;dtd=281" data-google-container-id="a!1" tabindex="0" title="Advertisement" aria-label="Advertisement" data-load-complete="true"></iframe></div></ins><header id="header">
+		<div class="header-middle">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="logo pull-left">
+							<a href="/"><img src="/static/images/home/logo.png" alt="Website for automation practice"></a>
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="shop-menu pull-right">
+							<ul class="nav navbar-nav">
+								<li><a href="/"><i class="fa fa-home"></i> Home</a></li>
+								<li><a href="/products"><i class="material-icons card_travel" style="font-size: 16px;"></i> Products</a></li>
+								<li><a href="/view_cart" style="color: orange;"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								
+								<li><a href="/login"><i class="fa fa-lock"></i> Signup / Login</a></li>
+								
+								<li><a href="/test_cases"><i class="fa fa-list"></i> Test Cases</a></li>
+								<li><a href="/api_list"><i class="fa fa-list"></i> API Testing</a></li>
+								<li><a href="https://www.youtube.com/c/AutomationExercise"><i class="fa fa-youtube-play"></i> Video Tutorials</a></li>
+								<li><a href="/contact_us"><i class="fa fa-envelope"></i> Contact us</a></li>
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<section id="cart_items">
+		<div class="container">
+			<div class="breadcrumbs">
+				<ol class="breadcrumb">
+				  <li><a href="/">Home</a></li>
+				  <li class="active">Shopping Cart</li>
+				</ol>
+			</div>
+
+			
+			<section id="do_action">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-6">
+							<a class="btn btn-default check_out">Proceed To Checkout</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Modal HTML -->
+			<div id="checkoutModal" class="modal fade">
+				<div class="modal-dialog modal-confirm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<div class="icon-box">
+								<i class="material-icons"></i>
+							</div>
+							<h4 class="modal-title w-100">Checkout</h4>
+						</div>
+						<div class="modal-body">
+							<p class="text-center">Register / Login account to proceed on checkout.</p>
+							<p class="text-center"><a href="/login"><u>Register / Login</u></a></p>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-success close-checkout-modal btn-block" data-dismiss="modal">Continue On Cart</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			</section>
+			
+
+			<div class="table-responsive cart_info" id="cart_info">
+			
+				<table class="table table-condensed" id="cart_info_table">
+					<thead>
+						<tr class="cart_menu">
+							<td class="image">Item</td>
+							<td class="description">Description</td>
+							<td class="price">Price</td>
+							<td class="quantity">Quantity</td>
+							<td class="total">Total</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+
+						
+						<tr id="product-3">
+							<td class="cart_product">
+								<a href=""><img src="get_product_picture/3" style="width:80px; height: 80px;" class="product_image" alt="Product Image"></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="/product_details/3">Sleeveless Dress</a></h4>
+								<p>Women &gt; Dress</p>
+							</td>
+							<td class="cart_price">
+								<p>Rs. 1000</p>
+							</td>
+							<td class="cart_quantity">
+								<button class="disabled">1</button>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">Rs. 1000</p>
+							</td>
+							<td class="cart_delete">
+								<a class="cart_quantity_delete" style="cursor: pointer;" data-product-id="3"><i class="fa fa-times"></i></a>
+							</td>
+						</tr>
+						
+						<tr id="product-41">
+							<td class="cart_product">
+								<a href=""><img src="get_product_picture/41" style="width:80px; height: 80px;" class="product_image" alt="Product Image"></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="/product_details/41">Beautiful Peacock Blue Cotton Linen Saree</a></h4>
+								<p>Women &gt; Saree</p>
+							</td>
+							<td class="cart_price">
+								<p>Rs. 5000</p>
+							</td>
+							<td class="cart_quantity">
+								<button class="disabled">1</button>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">Rs. 5000</p>
+							</td>
+							<td class="cart_delete">
+								<a class="cart_quantity_delete" style="cursor: pointer;" data-product-id="41"><i class="fa fa-times"></i></a>
+							</td>
+						</tr>
+						
+						<tr id="product-28">
+							<td class="cart_product">
+								<a href=""><img src="get_product_picture/28" style="width:80px; height: 80px;" class="product_image" alt="Product Image"></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="/product_details/28">Pure Cotton V-Neck T-Shirt</a></h4>
+								<p>Men &gt; Tshirts</p>
+							</td>
+							<td class="cart_price">
+								<p>Rs. 1299</p>
+							</td>
+							<td class="cart_quantity">
+								<button class="disabled">1</button>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">Rs. 1299</p>
+							</td>
+							<td class="cart_delete">
+								<a class="cart_quantity_delete" style="cursor: pointer;" data-product-id="28"><i class="fa fa-times"></i></a>
+							</td>
+						</tr>
+						
+						<tr id="product-20">
+							<td class="cart_product">
+								<a href=""><img src="get_product_picture/20" style="width:80px; height: 80px;" class="product_image" alt="Product Image"></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="/product_details/20">Cotton Mull Embroidered Dress</a></h4>
+								<p>Kids &gt; Dress</p>
+							</td>
+							<td class="cart_price">
+								<p>Rs. 1190</p>
+							</td>
+							<td class="cart_quantity">
+								<button class="disabled">1</button>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">Rs. 1190</p>
+							</td>
+							<td class="cart_delete">
+								<a class="cart_quantity_delete" style="cursor: pointer;" data-product-id="20"><i class="fa fa-times"></i></a>
+							</td>
+						</tr>
+						
+						<tr id="product-12">
+							<td class="cart_product">
+								<a href=""><img src="get_product_picture/12" style="width:80px; height: 80px;" class="product_image" alt="Product Image"></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="/product_details/12">Half Sleeves Top Schiffli Detailing - Pink</a></h4>
+								<p>Kids &gt; Tops &amp; Shirts</p>
+							</td>
+							<td class="cart_price">
+								<p>Rs. 359</p>
+							</td>
+							<td class="cart_quantity">
+								<button class="disabled">1</button>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">Rs. 359</p>
+							</td>
+							<td class="cart_delete">
+								<a class="cart_quantity_delete" style="cursor: pointer;" data-product-id="12"><i class="fa fa-times"></i></a>
+							</td>
+						</tr>
+						
+						<tr id="product-6">
+							<td class="cart_product">
+								<a href=""><img src="get_product_picture/6" style="width:80px; height: 80px;" class="product_image" alt="Product Image"></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="/product_details/6">Summer White Top</a></h4>
+								<p>Women &gt; Tops</p>
+							</td>
+							<td class="cart_price">
+								<p>Rs. 400</p>
+							</td>
+							<td class="cart_quantity">
+								<button class="disabled">1</button>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">Rs. 400</p>
+							</td>
+							<td class="cart_delete">
+								<a class="cart_quantity_delete" style="cursor: pointer;" data-product-id="6"><i class="fa fa-times"></i></a>
+							</td>
+						</tr>
+						
+						<tr id="product-2">
+							<td class="cart_product">
+								<a href=""><img src="get_product_picture/2" style="width:80px; height: 80px;" class="product_image" alt="Product Image"></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="/product_details/2">Men Tshirt</a></h4>
+								<p>Men &gt; Tshirts</p>
+							</td>
+							<td class="cart_price">
+								<p>Rs. 400</p>
+							</td>
+							<td class="cart_quantity">
+								<button class="disabled">1</button>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">Rs. 400</p>
+							</td>
+							<td class="cart_delete">
+								<a class="cart_quantity_delete" style="cursor: pointer;" data-product-id="2"><i class="fa fa-times"></i></a>
+							</td>
+						</tr>
+						
+						<tr id="product-13">
+							<td class="cart_product">
+								<a href=""><img src="get_product_picture/13" style="width:80px; height: 80px;" class="product_image" alt="Product Image"></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="/product_details/13">Frozen Tops For Kids</a></h4>
+								<p>Kids &gt; Tops &amp; Shirts</p>
+							</td>
+							<td class="cart_price">
+								<p>Rs. 278</p>
+							</td>
+							<td class="cart_quantity">
+								<button class="disabled">1</button>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">Rs. 278</p>
+							</td>
+							<td class="cart_delete">
+								<a class="cart_quantity_delete" style="cursor: pointer;" data-product-id="13"><i class="fa fa-times"></i></a>
+							</td>
+						</tr>
+						
+						<tr id="product-29">
+							<td class="cart_product">
+								<a href=""><img src="get_product_picture/29" style="width:80px; height: 80px;" class="product_image" alt="Product Image"></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="/product_details/29">Green Side Placket Detail T-Shirt</a></h4>
+								<p>Men &gt; Tshirts</p>
+							</td>
+							<td class="cart_price">
+								<p>Rs. 1000</p>
+							</td>
+							<td class="cart_quantity">
+								<button class="disabled">1</button>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">Rs. 1000</p>
+							</td>
+							<td class="cart_delete">
+								<a class="cart_quantity_delete" style="cursor: pointer;" data-product-id="29"><i class="fa fa-times"></i></a>
+							</td>
+						</tr>
+						
+						<tr id="product-43">
+							<td class="cart_product">
+								<a href=""><img src="get_product_picture/43" style="width:80px; height: 80px;" class="product_image" alt="Product Image"></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="/product_details/43">GRAPHIC DESIGN MEN T SHIRT - BLUE</a></h4>
+								<p>Men &gt; Tshirts</p>
+							</td>
+							<td class="cart_price">
+								<p>Rs. 1389</p>
+							</td>
+							<td class="cart_quantity">
+								<button class="disabled">1</button>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">Rs. 1389</p>
+							</td>
+							<td class="cart_delete">
+								<a class="cart_quantity_delete" style="cursor: pointer;" data-product-id="43"><i class="fa fa-times"></i></a>
+							</td>
+						</tr>
+						
+					</tbody>
+				</table>
+
+			
+
+				<span id="empty_cart" style="display: none;">
+					<br>
+					<p class="text-center" style="font-size: 18px;"><b>Cart is empty!</b> Click <a href="/products"><u>here</u></a> to buy products.</p>
+					<br>
+				</span>
+			</div>
+		</div>
+	</section>
+
+	<footer id="footer">
+		<div class="footer-widget">
+			<div class="container">
+				<div class="row">
+					<div class="form-row">
+						<div class="col-md-9 hide form-group" id="success-subscribe">
+							<div class="alert-success alert">You have been successfully subscribed!</div>
+						</div>
+					</div>
+					<div class="col-sm-3 col-sm-offset-1">
+						<div class="single-widget">
+							<h2>Subscription</h2>
+							<form class="searchform" method="POST">
+								<input type="hidden" name="csrfmiddlewaretoken" value="R5EmU0uoiq1nmOCyl1vmtH8pPJI11M91M11RzggptfqMqJgxDNUjMXYcGDnIwExg" style="">
+								<input type="email" id="susbscribe_email" required="" placeholder="Your email address" style="">
+								<button type="submit" id="subscribe" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+								<p>Get the most recent updates from <br>our site and be updated your self...</p>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row">
+					<p class="pull-left">Copyright © 2021 All rights reserved</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+    <script src="/static/js/jquery.js"></script>
+	<script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/jquery.scrollUp.min.js"></script>
+    <script src="/static/js/jquery.prettyPhoto.js"></script>
+    <script src="/static/js/main.js"></script>
+	<script src="/static/js/subscription.js"></script>
+	<script src="/static/js/cart.js"></script>
+	<script type="text/javascript">
+		$(".check_out").on("click", function() {
+			var logged_in_user = "";
+			if (logged_in_user) {
+				window.location = '/checkout';
+			} else {
+				$('#checkoutModal').removeClass('fade');
+           	 	$('#checkoutModal').addClass('show');
+			}
+		});
+
+		$('.close-checkout-modal').on('click', function() {
+			$('#checkoutModal').removeClass('show');
+			$('#checkoutModal').addClass('fade');
+		});
+	</script>
+<script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;cd4e8a3390ec4a29b8f61484a473eff3&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+
+<a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647;"><i class="fa fa-angle-up"></i></a><iframe name="googlefcPresent" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;"></iframe><iframe name="__tcfapiLocator" src="about:blank" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;"></iframe><iframe name="googlefcInactive" src="about:blank" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;"></iframe><iframe name="googlefcLoaded" src="about:blank" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;"></iframe><iframe src="https://www.google.com/recaptcha/api2/aframe" width="0" height="0" style="display: none;"></iframe><link rel="prerender" href="https://automationexercise.com/view_cart#top"><link rel="prefetch" href="https://automationexercise.com/view_cart#top"></body><iframe id="google_esf" name="google_esf" src="https://googleads.g.doubleclick.net/pagead/html/r20260312/r20190131/zrt_lookup_fy2021.html" style="display: none;"></iframe><ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: block !important; width: 100vw !important; height: 100vh !important; inset: 0px auto auto 0px !important; clear: none !important; float: none !important; margin: 0px !important; max-height: none !important; max-width: none !important; opacity: 1 !important; overflow: visible !important; padding: 0px !important; position: fixed !important; vertical-align: baseline !important; visibility: visible !important; z-index: 2147483647 !important; background: transparent !important;" aria-hidden="false" data-ad-status="filled" data-vignette-loaded="true" tabindex="0"><div id="aswift_1_host" style="border: none !important; height: 100vh !important; width: 100vw !important; margin: 0px !important; padding: 0px !important; position: relative !important; visibility: visible !important; background-color: transparent !important; display: inline-block !important; inset: auto !important; clear: none !important; float: none !important; max-height: none !important; max-width: none !important; opacity: 1 !important; overflow: visible !important; vertical-align: baseline !important; z-index: auto !important;"><iframe id="aswift_1" name="aswift_1" style="min-height: auto !important; max-height: none !important; min-width: auto !important; max-width: none !important; width: 100vw !important; height: 100vh !important; inset: 0px auto auto 0px !important; position: absolute !important; clear: none !important; display: inline !important; float: none !important; margin: 0px !important; opacity: 1 !important; overflow: visible !important; padding: 0px !important; vertical-align: baseline !important; visibility: visible !important; z-index: auto !important;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="" height="" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allow="attribution-reporting; run-ad-auction" src="https://googleads.g.doubleclick.net/pagead/html/r20260312/r20190131/zrt_lookup_fy2021.html#RS-0-&amp;adk=1812271808&amp;client=ca-pub-1677597403311019&amp;fa=8&amp;ifi=2&amp;uci=a!2" data-google-container-id="a!2" tabindex="0" title="Advertisement" aria-label="Advertisement" data-google-query-id="CInD4aKonJMDFfyBpgQd9288aQ" data-load-complete="true"></iframe></div></ins></html>
