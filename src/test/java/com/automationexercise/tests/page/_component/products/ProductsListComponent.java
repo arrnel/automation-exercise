@@ -90,24 +90,45 @@ public class ProductsListComponent extends BaseComponent<ProductsListComponent> 
                                                                       ScreenshotParam screenshotParam
     ) {
         var productOverlay = locator.productWrapper(productTitle).locator("//*[@class='product-overlay']");
+        var parentHandle = productOverlay.locator("..").elementHandle(); // или page.locator(".single-products").elementHandle()
         locator.productContent(productTitle).hover();
-        Runnable r = () -> {
+
+        Runnable action = () -> {
             self.page().waitForFunction(
-                    "([overlay, content]) => { " +
-                            "const overlayDisplay = getComputedStyle(overlay, null).getPropertyValue(\"display\"); " +
-                            "const overlayHeight = getComputedStyle(overlay, null).getPropertyValue(\"height\"); " +
-                            "const contentHeight = getComputedStyle(content, null).getPropertyValue(\"height\"); " +
-                            "return overlayDisplay === 'block' && overlayHeight === contentHeight; " +
-                            "}",
-                    new Object[]{productOverlay.elementHandle(), locator.productContent(productTitle).elementHandle()},
+                    """
+                            ([overlay, parent]) => {
+                                const style = getComputedStyle(overlay);
+                                if (style.display !== 'block') return false;
+                    
+                                const overlayHeight = parseFloat(style.height);
+                                const parentHeight = parseFloat(getComputedStyle(parent).height);
+                                const isFullyOpened = Math.abs(overlayHeight - parentHeight) < 1;
+                    
+                                if (isFullyOpened) {
+                                    overlay.style.transition = 'none';
+                                    overlay.style.height = parentHeight + 'px';
+                                    return true;
+                                }
+                                return false;
+                            }""",
+                    new Object[]{productOverlay.elementHandle(), parentHandle},
                     new Page.WaitForFunctionOptions().setTimeout(CFG.browserTimeout())
             );
+
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException ignored) {
+                // NOP
+            }
         };
+
         checkElementHasScreenshot(
                 locator.productWrapper(productTitle),
-                screenshotParam
+                screenshotParam.setAction(action)
         );
+
         return this;
+
     }
 
     @Nonnull

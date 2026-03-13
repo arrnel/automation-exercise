@@ -199,11 +199,7 @@ public abstract class AbstractProductsPage<T> extends BasePage<T> {
     public T checkProductCardOverlayHasScreenshot(String productTitle, String expectedScreenshotUrl) {
         productsList.checkProductCardOverlayHasScreenshot(
                 productTitle,
-                ScreenshotParam.builder()
-                        .expectedScreenshotUrl(expectedScreenshotUrl)
-                        .hover(true)
-                        .timeout(1_000)
-                        .build());
+                expectedScreenshotUrl);
         return (T) this;
     }
 
