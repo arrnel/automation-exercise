@@ -84,7 +84,6 @@ class ProductScreenshotTest extends BaseTest {
                 .checkProductCardHasScreenshot(productTitle, PRODUCT_CARD_IMG);
     }
 
-    @Tag(AllureTag.DEBUG_TEST)
     @Tag(AllureTag.PRODUCT_CARD_TEST)
     @Owner(AllureTag.OWNER)
     @Test
@@ -102,6 +101,7 @@ class ProductScreenshotTest extends BaseTest {
                         ScreenshotParam.builder()
                                 .expectedScreenshotUrl(PRODUCT_CARD_OVERLAY_IMG)
                                 .timeout(500)
+                                .rewrite(true)
                                 .build()
                 );
     }
