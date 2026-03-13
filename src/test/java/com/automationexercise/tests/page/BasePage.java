@@ -132,10 +132,10 @@ public abstract class BasePage<T> {
         );
     }
 
-
     @Nonnull
     @SneakyThrows
     @SuppressWarnings("unchecked")
+    @Step("Check current page has expected screenshot")
     public T checkPageHasScreenshot(ScreenshotParam screenshotParam) {
         var size = Arrays.stream(CFG.browserSize().split("x"))
                 .mapToInt(Integer::parseInt)
