@@ -105,7 +105,7 @@ public class ProductsListComponent extends BaseComponent<ProductsListComponent> 
         };
         checkElementHasScreenshot(
                 locator.productWrapper(productTitle),
-                screenshotParam.setAction(r)
+                screenshotParam
         );
         return this;
     }
