@@ -60,13 +60,7 @@ class ProductScreenshotTest extends BaseTest {
         new MainPage().open()
 
                 // Assertions
-                .checkProductCardOverlayHasScreenshot(
-                        productTitle,
-                        ScreenshotParam.builder()
-                                .expectedScreenshotUrl(PRODUCT_CARD_OVERLAY_IMG)
-                                .timeout(500)
-                                .build()
-                );
+                .checkProductCardOverlayHasScreenshot(productTitle, PRODUCT_CARD_OVERLAY_IMG);
     }
 
     @Tag(AllureTag.PRODUCT_CARD_TEST)
@@ -96,14 +90,7 @@ class ProductScreenshotTest extends BaseTest {
         new ProductsListPage().open()
 
                 // Assertions
-                .checkProductCardOverlayHasScreenshot(
-                        productTitle,
-                        ScreenshotParam.builder()
-                                .expectedScreenshotUrl(PRODUCT_CARD_OVERLAY_IMG)
-                                .timeout(1_000)
-                                .rewrite(true)
-                                .build()
-                );
+                .checkProductCardOverlayHasScreenshot(productTitle, PRODUCT_CARD_OVERLAY_IMG);
     }
 
 }
