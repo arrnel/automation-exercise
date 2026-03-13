@@ -107,8 +107,8 @@ public class ImageUtil {
 
     @SneakyThrows
     public static void performScreenshotCheck(ScreenshotCheckContext ctx) {
-        boolean isNew = Files.notExists(ctx.expectedScreenshotPath());
 
+        boolean isNew = Files.notExists(ctx.expectedScreenshotPath());
         if (isNew)
             ImageUtil.createImage(ctx.expectedScreenshotPath(), ctx.actualScreenshotSize(), Color.WHITE);
 
