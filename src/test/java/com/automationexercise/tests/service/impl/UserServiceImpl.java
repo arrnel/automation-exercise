@@ -1,7 +1,6 @@
 package com.automationexercise.tests.service.impl;
 
 import com.automationexercise.tests.api.UserApiClient;
-import com.automationexercise.tests.config.service.ServiceConfig;
 import com.automationexercise.tests.models.UserDTO;
 import com.automationexercise.tests.models.api.HttpStatus;
 import com.automationexercise.tests.service.UserApiService;
@@ -14,6 +13,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Optional;
 
 import static com.automationexercise.tests.api.core.condition.Conditions.*;
+import static com.automationexercise.tests.config.test.CfgInstance.SERVICE_CONFIG;
 import static com.automationexercise.tests.models.api.HttpStatus.CREATED;
 import static com.automationexercise.tests.models.api.HttpStatus.OK;
 import static io.restassured.http.ContentType.JSON;
@@ -22,8 +22,6 @@ import static io.restassured.http.ContentType.URLENC;
 @Slf4j
 @ParametersAreNonnullByDefault
 public class UserServiceImpl implements UserApiService {
-
-    private static final ServiceConfig SERVICE_CONFIG = ServiceConfig.getInstance();
 
     private final UserApiClient userClient = SERVICE_CONFIG.getUserApiClient();
 

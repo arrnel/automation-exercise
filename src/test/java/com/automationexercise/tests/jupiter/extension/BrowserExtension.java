@@ -1,171 +1,102 @@
 package com.automationexercise.tests.jupiter.extension;
 
+import com.automationexercise.tests.browser.BrowserName;
+import com.automationexercise.tests.browser.DriverManager;
+import com.automationexercise.tests.browser.PlaywrightContextStore;
 import com.automationexercise.tests.jupiter.Browser;
 import com.automationexercise.tests.jupiter.anno.meta.ScreenshotTest;
 import com.automationexercise.tests.jupiter.anno.meta.WebTest;
-import com.automationexercise.tests.util.browser.ChromeBrowserFactory;
-import com.automationexercise.tests.util.browser.FirefoxBrowserFactory;
-import com.automationexercise.tests.util.browser.PageStore;
-import com.automationexercise.tests.util.browser.WebKitBrowserFactory;
-import com.microsoft.playwright.Browser.NewContextOptions;
+import com.automationexercise.tests.util.AllureUtil;
 import com.microsoft.playwright.Page;
-import io.qameta.allure.Allure;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.extension.*;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Optional;
-import java.util.function.Supplier;
+
+import static com.automationexercise.tests.config.test.CfgInstance.CFG;
 
 @Slf4j
 public class BrowserExtension extends BaseExtension implements BeforeEachCallback, AfterEachCallback, TestExecutionExceptionHandler, LifecycleMethodExecutionExceptionHandler {
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
+        if (!isUiTest(context.getRequiredTestMethod())) return;
 
-        var clazz = context.getRequiredTestClass();
-        var method = context.getRequiredTestMethod();
-        if (!isClassHaveUiAnno(context.getRequiredTestClass()))
-            return;
+        Optional<Browser> anno = getBrowserAnnotation(context);
+        var browserName = anno.isPresent() && anno.get().value() != BrowserName.EMPTY
+                ? anno.get().value()
+                : CFG.browserName();
 
-        Optional<Browser> browserAnno = Optional.empty();
-        if (isMethodHaveBrowserAnno(method)) {
-            browserAnno = Optional.of(method.getAnnotation(Browser.class));
-        } else if (isClassHaveBrowserAnno(clazz)) {
-            browserAnno = Optional.of(clazz.getAnnotation(Browser.class));
-        }
-
-        var playwright = PageStore.INSTANCE.createNewPlaywright();
-
-        var browser = browserAnno
-                .map(value ->
-                        switch (value.value()) {
-                            case CHROMIUM -> ChromeBrowserFactory.INSTANCE.getBrowser(playwright);
-                            case FIREFOX -> FirefoxBrowserFactory.INSTANCE.getBrowser(playwright);
-                            case WEBKIT -> WebKitBrowserFactory.INSTANCE.getBrowser(playwright);
-                            default ->
-                                    throw new IllegalStateException("Browser [%s] not supported".formatted(value.value()));
-                        })
-                .orElse(PageStore.INSTANCE.getOrCreateNewBrowser());
-
-        var screenResolution = (browserAnno.isEmpty() || browserAnno.get().size().isBlank()
-                ? CFG.browserSize()
-                : browserAnno.get().size()
-        ).split("x");
-
-        var width = Integer.parseInt(screenResolution[0]);
-        var height = Integer.parseInt(screenResolution[1]);
-
-        var contextOptions = new NewContextOptions()
-                .setViewportSize(width, height);
-
-        if (CFG.saveFailedTestsVideo()) {
-            contextOptions
-                    .setRecordVideoSize(width, height)
-                    .setRecordVideoDir(Path.of(CFG.pathToVideosDirectory()).toAbsolutePath());
-        }
-
-        PageStore.INSTANCE.setBrowserContext(browser.newContext(contextOptions));
+        DriverManager.launch(browserName);
 
     }
 
-
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
-        if (!isClassHaveUiAnno(context.getRequiredTestClass()))
+        if (!isUiTest(context.getRequiredTestMethod()))
             return;
-        PageStore.INSTANCE.closeThreadPlaywrightData();
+        PlaywrightContextStore.INSTANCE.cleanCurrentThreadData();
     }
 
     @Override
     public void handleTestExecutionException(ExtensionContext context, Throwable throwable) throws Throwable {
-        if (!isClassHaveUiAnno(context.getRequiredTestClass()))
-            throw throwable;
-        attachPage();
-        attachScreenshot();
-        attachVideo();
-        throw throwable;
+        handleUiTestException(context, throwable);
     }
 
     @Override
     public void handleBeforeEachMethodExecutionException(ExtensionContext context, Throwable throwable) throws Throwable {
-        if (!isClassHaveUiAnno(context.getRequiredTestClass()))
-            throw throwable;
-        attachPage();
-        attachScreenshot();
-        attachVideo();
-        throw throwable;
+        handleUiTestException(context, throwable);
     }
 
     @Override
     public void handleAfterEachMethodExecutionException(ExtensionContext context, Throwable throwable) throws Throwable {
-        if (!isClassHaveUiAnno(context.getRequiredTestClass()))
+        handleUiTestException(context, throwable);
+    }
+
+
+    private Optional<Browser> getBrowserAnnotation(ExtensionContext context) {
+        var method = context.getRequiredTestMethod();
+        if (method.isAnnotationPresent(Browser.class)) {
+            return Optional.of(method.getAnnotation(Browser.class));
+        }
+        var clazz = context.getRequiredTestClass();
+        if (clazz.isAnnotationPresent(Browser.class)) {
+            return Optional.of(clazz.getAnnotation(Browser.class));
+        }
+        return Optional.empty();
+    }
+
+    private void handleUiTestException(ExtensionContext context, Throwable throwable) throws Throwable {
+        if (!isUiTest(context.getRequiredTestMethod())) {
             throw throwable;
-        attachPage();
-        attachScreenshot();
-        attachVideo();
+        }
+        attachTestArtifacts();
         throw throwable;
     }
 
-    private static void attachScreenshot() {
-        var page = PageStore.INSTANCE.getPage();
-        if (!page.isClosed()) {
-            Allure.addAttachment(
-                    "Screen on fail",
-                    new ByteArrayInputStream(page.screenshot())
-            );
+    private static void attachTestArtifacts() {
+
+        var page = PlaywrightContextStore.INSTANCE.getPage();
+        var isPageClosed = Optional.ofNullable(page)
+                .map(Page::isClosed)
+                .orElse(true);
+
+        if (!isPageClosed) {
+            AllureUtil.attachPage(page.content());
+            AllureUtil.attachScreenshot(page.screenshot());
+            AllureUtil.attachVideo(page.video().path());
         }
+
     }
 
-    private static void attachPage() {
-        var page = PageStore.INSTANCE.getPage();
-        if (!page.isClosed()) {
-            Allure.addAttachment(
-                    "Page html",
-                    "text/html",
-                    page.content(),
-                    "html"
-            );
-        }
+    private boolean isUiTest(Method method) {
+        return isAnnoExists(method, WebTest.class) || isAnnoExists(method, ScreenshotTest.class);
     }
 
-    @SneakyThrows
-    private static void attachVideo() {
-        var page = PageStore.INSTANCE.getPage();
-        if (CFG.saveFailedTestsVideo() && !page.isClosed()) {
-            Allure.addByteAttachmentAsync(
-                    "Test video",
-                    "video/webm",
-                    getVideo(page)
-            );
-        }
-    }
-
-    private static Supplier<byte[]> getVideo(Page page) {
-        return () -> {
-            try {
-                return Files.readAllBytes(page.video().path());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        };
-    }
-
-    private boolean isClassHaveUiAnno(Class<?> clazz) {
-        return clazz.isAnnotationPresent(WebTest.class) || clazz.isAnnotationPresent(ScreenshotTest.class);
-    }
-
-    private static boolean isClassHaveBrowserAnno(Class<?> clazz) {
-        return clazz.isAnnotationPresent(Browser.class);
-    }
-
-    private static boolean isMethodHaveBrowserAnno(Method method) {
-        return method.isAnnotationPresent(Browser.class);
+    private boolean isAnnoExists(Method method, Class<? extends Annotation> anno) {
+        return method.isAnnotationPresent(anno) || method.getDeclaringClass().isAnnotationPresent(anno);
     }
 
 }

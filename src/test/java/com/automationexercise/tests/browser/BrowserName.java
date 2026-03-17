@@ -1,4 +1,4 @@
-package com.automationexercise.tests.util.browser;
+package com.automationexercise.tests.browser;
 
 public enum BrowserName {
     EMPTY,

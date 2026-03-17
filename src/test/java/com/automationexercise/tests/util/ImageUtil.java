@@ -19,7 +19,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Base64;
 
-import static com.automationexercise.tests.util.browser.BrowserFactory.CFG;
+import static com.automationexercise.tests.config.test.CfgInstance.CFG;
+
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ImageUtil {
@@ -107,6 +108,7 @@ public class ImageUtil {
 
     @SneakyThrows
     public static void performScreenshotCheck(ScreenshotCheckContext ctx) {
+
         boolean isNew = Files.notExists(ctx.expectedScreenshotPath());
 
         if (isNew)
@@ -122,7 +124,7 @@ public class ImageUtil {
         if (isNew || rewriteOldOnFailure)
             ImageUtil.rewriteImage(ctx.actualScreenshot(), ctx.expectedScreenshotPath());
 
-        AllureUtil.addScreenDiffAttachment(diff);
+        AllureUtil.attachScreenDiff(diff);
 
         if (diff.isHasDiff())
             throw new ScreenshotException(

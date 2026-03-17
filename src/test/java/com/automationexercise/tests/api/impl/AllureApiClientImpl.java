@@ -11,6 +11,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 import static com.automationexercise.tests.api.core.condition.Conditions.statusCode;
+import static com.automationexercise.tests.config.test.CfgInstance.CFG;
 import static com.automationexercise.tests.models.api.HttpStatus.*;
 
 @Slf4j

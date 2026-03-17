@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import static com.automationexercise.tests.config.test.CfgInstance.CFG;
 import static com.automationexercise.tests.page._component._type.AddressType.BILLING_ADDRESS;
 import static com.automationexercise.tests.page._component._type.AddressType.DELIVERY;
 import static com.automationexercise.tests.page._component._type.CartListType.CHECKOUT_PRODUCTS;

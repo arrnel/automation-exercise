@@ -1,14 +1,14 @@
 package com.automationexercise.tests.page._component.filter;
 
-import com.automationexercise.tests.config.test.Config;
 import com.automationexercise.tests.page._component.BaseComponent;
 import com.microsoft.playwright.Locator;
 import io.qameta.allure.Step;
 import lombok.SneakyThrows;
 
+import static com.automationexercise.tests.config.test.CfgInstance.CFG;
+
 public class SearchFilter extends BaseComponent<SearchFilter> {
 
-    private static final Config CFG = Config.getInstance();
 
     private final SearchFilterLocator locator;
 

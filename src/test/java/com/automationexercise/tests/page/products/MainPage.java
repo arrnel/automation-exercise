@@ -15,6 +15,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
+import static com.automationexercise.tests.config.test.CfgInstance.CFG;
 import static com.automationexercise.tests.page._component._type.CarouselType.IMAGE;
 import static com.automationexercise.tests.page._component._type.CarouselType.RECOMMENDED_PRODUCTS;
 

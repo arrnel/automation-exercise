@@ -9,6 +9,8 @@ RUN apt-get update && \
     add-apt-repository universe -y && \
     apt-get update && \
     apt-get install -y \
+        libxml2 \
+        libflite1 \
         tigervnc-standalone-server \
         tigervnc-common \
         fluxbox \

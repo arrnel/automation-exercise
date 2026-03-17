@@ -1,6 +1,5 @@
 package com.automationexercise.tests.util.screenshot;
 
-import com.automationexercise.tests.config.test.Config;
 import io.qameta.allure.Allure;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -12,11 +11,12 @@ import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import java.util.function.BooleanSupplier;
 
+import static com.automationexercise.tests.config.test.CfgInstance.CFG;
+
 @Slf4j
 @ParametersAreNonnullByDefault
 public class ScreenDiffResult implements BooleanSupplier {
 
-    private static final Config CFG = Config.getInstance();
     private static final double MAX_PERCENT = CFG.maxScreenshotDiff();
 
     private final BufferedImage actual;

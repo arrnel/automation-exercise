@@ -1,7 +1,6 @@
 package com.automationexercise.tests.jupiter.extension;
 
 import com.automationexercise.tests.api.AllureApiClient;
-import com.automationexercise.tests.config.service.ServiceConfig;
 import com.automationexercise.tests.config.test.Config;
 import com.automationexercise.tests.models.allure.AllureResults;
 import com.automationexercise.tests.models.allure.DecodedAllureFile;
@@ -16,6 +15,9 @@ import java.nio.file.Path;
 import java.util.Base64;
 import java.util.List;
 
+import static com.automationexercise.tests.config.test.CfgInstance.CFG;
+import static com.automationexercise.tests.config.test.CfgInstance.SERVICE_CONFIG;
+
 /**
  * EXTENSION HAS GLOBAL REGISTRATION TYPE
  */
@@ -27,7 +29,7 @@ public class AllureDockerExtension extends BaseExtension implements SuiteExtensi
     private static final boolean IS_CI = "github".equalsIgnoreCase(System.getenv("EXECUTION_TYPE"));
     private static final String PROJECT_NAME = Config.PROJECT_NAME;
     private static final Path allureResultsDirectory = CFG.pathToAllureResults();
-    private static final AllureApiClient allureApiClient = ServiceConfig.getInstance().getAllureApiClient();
+    private static final AllureApiClient allureApiClient = SERVICE_CONFIG.getAllureApiClient();
 
     @Override
     public void beforeSuite(ExtensionContext context) {

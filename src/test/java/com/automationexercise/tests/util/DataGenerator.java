@@ -1,7 +1,5 @@
 package com.automationexercise.tests.util;
 
-import com.automationexercise.tests.config.service.ServiceConfig;
-import com.automationexercise.tests.config.test.Config;
 import com.automationexercise.tests.ex.ProductNotFoundException;
 import com.automationexercise.tests.models.*;
 import com.automationexercise.tests.models.Currency;
@@ -18,14 +16,14 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
+import static com.automationexercise.tests.config.test.CfgInstance.CFG;
+import static com.automationexercise.tests.config.test.CfgInstance.SERVICE_CONFIG;
 import static com.automationexercise.tests.models.UserType.*;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DataGenerator {
 
     private static final Faker FAKE = new Faker();
-    private static final Config CFG = Config.getInstance();
-    private static final ServiceConfig SERVICE_CONFIG = ServiceConfig.getInstance();
 
     private static final String[] COUNTRIES_LIST = {"India", "United States", "Canada", "Australia", "Israel", "New Zealand", "Singapore"};
 

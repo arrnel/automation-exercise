@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import static com.automationexercise.tests.config.test.CfgInstance.CFG;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 @Slf4j
