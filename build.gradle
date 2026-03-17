@@ -120,12 +120,13 @@ test {
     testLogging.exceptionFormat = 'full'
     useJUnitPlatform {
 
-        var includedTags = System.getenv('TAG_EXPR')
-        if (includedTags != null && !includedTags.trim().isEmpty()) {
+        var includeTagsExpr = System.getenv('TAG_EXPR')
+        if (includeTagsExpr != null && !includeTagsExpr.trim().isEmpty()) {
 
-            includeTags Arrays.stream(includedTags.toLowerCase().split(","))
-                    .map { v -> v.trim() }
-                    .toArray(String[]::new)
+//            includeTags Arrays.stream(includedTags.toLowerCase().split(","))
+//                    .map { v -> v.trim() }
+//                    .toArray(String[]::new)
+            includeTags includeTagsExpr.trim()
 
         }
     }

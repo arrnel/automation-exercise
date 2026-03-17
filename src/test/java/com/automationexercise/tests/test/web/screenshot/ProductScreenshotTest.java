@@ -1,6 +1,7 @@
 package com.automationexercise.tests.test.web.screenshot;
 
 import com.automationexercise.tests.jupiter.anno.meta.ScreenshotTest;
+import com.automationexercise.tests.models.ScreenshotParam;
 import com.automationexercise.tests.models.allure.AllureTag;
 import com.automationexercise.tests.page.products.MainPage;
 import com.automationexercise.tests.page.products.ProductPage;

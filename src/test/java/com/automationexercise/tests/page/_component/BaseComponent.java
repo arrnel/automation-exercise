@@ -96,20 +96,21 @@ public abstract class BaseComponent<T> {
         if (screenshotParam.isHover())
             locator.hover();
 
+        var box = locator.boundingBox();
+        if (box == null)
+            throw new IllegalStateException("Component not visible");
+
         if (screenshotParam.getAction() != null) {
             screenshotParam.getAction().run();
         } else {
             Thread.sleep(screenshotParam.getTimeout());
         }
 
-        var box = locator.boundingBox();
-        if (box == null) {
-            throw new IllegalStateException("Component not visible");
-        }
+        var actualScreenshot = locator.screenshot();
 
         var ctx = new ScreenshotCheckContext(
                 Paths.get(CFG.pathToScreenshotsDirectory(), screenshotParam.getExpectedScreenshotUrl()),
-                locator.screenshot(),
+                actualScreenshot,
                 new Dimension((int) box.width, (int) box.height),
                 screenshotParam.getTolerance(),
                 screenshotParam.isRewrite()

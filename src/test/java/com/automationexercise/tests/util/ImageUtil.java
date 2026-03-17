@@ -21,7 +21,6 @@ import java.util.Base64;
 
 import static com.automationexercise.tests.config.test.CfgInstance.CFG;
 
-
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ImageUtil {
 
@@ -108,7 +107,6 @@ public class ImageUtil {
 
     @SneakyThrows
     public static void performScreenshotCheck(ScreenshotCheckContext ctx) {
-
         boolean isNew = Files.notExists(ctx.expectedScreenshotPath());
 
         if (isNew)
