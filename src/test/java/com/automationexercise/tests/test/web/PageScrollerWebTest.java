@@ -73,6 +73,7 @@ class PageScrollerWebTest {
         checkoutPage.checkPageHasScreenshot("/page/cart.png");
     }
 
+    @Tag(AllureTag.DEBUG_TEST)
     @Owner(AllureTag.OWNER)
     @ApiLogin(
             email = "expected_user@test.test",
@@ -93,7 +94,12 @@ class PageScrollerWebTest {
                 .subscription().scrollToComponent();
         checkoutPage.pageScroller().scrollToTop();
         // Assertions
-        checkoutPage.checkPageHasScreenshot("/page/checkout.png");
+        checkoutPage.checkPageHasScreenshot(
+                ScreenshotParam.builder()
+                        .expectedScreenshotUrl("/page/checkout.png")
+                        .rewrite(true)
+                        .build()
+        );
     }
 
 }
