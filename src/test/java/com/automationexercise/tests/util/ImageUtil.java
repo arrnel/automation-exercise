@@ -122,7 +122,7 @@ public class ImageUtil {
         if (isNew || rewriteOldOnFailure)
             ImageUtil.rewriteImage(ctx.actualScreenshot(), ctx.expectedScreenshotPath());
 
-        AllureUtil.addScreenDiffAttachment(diff);
+        AllureUtil.attachScreenDiff(diff);
 
         if (diff.isHasDiff())
             throw new ScreenshotException(
