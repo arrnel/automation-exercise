@@ -8,7 +8,6 @@ import com.automationexercise.tests.page._component.common.NotificationComponent
 import com.automationexercise.tests.page._component.common.PageScrollerComponent;
 import com.automationexercise.tests.page._component.common.SubscriptionComponent;
 import com.automationexercise.tests.util.ImageUtil;
-import com.automationexercise.tests.util.browser.PageStore;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Locator.WaitForOptions;
 import com.microsoft.playwright.Page;
@@ -20,7 +19,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.awt.*;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 import static com.automationexercise.tests.config.test.CfgInstance.CFG;
 import static com.microsoft.playwright.options.WaitForSelectorState.DETACHED;
@@ -41,7 +39,7 @@ public abstract class BasePage<T> {
     private final SubscriptionComponent subscription;
 
     public BasePage() {
-        this.page = PageStore.INSTANCE.getOrCreateNewPage();
+        this.page = PlaywrightContextStore.INSTANCE.getOrCreateNewPage();
         header = new HeaderComponent(page.locator("header"));
         pageScroller = new PageScrollerComponent(page.locator("#scrollUp"));
         notification = new NotificationComponent(page.locator(".modal-content"));
