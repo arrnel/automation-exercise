@@ -1,6 +1,5 @@
 package com.automationexercise.tests.page._component;
 
-import com.automationexercise.tests.config.test.Config;
 import com.automationexercise.tests.models.ScreenshotCheckContext;
 import com.automationexercise.tests.models.ScreenshotParam;
 import com.automationexercise.tests.util.ImageUtil;
@@ -14,6 +13,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.awt.*;
 import java.nio.file.Paths;
 
+import static com.automationexercise.tests.config.test.CfgInstance.CFG;
 import static com.microsoft.playwright.options.WaitForSelectorState.DETACHED;
 import static com.microsoft.playwright.options.WaitForSelectorState.VISIBLE;
 
@@ -26,7 +26,6 @@ public abstract class BaseComponent<T> {
     protected static final Locator.WaitForOptions DETACHED_CONDITION = new Locator.WaitForOptions().setState(DETACHED);
 
     private static final String DEFAULT_COMPONENT_TITLE = "DEFAULT_COMPONENT_TITLE";
-    protected static final Config CFG = Config.getInstance();
     protected final Locator self;
     protected final String componentTitle;
 

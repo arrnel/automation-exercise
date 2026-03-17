@@ -7,6 +7,8 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import static com.automationexercise.tests.config.test.CfgInstance.CFG;
+
 @Slf4j
 @ParametersAreNonnullByDefault
 public class EnvLoggerExtension extends BaseExtension implements SuiteExtension {

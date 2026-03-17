@@ -1,6 +1,6 @@
 package com.automationexercise.tests.page;
 
-import com.automationexercise.tests.config.test.Config;
+import com.automationexercise.tests.browser.PlaywrightContextStore;
 import com.automationexercise.tests.models.ScreenshotCheckContext;
 import com.automationexercise.tests.models.ScreenshotParam;
 import com.automationexercise.tests.page._component.common.HeaderComponent;
@@ -22,6 +22,7 @@ import java.awt.*;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
+import static com.automationexercise.tests.config.test.CfgInstance.CFG;
 import static com.microsoft.playwright.options.WaitForSelectorState.DETACHED;
 import static com.microsoft.playwright.options.WaitForSelectorState.VISIBLE;
 
@@ -30,7 +31,6 @@ import static com.microsoft.playwright.options.WaitForSelectorState.VISIBLE;
 @ParametersAreNonnullByDefault
 public abstract class BasePage<T> {
 
-    protected static final Config CFG = Config.getInstance();
     protected static final WaitForOptions VISIBLE_CONDITION = new Locator.WaitForOptions().setState(VISIBLE);
     protected static final WaitForOptions DETACHED_CONDITION = new Locator.WaitForOptions().setState(DETACHED);
 
@@ -137,9 +137,7 @@ public abstract class BasePage<T> {
     @SneakyThrows
     @SuppressWarnings("unchecked")
     public T checkPageHasScreenshot(ScreenshotParam screenshotParam) {
-        var size = Arrays.stream(CFG.browserSize().split("x"))
-                .mapToInt(Integer::parseInt)
-                .toArray();
+        var size = CFG.browserSize();
 
         var ctx = new ScreenshotCheckContext(
                 Paths.get(CFG.pathToScreenshotsDirectory(), screenshotParam.getExpectedScreenshotUrl()),

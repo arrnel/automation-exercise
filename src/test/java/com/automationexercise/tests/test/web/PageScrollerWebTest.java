@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("[Screenshot] Page scroller test")
 class PageScrollerWebTest {
 
+    @Tag(AllureTag.DEBUG_TEST)
     @Owner(AllureTag.OWNER)
     @Test
     @DisplayName("Should scroll to top on [Main] page")

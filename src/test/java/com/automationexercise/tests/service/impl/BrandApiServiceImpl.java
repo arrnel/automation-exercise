@@ -1,7 +1,6 @@
 package com.automationexercise.tests.service.impl;
 
 import com.automationexercise.tests.api.BrandApiClient;
-import com.automationexercise.tests.config.service.ServiceConfig;
 import com.automationexercise.tests.models.BrandDTO;
 import com.automationexercise.tests.models.api.HttpStatus;
 import com.automationexercise.tests.service.BrandApiService;
@@ -12,11 +11,10 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 import static com.automationexercise.tests.api.core.condition.Conditions.bodyStatusCode;
+import static com.automationexercise.tests.config.test.CfgInstance.SERVICE_CONFIG;
 
 @Slf4j
 public class BrandApiServiceImpl implements BrandApiService {
-
-    private static final ServiceConfig SERVICE_CONFIG = ServiceConfig.getInstance();
 
     private final BrandApiClient brandClient = SERVICE_CONFIG.getBrandApiClient();
 

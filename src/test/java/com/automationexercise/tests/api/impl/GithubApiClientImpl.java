@@ -12,6 +12,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import static com.automationexercise.tests.api.core.condition.Conditions.statusCode;
+import static com.automationexercise.tests.config.test.CfgInstance.CFG;
 
 @Slf4j
 @ParametersAreNonnullByDefault

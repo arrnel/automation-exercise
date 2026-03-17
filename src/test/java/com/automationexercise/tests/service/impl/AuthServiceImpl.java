@@ -2,7 +2,6 @@ package com.automationexercise.tests.service.impl;
 
 import com.automationexercise.tests.api.AuthApiClient;
 import com.automationexercise.tests.api.core.store.ThreadSafeCookieStore;
-import com.automationexercise.tests.config.service.ServiceConfig;
 import com.automationexercise.tests.models.api.Tokens;
 import com.automationexercise.tests.service.AuthApiService;
 import io.qameta.allure.Step;
@@ -10,14 +9,15 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Nonnull;
 
+import static com.automationexercise.tests.config.test.CfgInstance.SERVICE_CONFIG;
+
 @Slf4j
 public class AuthServiceImpl implements AuthApiService {
 
-    private static final ServiceConfig SERVICE_CFG = ServiceConfig.getInstance();
     private final AuthApiClient authClient;
 
     public AuthServiceImpl() {
-        this.authClient = SERVICE_CFG.getAuthApiClient();
+        this.authClient = SERVICE_CONFIG.getAuthApiClient();
     }
 
     @Nonnull

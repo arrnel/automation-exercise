@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static com.automationexercise.tests.util.browser.BrowserName.FIREFOX;
+import static com.automationexercise.tests.browser.BrowserName.FIREFOX;
 
 @Tag(AllureTag.CHECKOUT_TEST)
 @WebTest

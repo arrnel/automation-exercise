@@ -1,9 +1,9 @@
 package com.automationexercise.tests.jupiter.extension;
 
+import com.automationexercise.tests.browser.PlaywrightContextStore;
 import com.automationexercise.tests.jupiter.anno.ApiLogin;
 import com.automationexercise.tests.models.UserDTO;
 import com.automationexercise.tests.util.DataGenerator;
-import com.automationexercise.tests.util.browser.PageStore;
 import com.microsoft.playwright.options.Cookie;
 import io.qameta.allure.Allure;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +13,8 @@ import org.junit.platform.commons.support.AnnotationSupport;
 
 import java.util.List;
 import java.util.stream.IntStream;
+
+import static com.automationexercise.tests.config.test.CfgInstance.CFG;
 
 @Slf4j
 public class ApiLoginExtension extends BaseExtension implements BeforeEachCallback {
@@ -82,7 +84,7 @@ public class ApiLoginExtension extends BaseExtension implements BeforeEachCallba
                                     ));
 
                             Allure.step("Set sessionId and csrf cookies", () -> {
-                                var browserContext = PageStore.INSTANCE.getOrCreateNewPage().context();
+                                var browserContext = PlaywrightContextStore.INSTANCE.getBrowserContext();
                                 var csrf = tokens.csrf();
                                 var sessionId = tokens.sessionId();
                                 browserContext.addCookies(List.of(

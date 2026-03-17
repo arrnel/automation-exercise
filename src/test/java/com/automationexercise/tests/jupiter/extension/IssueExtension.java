@@ -7,6 +7,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.platform.commons.support.AnnotationSupport;
 import org.junit.platform.commons.support.SearchOption;
 
+import static com.automationexercise.tests.config.test.CfgInstance.CFG;
 import static com.automationexercise.tests.models.github.IssueState.OPEN;
 
 public class IssueExtension extends BaseExtension implements ExecutionCondition {

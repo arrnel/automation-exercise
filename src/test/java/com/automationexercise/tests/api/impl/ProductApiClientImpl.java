@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import static com.automationexercise.tests.config.test.CfgInstance.CFG;
+
 @Slf4j
 @ParametersAreNonnullByDefault
 public class ProductApiClientImpl extends RestClient implements ProductApiClient {

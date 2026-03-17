@@ -1,7 +1,7 @@
 package com.automationexercise.tests.service.impl;
 
 import com.automationexercise.tests.api.ProductApiClient;
-import com.automationexercise.tests.config.service.ServiceConfig;
+import com.automationexercise.tests.config.test.CfgInstance;
 import com.automationexercise.tests.models.ProductDTO;
 import com.automationexercise.tests.service.ProductApiService;
 import io.qameta.allure.Step;
@@ -20,9 +20,7 @@ import static com.automationexercise.tests.models.api.HttpStatus.OK;
 @ParametersAreNonnullByDefault
 public class ProductServiceImpl implements ProductApiService {
 
-    private static final ServiceConfig serviceConfig = ServiceConfig.getInstance();
-
-    private final ProductApiClient productClient = serviceConfig.getProductApiClient();
+    private final ProductApiClient productClient = CfgInstance.SERVICE_CONFIG.getProductApiClient();
 
     @Nonnull
     @Override

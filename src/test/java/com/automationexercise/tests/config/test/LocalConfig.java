@@ -14,6 +14,11 @@ enum LocalConfig implements Config {
         return "https://automationexercise.com";
     }
 
+    @Override
+    public String remoteUrl() {
+        return "NOT_AVAILABLE_FOR_LOCAL_ENV";
+    }
+
     @Nonnull
     @Override
     public String domain() {
@@ -38,6 +43,7 @@ enum LocalConfig implements Config {
         return System.getProperty("user.dir") + "/build/video/local";
     }
 
+    @Nonnull
     @Override
     public String allureReportUrl() {
         return "";

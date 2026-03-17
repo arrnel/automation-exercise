@@ -1,13 +1,15 @@
 package com.automationexercise.tests.config.test;
 
+import com.automationexercise.tests.browser.BrowserName;
 import com.automationexercise.tests.models.meta.TestEnv;
 import com.automationexercise.tests.util.EnvUtil;
-import com.automationexercise.tests.util.browser.BrowserName;
+import com.automationexercise.tests.util.SystemUtil;
 import io.restassured.filter.log.LogDetail;
 import org.apache.commons.lang3.EnumUtils;
 
 import javax.annotation.Nonnull;
 import java.nio.file.Path;
+import java.util.Arrays;
 
 public interface Config {
 
@@ -84,8 +86,11 @@ public interface Config {
     }
 
     @Nonnull
-    default String browserSize() {
-        return EnvUtil.envVar("TEST_BROWSER_SIZE", "1920x1080");
+    default Integer[] browserSize() {
+        var browserSize = EnvUtil.envVar("TEST_BROWSER_SIZE", "1920x1080");
+        return Arrays.stream(browserSize.split("x"))
+                .map(Integer::parseInt)
+                .toArray(Integer[]::new);
     }
 
     default double browserTimeout() {
@@ -96,12 +101,28 @@ public interface Config {
         return EnvUtil.envVar("TEST_ANIMATION_DURATION", 200.0);
     }
 
-    default boolean browserIsHeadless() {
-        return EnvUtil.envVar("PLAYWRIGHT_HEADLESS", false);
-    }
-
     default double browserSlowMotion() {
         return EnvUtil.envVar("PLAYWRIGHT_SLOW_MOTION", 50.0);
+    }
+
+    default Path browserExtensionFolder() {
+        return SystemUtil.getAbsolutePathFromResources("browser/extension");
+    }
+
+    default Path browserVideoFolder() {
+        return Path.of("${HOME}/Downloads/pw_video");
+    }
+
+    default Path browserProfileFolder() {
+        return SystemUtil.getAbsolutePathFromResources("browser/profile");
+    }
+
+    default Path browserDownloadFolder() {
+        return Path.of("${HOME}/Downloads/test_temp_files");
+    }
+
+    default String browserLocale() {
+        return "en-US";
     }
 
     default boolean saveFailedTestsVideo() {
@@ -147,6 +168,12 @@ public interface Config {
                 LogDetail.HEADERS);
     }
 
+    default Path pathToAllureResults() {
+        return Path.of("build/allure-results");
+    }
+
+    String allureReportUrl();
+
     default String envData() {
 
         var testData = """
@@ -185,15 +212,19 @@ public interface Config {
                         searchTimeout()
                 );
 
-
+        var browserSize = browserSize();
         var pwData = """
                 {
-                    "browserIsHeadless": %s,
                     "browserName": "%s",
                     "browserSize": "%s",
                     "browserTimeout": %s,
                     "playwrightSlowMotion": %s
-                }""".formatted(browserIsHeadless(), browserName(), browserSize(), browserTimeout(), browserSlowMotion());
+                }""".formatted(
+                browserName(),
+                browserSize[0] + "x" + browserSize[1],
+                browserTimeout(),
+                browserSlowMotion()
+        );
 
         var ghToken = ghToken();
         ghToken = ghToken.contains("github_pat_")
@@ -217,10 +248,6 @@ public interface Config {
                 }""".formatted(testData, pwData, githubData);
     }
 
-    default Path pathToAllureResults() {
-        return Path.of("build/allure-results");
-    }
-
-    String allureReportUrl();
+    String remoteUrl();
 
 }

@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Nonnull;
 
+import static com.automationexercise.tests.config.test.CfgInstance.CFG;
+
 @Slf4j
 public class BrandApiClientImpl extends RestClient implements BrandApiClient {
 
