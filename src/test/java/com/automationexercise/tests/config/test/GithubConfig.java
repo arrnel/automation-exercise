@@ -14,6 +14,11 @@ enum GithubConfig implements Config {
         return "https://automationexercise.com";
     }
 
+    @Override
+    public String remoteUrl() {
+        return "ws://localhost:9222/";
+    }
+
     @Nonnull
     @Override
     public String domain() {

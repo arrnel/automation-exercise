@@ -1,7 +1,6 @@
 package com.automationexercise.tests.api.core;
 
 import com.automationexercise.tests.api.core.store.CookieManagerFilter;
-import com.automationexercise.tests.config.test.Config;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
@@ -20,10 +19,10 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import static com.automationexercise.tests.config.test.CfgInstance.CFG;
+
 @ParametersAreNonnullByDefault
 public abstract class RestClient {
-
-    protected static final Config CFG = Config.getInstance();
 
     private static final LogDetail DEFAULT_LOG_LEVEL = CFG.defaultRestLogLevel();
 

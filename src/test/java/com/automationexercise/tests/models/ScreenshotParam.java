@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import static com.automationexercise.tests.util.browser.BrowserFactory.CFG;
+import static com.automationexercise.tests.config.test.CfgInstance.CFG;
 
 @Getter
 @Setter
