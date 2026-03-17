@@ -1,6 +1,7 @@
 package com.automationexercise.tests.jupiter.anno.meta;
 
 import com.automationexercise.tests.jupiter.extension.ApiLoginExtension;
+import com.automationexercise.tests.jupiter.extension.BlockGoogleAdsExtension;
 import com.automationexercise.tests.jupiter.extension.BrowserExtension;
 import com.automationexercise.tests.models.allure.AllureTag;
 import io.qameta.allure.Epic;
@@ -18,6 +19,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @ExtendWith({
         BrowserExtension.class,
+        BlockGoogleAdsExtension.class,
         ApiLoginExtension.class
 })
 public @interface WebTest {

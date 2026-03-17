@@ -10,6 +10,7 @@ import org.apache.commons.lang3.EnumUtils;
 import javax.annotation.Nonnull;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.List;
 
 public interface Config {
 
@@ -123,6 +124,26 @@ public interface Config {
 
     default String browserLocale() {
         return "en-US";
+    }
+
+    default boolean playwrightBlockGoogleAds(){
+        return EnvUtil.envVar("PLAYWRIGHT_BLOCK_GOOGLE_ADS", true);
+    }
+
+    default List<String> browserGoogleAdsPattern(){
+        return List.of(
+                "googleads.g.doubleclick.net",
+                "pagead2.googlesyndication.com",
+                "googleadservices.com",
+                "googlesyndication.com",
+                "adservice.google.com",
+                "partner.googleadservices.com",
+                "tpc.googlesyndication.com",
+                "securepubads.g.doubleclick.net",
+                "www.googletagservices.com",
+                "www.google-analytics.com",
+                "stats.g.doubleclick.net"
+        );
     }
 
     default boolean saveFailedTestsVideo() {
