@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
-import java.util.Locale;
+import java.util.List;
 import java.util.Optional;
 
 import static com.automationexercise.tests.config.test.CfgInstance.CFG;
@@ -23,8 +23,15 @@ public class BlockGoogleAdsExtension implements BeforeEachCallback {
                 .ifPresentOrElse(
                         ctx ->
                                 ctx.route("**/*", route -> {
-                                    String urlLower = route.request().url().toLowerCase(Locale.ROOT);
-                                    boolean isAd = CFG.browserGoogleAdsPattern().stream().anyMatch(urlLower::contains);
+
+                                    var request = route.request();
+                                    var url = request.url().toLowerCase();
+                                    var type = request.resourceType();
+                                    var adTypes = List.of("script", "image", "xhr");
+
+                                    boolean isAd = adTypes.contains(type.toLowerCase()) &&
+                                            CFG.browserGoogleAdsPattern().stream()
+                                                    .anyMatch(pattern -> pattern.contains(url));
 
                                     if (isAd) {
                                         route.abort();

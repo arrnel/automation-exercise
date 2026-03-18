@@ -132,11 +132,13 @@ public interface Config {
 
     default List<String> browserGoogleAdsPattern(){
         return List.of(
+                "doubleclick.net",
                 "googleads.g.doubleclick.net",
                 "pagead2.googlesyndication.com",
-                "googleadservices.com",
                 "googlesyndication.com",
+                "googleadservices.com",
                 "adservice.google.com",
+                "fundingchoicesmessages.google.com",
                 "partner.googleadservices.com",
                 "tpc.googlesyndication.com",
                 "securepubads.g.doubleclick.net",
