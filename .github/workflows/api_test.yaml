@@ -61,10 +61,6 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Build backends
-        run: |
-          ./gradlew jibDockerBuild -x :rococo-tests:test
-
       - name: Run API tests
         uses: ./.github/actions/run-tests
         if: always()
