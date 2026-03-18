@@ -1,26 +1,39 @@
-name: API test run
+name: Configurable test run
 
 on:
   workflow_dispatch:
     inputs:
+
       TEST_TITLE:
         description: Test Run Title. Will added in Allure Report Title
         type: string
         required: false
         default: ""
 
+      TAG_EXPR:
+        description: TAG_EXPR
+        type: string
+        required: true
+        default: debug
+
+      TEST_ARGS:
+        description: TEST_ARGS
+        type: string
+        required: false
+
 jobs:
   test-run:
     runs-on: ubuntu-latest
     env:
       # ---------- IMPORTANT VARS
-      WORKFLOW_REPORT_ID: api_test
+      WORKFLOW_REPORT_ID: configurable_run
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
-      GH_TOKEN_NAME: ${{ vars.GH_TOKEN_NAME }}
+      GH_TOKEN_NAME: ${{ secrets.GH_TOKEN_NAME }}
       GH_OWNER: ${{ github.repository_owner }}
       GH_REPO: ${{ vars.GH_REPO }}
-      TAG_EXPR: ${{ vars.TAG_EXPR_API }}
-      TEST_ARGS: ${{ vars.TEST_ARGS }}
+      TAG_EXPR: ${{ inputs.TAG_EXPR }}
+      TEST_ARGS: ${{ inputs.TEST_ARGS }}
+      TEST_REWRITE_ALL_SCREENSHOTS: false
 
       DISPLAY: :0
       TEST_ENV: ${{ vars.TEST_ENV }}
@@ -29,7 +42,6 @@ jobs:
       TEST_MAX_SCREENSHOT_DIFF: ${{ vars.TEST_MAX_SCREENSHOT_DIFF }}
       TEST_SAVE_FAILED_TESTS_VIDEO: ${{ vars.TEST_SAVE_FAILED_TESTS_VIDEO }}
       TEST_REST_LOGS: ${{ vars.TEST_REST_LOGS }}
-      TEST_REWRITE_ALL_SCREENSHOTS: false
       TESTS_PASSED_PERCENTAGE: ${{vars.TESTS_PASSED_PERCENTAGE}}
       PLAYWRIGHT_VERSION: ${{ vars.PLAYWRIGHT_VERSION }}
       PLAYWRIGHT_BROWSER_NAME: ${{ vars.PLAYWRIGHT_BROWSER_NAME }}
@@ -41,7 +53,6 @@ jobs:
       IMAGE_PREFIX: ${{ vars.IMAGE_PREFIX }}
 
     steps:
-
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -61,7 +72,18 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Run API tests
+      - name: Checkout workflow-resources branch
+        uses: actions/checkout@v4
+        with:
+          ref: workflow-resources
+          path: workflow-resources
+
+      - name: Prepare workflow-resources directory
+        run: |
+          set -e
+          mkdir -p workflow-resources/screenshot
+
+      - name: Run tests
         uses: ./.github/actions/run-tests
         if: always()
         continue-on-error: true
