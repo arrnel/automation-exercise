@@ -6,9 +6,7 @@ build/
 !**/src/test/**/build/
 
 # Screenshots & video
-src/.screen-output/video
-src/.screen-output/screenshots/local
-src/.screen-output/screenshots/docker
+src/.screen-output
 
 # Docker
 docker-compose.allure.yaml
