@@ -40,7 +40,6 @@ jobs:
       TEST_ARGS: ${{ vars.TEST_ARGS }}
       TEST_REWRITE_ALL_SCREENSHOTS: ${{ inputs.REWRITE_ALL_SCREENSHOTS }}
 
-      # ---------- BROWSER
       DISPLAY: :0
       TEST_ENV: ${{ vars.TEST_ENV }}
       TEST_DEFAULT_USER_PASSWORD: ${{ secrets.TEST_DEFAULT_USER_PASSWORD }}
@@ -64,10 +63,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ env.GITHUB_SHA }}
-
-      - name: Get the last commit message
-        run: |
-          echo "HEAD_COMMIT_MESSAGE=$(git show -s --format=%s)" >> $GITHUB_ENV
 
       - name: Set TEST_TITLE
         uses: ./.github/actions/test-run-title
@@ -130,7 +125,7 @@ jobs:
         uses: ./.github/actions/generate-and-deploy-allure-report
         if: always()
         with:
-          github_token: ${{ secrets.GH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           subfolder: ${{ env.WORKFLOW_REPORT_ID }}
           report_name: ${{ env.TEST_TITLE }}
           allure_results_path: allure-results

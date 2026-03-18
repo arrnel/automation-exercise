@@ -1,0 +1,82 @@
+name: API test run
+
+on:
+  workflow_dispatch:
+    inputs:
+      TEST_TITLE:
+        description: Test Run Title. Will added in Allure Report Title
+        type: string
+        required: false
+        default: ""
+
+jobs:
+  test-run:
+    runs-on: ubuntu-latest
+    env:
+      # ---------- IMPORTANT VARS
+      WORKFLOW_REPORT_ID: api_test
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      GH_TOKEN_NAME: ${{ vars.GH_TOKEN_NAME }}
+      GH_OWNER: ${{ github.repository_owner }}
+      GH_REPO: ${{ vars.GH_REPO }}
+      TAG_EXPR: ${{ vars.TAG_EXPR_API }}
+      TEST_ARGS: ${{ vars.TEST_ARGS }}
+
+      DISPLAY: :0
+      TEST_ENV: ${{ vars.TEST_ENV }}
+      TEST_DEFAULT_USER_PASSWORD: ${{ secrets.TEST_DEFAULT_USER_PASSWORD }}
+      TEST_IGNORE_DISABLED_BY_ISSUE: ${{ vars.TEST_IGNORE_DISABLED_BY_ISSUE }}
+      TEST_MAX_SCREENSHOT_DIFF: ${{ vars.TEST_MAX_SCREENSHOT_DIFF }}
+      TEST_SAVE_FAILED_TESTS_VIDEO: ${{ vars.TEST_SAVE_FAILED_TESTS_VIDEO }}
+      TEST_REST_LOGS: ${{ vars.TEST_REST_LOGS }}
+      TEST_REWRITE_ALL_SCREENSHOTS: false
+      TESTS_PASSED_PERCENTAGE: ${{vars.TESTS_PASSED_PERCENTAGE}}
+      PLAYWRIGHT_VERSION: ${{ vars.PLAYWRIGHT_VERSION }}
+      PLAYWRIGHT_BROWSER_NAME: ${{ vars.PLAYWRIGHT_BROWSER_NAME }}
+      PLAYWRIGHT_BROWSER_TIMEOUT: ${{ vars.PLAYWRIGHT_BROWSER_TIMEOUT }}
+      PLAYWRIGHT_HEADLESS: ${{ vars.PLAYWRIGHT_HEADLESS }}
+      PLAYWRIGHT_SLOW_MOTION: ${{ vars.PLAYWRIGHT_SLOW_MOTION }}
+      BUILD_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      EXECUTION_TYPE: github
+      IMAGE_PREFIX: ${{ vars.IMAGE_PREFIX }}
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.GITHUB_SHA }}
+
+      - name: Set TEST_TITLE
+        uses: ./.github/actions/test-run-title
+        with:
+          test_title: ${{ inputs.TEST_TITLE }}
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Build backends
+        run: |
+          ./gradlew jibDockerBuild -x :rococo-tests:test
+
+      - name: Run API tests
+        uses: ./.github/actions/run-tests
+        if: always()
+        continue-on-error: true
+
+      - name: Generate and Deploy Allure Report in GitHub Pages
+        uses: ./.github/actions/generate-and-deploy-allure-report
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          subfolder: ${{ env.WORKFLOW_REPORT_ID }}
+          report_name: ${{ env.TEST_TITLE }}
+          allure_results_path: allure-results
+          allure_history_path: allure-history
+          report_branch: gh-pages
