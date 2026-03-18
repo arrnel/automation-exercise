@@ -121,7 +121,7 @@ public interface Config {
     }
 
     default Path browserVideoFolder() {
-        return Path.of("${HOME}/Downloads/pw_video");
+        return Path.of( System.getProperty("user.dir"), "Downloads/pw_video");
     }
 
     default Path browserProfileFolder() {
@@ -129,7 +129,7 @@ public interface Config {
     }
 
     default Path browserDownloadFolder() {
-        return Path.of("${HOME}/Downloads/test_temp_files");
+        return Path.of(System.getProperty("user.dir"),"Downloads/test_temp_files");
     }
 
     default String browserLocale() {
