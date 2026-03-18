@@ -25,6 +25,8 @@ public final class DataGenerator {
 
     private static final Faker FAKE = new Faker();
 
+    private static final String[] EMAIL_DOMAINS = {"me", "io", "com", "net", "org", "gov"};
+
     private static final String[] COUNTRIES_LIST = {"India", "United States", "Canada", "Australia", "Israel", "New Zealand", "Singapore"};
 
     private static final String[] RECOMMENDED_PRODUCTS = {"Stylish Dress", "Winter Top", "Summer White Top", "Blue Top", "Men Tshirt"};
@@ -83,8 +85,23 @@ public final class DataGenerator {
         return FAKE.internet().password(minLength, maxLength, includeUppercase, includeSpecial, includeDigits);
     }
 
+    private static String randomEmailDomain() {
+        return EMAIL_DOMAINS[new Random().nextInt(EMAIL_DOMAINS.length)];
+    }
+
     public static String generateEmail() {
-        return FAKE.internet().emailAddress();
+        var domain = randomEmailDomain();
+        var domainName = CFG.emailDomain();
+        var nickname = FAKE.internet().username();
+        var separated = new Random().nextBoolean();
+        var digits = FAKE.number().digits(new Random().nextInt(1, 4));
+        return "%s%s%s%s%s".formatted(
+                nickname,
+                digits,
+                separated ? "" : ".",
+                domainName,
+                domain
+        );
     }
 
     public static String generateName() {

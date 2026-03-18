@@ -9,6 +9,8 @@ import org.apache.commons.lang3.EnumUtils;
 
 import javax.annotation.Nonnull;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,6 +32,9 @@ public interface Config {
             case CI -> GithubConfig.INSTANCE;
         };
     }
+
+    LocalDateTime START_DATE_TIME = LocalDateTime.now();
+    String START_DATE_TIME_TEXT = START_DATE_TIME.format(DateTimeFormatter.ofPattern("yyMMddhhmmss"));
 
     @Nonnull
     String baseUrl();
@@ -92,6 +97,11 @@ public interface Config {
         return Arrays.stream(browserSize.split("x"))
                 .map(Integer::parseInt)
                 .toArray(Integer[]::new);
+    }
+
+    default String emailDomain(){
+        var domainBase = EnvUtil.envVar("PLAYWRIGHT_BROWSER_TIMEOUT", "arrnel_test");
+        return domainBase + START_DATE_TIME_TEXT;
     }
 
     default double browserTimeout() {
@@ -270,5 +280,6 @@ public interface Config {
     }
 
     String remoteUrl();
+
 
 }
