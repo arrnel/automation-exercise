@@ -95,10 +95,10 @@ public final class DataGenerator {
         var nickname = FAKE.internet().username();
         var separated = new Random().nextBoolean();
         var digits = FAKE.number().digits(new Random().nextInt(1, 4));
-        return "%s%s%s%s%s".formatted(
+        return "%s%s%s@%s%s".formatted(
                 nickname,
-                digits,
                 separated ? "" : ".",
+                digits,
                 domainName,
                 domain
         );
