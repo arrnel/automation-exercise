@@ -1,4 +1,4 @@
-name: API test run
+name: Web test run
 
 on:
   workflow_dispatch:
