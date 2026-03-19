@@ -1,0 +1,328 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="This is for automation practice">
+	<meta name="robots" content="index">
+	<meta name="keywords" content="Automation Exercise / Automation Practice / Practice website for automation / demo website for practice / dummy website for testing / testing website / dummy website for practice automation / API Testing / API automation">
+	<meta name="google-site-verification" content="VS1KtEV7m0Pp9MRMwCpyR7rGwUVYH6N8l1zoVepsGWs">
+
+    <title>Automation Exercise - Product Details</title>
+
+	
+
+	<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/css/prettyPhoto.css" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+	<link href="/static/css/main.css" rel="stylesheet">
+	<link href="/static/css/responsive.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link href="/static/css/cart.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="/static/js/html5.js"></script>
+    <script src="/static/js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="/static/images/home/short_logo.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/static/images/ico/apple-touch-icon-57-precomposed.png">
+
+
+	<script src="https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202603160101/show_ads_impl_fy2021.js?bust=31097301"></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1677597403311019" crossorigin="anonymous" data-checked-head="true"></script>
+
+
+<meta http-equiv="origin-trial" content="AlK2UR5SkAlj8jjdEc9p3F3xuFYlF6LYjAML3EOqw1g26eCwWPjdmecULvBH5MVPoqKYrOfPhYVL71xAXI1IBQoAAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="Amm8/NmvvQfhwCib6I7ZsmUxiSCfOxWxHayJwyU1r3gRIItzr7bNQid6O8ZYaE1GSQTa69WwhPC9flq/oYkRBwsAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="A9nrunKdU5m96PSN1XsSGr3qOP0lvPFUB2AiAylCDlN5DTl17uDFkpQuHj1AFtgWLxpLaiBZuhrtb2WOu7ofHwEAAACKeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElNdWx0aW1vZGFsSW5wdXQiLCJleHBpcnkiOjE3NzQzMTA0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A93bovR+QVXNx2/38qDbmeYYf1wdte9EO37K9eMq3r+541qo0byhYU899BhPB7Cv9QqD7wIbR1B6OAc9kEfYCA4AAACQeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElNdWx0aW1vZGFsSW5wdXQiLCJleHBpcnkiOjE3NzQzMTA0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A1S5fojrAunSDrFbD8OfGmFHdRFZymSM/1ss3G+NEttCLfHkXvlcF6LGLH8Mo5PakLO1sCASXU1/gQf6XGuTBgwAAACQeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElNdWx0aW1vZGFsSW5wdXQiLCJleHBpcnkiOjE3NzQzMTA0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><script async="" src="https://fundingchoicesmessages.google.com/i/ca-pub-1677597403311019?href=https%3A%2F%2Fautomationexercise.com%2Fproduct_details%2F31&amp;ers=2"></script><script async="" src="https://fundingchoicesmessages.google.com/f/AGSKWxX8V1sZgNdUQwKxT2BTtyjWzSKoQ4IdmzcCe02rOaHa33ubxalSckSB5wwpUEF0RsoASBL0zdpylc1VYhfcdmavOJY9AXFM20AK2XcQdlmacyiXNbXLf14IEDOckGUGlep5aj2M5Q==?fccs=W251bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLFsxNzczOTQwNjkwLDM3NjAwMDAwMF0sbnVsbCxudWxsLG51bGwsW251bGwsWzddXSwiaHR0cHM6Ly9hdXRvbWF0aW9uZXhlcmNpc2UuY29tL3Byb2R1Y3RfZGV0YWlscy8zMSIsbnVsbCxbWzgsIkRCX1BzaFdkRmlFIl0sWzksImVuLVVTIl0sWzE4LCJbW1tudWxsLDE5MzZdXV0iXSxbMTksIjIiXSxbMTcsIlswXSJdLFsyNCwiIl0sWzI1LCJbWzk1MzQwMjUyLDk1MzQwMjU0XV0iXSxbMjksImZhbHNlIl1dXQ"></script><script async="" src="https://fundingchoicesmessages.google.com/f/AGSKWxU263Fq6aXA_LfYqINf5SCDDJ1oHD8NpKs8KJ3UncMdYHAjaX-Da49oZ6Rhr4vcr_QLE3CeBY8CS-d42Xb3bMYrpevUq1ViOlqzk8Pznimoqinu_-jSE_c_XmxmLQ8Y1ybs20IA6w==?fccs=W251bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLFsxNzczOTQwNjkwLDQ2MTAwMDAwMF0sbnVsbCxudWxsLG51bGwsW251bGwsWzcsOV0sbnVsbCwyLG51bGwsImVuIl0sImh0dHBzOi8vYXV0b21hdGlvbmV4ZXJjaXNlLmNvbS9wcm9kdWN0X2RldGFpbHMvMzEiLG51bGwsW1s4LCJEQl9Qc2hXZEZpRSJdLFs5LCJlbi1VUyJdLFsxOCwiW1tbbnVsbCwxOTM2XV1dIl0sWzE5LCIyIl0sWzE3LCJbMF0iXSxbMjQsIiJdLFsyNSwiW1s5NTM0MDI1Miw5NTM0MDI1NF1dIl0sWzI5LCJmYWxzZSJdXV0"></script><script async="" src="https://fundingchoicesmessages.google.com/f/AGSKWxWhgb1-Ew5fNNJeYcEvhVAgmybLmGTSpqceROknrn6FLZipsyFQPUuh5oidIP1QtYSlQ8nSEAeGSdNSp4-joi4rNJdbKo25S5CVjOXB_j7UHoT2tGOul7oWdQgjaeECOu1e_cNK_w==?fccs=W251bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLFsxNzczOTQwNjkxLDMxMDAwMDAwMF0sbnVsbCxudWxsLG51bGwsW251bGwsWzcsOSw2XSxudWxsLDIsbnVsbCwiZW4iLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCwxXSwiaHR0cHM6Ly9hdXRvbWF0aW9uZXhlcmNpc2UuY29tL3Byb2R1Y3RfZGV0YWlscy8zMSIsbnVsbCxbWzgsIkRCX1BzaFdkRmlFIl0sWzksImVuLVVTIl0sWzE4LCJbW1tudWxsLDE5MzZdXV0iXSxbMTksIjIiXSxbMTcsIlswXSJdLFsyNCwiIl0sWzI1LCJbWzk1MzQwMjUyLDk1MzQwMjU0XV0iXSxbMjksImZhbHNlIl1dXQ"></script></head>
+
+<body style="">
+
+	<header id="header">
+		<div class="header-middle">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="logo pull-left">
+							<a href="/"><img src="/static/images/home/logo.png" alt="Website for automation practice"></a>
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="shop-menu pull-right">
+							<ul class="nav navbar-nav">
+								<li><a href="/"><i class="fa fa-home"></i> Home</a></li>
+								<li><a href="/products" style="color: orange;"><i class="material-icons card_travel" style="font-size: 16px;"></i> Products</a></li>
+								<li><a href="/view_cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								
+								<li><a href="/login"><i class="fa fa-lock"></i> Signup / Login</a></li>
+								
+								<li><a href="/test_cases"><i class="fa fa-list"></i> Test Cases</a></li>
+								<li><a href="/api_list"><i class="fa fa-list"></i> API Testing</a></li>
+								<li><a href="https://www.youtube.com/c/AutomationExercise"><i class="fa fa-youtube-play"></i> Video Tutorials</a></li>
+								<li><a href="/contact_us"><i class="fa fa-envelope"></i> Contact us</a></li>
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="left-sidebar">
+						<h2>Category</h2>
+						<div class="panel-group category-products" id="accordian">
+							
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordian" href="#Women">
+											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+											Women
+										</a>
+									</h4>
+								</div>
+								<div id="Women" class="panel-collapse collapse">
+									<div class="panel-body">
+										<ul>
+											
+											<li><a href="/category_products/1">Dress </a></li>
+											
+											<li><a href="/category_products/2">Tops </a></li>
+											
+											<li><a href="/category_products/7">Saree </a></li>
+											
+										</ul>
+									</div>
+								</div>
+							</div>
+							
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordian" href="#Men">
+											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+											Men
+										</a>
+									</h4>
+								</div>
+								<div id="Men" class="panel-collapse collapse">
+									<div class="panel-body">
+										<ul>
+											
+											<li><a href="/category_products/3">Tshirts </a></li>
+											
+											<li><a href="/category_products/6">Jeans </a></li>
+											
+										</ul>
+									</div>
+								</div>
+							</div>
+							
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordian" href="#Kids">
+											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+											Kids
+										</a>
+									</h4>
+								</div>
+								<div id="Kids" class="panel-collapse collapse">
+									<div class="panel-body">
+										<ul>
+											
+											<li><a href="/category_products/4">Dress </a></li>
+											
+											<li><a href="/category_products/5">Tops &amp; Shirts </a></li>
+											
+										</ul>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					
+						<div class="brands_products"><!--brands_products-->
+							<h2>Brands</h2>
+							<div class="brands-name">
+								<ul class="nav nav-pills nav-stacked">
+									
+									<li><a href="/brand_products/Polo"> <span class="pull-right">(6)</span>Polo</a></li>
+									
+									<li><a href="/brand_products/H&amp;M"> <span class="pull-right">(5)</span>H&amp;M</a></li>
+									
+									<li><a href="/brand_products/Madame"> <span class="pull-right">(5)</span>Madame</a></li>
+									
+									<li><a href="/brand_products/Mast &amp; Harbour"> <span class="pull-right">(3)</span>Mast &amp; Harbour</a></li>
+									
+									<li><a href="/brand_products/Babyhug"> <span class="pull-right">(4)</span>Babyhug</a></li>
+									
+									<li><a href="/brand_products/Allen Solly Junior"> <span class="pull-right">(3)</span>Allen Solly Junior</a></li>
+									
+									<li><a href="/brand_products/Kookie Kids"> <span class="pull-right">(3)</span>Kookie Kids</a></li>
+									
+									<li><a href="/brand_products/Biba"> <span class="pull-right">(5)</span>Biba</a></li>
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-sm-9 padding-right">
+
+					<!-- Modal HTML -->
+						<div id="cartModal" class="modal fade">
+							<div class="modal-dialog modal-confirm">
+								<div class="modal-content">
+									<div class="modal-header">
+										<div class="icon-box">
+											<i class="material-icons"></i>
+										</div>
+										<h4 class="modal-title w-100">Added!</h4>
+									</div>
+									<div class="modal-body">
+										<p class="text-center">Your product has been added to cart.</p>
+										<p class="text-center"><a href="/view_cart"><u>View Cart</u></a></p>
+									</div>
+									<div class="modal-footer">
+										<button class="btn btn-success close-modal btn-block" data-dismiss="modal">Continue Shopping</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+					<div class="product-details">
+						<div class="col-sm-5">
+							<div class="view-product">
+								<img src="/get_product_picture/31" alt="ecommerce website products">
+							</div>
+						</div>
+						<div class="col-sm-7">
+							<div class="product-information">
+								<img src="/static/images/product-details/new.jpg" class="newarrival" alt="ecommerce website products">
+								<h2>Pure Cotton Neon Green Tshirt</h2>
+								<p>Category: Men &gt; Tshirts</p>
+								<img src="/static/images/product-details/rating.png" alt="ecommerce website products">
+								<span>
+									<span>Rs. 850</span>
+									<label>Quantity:</label>
+									<input type="number" name="quantity" id="quantity" value="1" min="1" style="">
+									<input type="hidden" name="product_id" id="product_id" value="31" style="">
+									<button type="button" class="btn btn-default cart">
+										<i class="fa fa-shopping-cart"></i>
+										Add to cart
+									</button>
+								</span>
+								<p><b>Availability:</b> In Stock</p>
+								<p><b>Condition:</b> New</p>
+								<p><b>Brand:</b> H&amp;M</p>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="category-tab shop-details-tab"><!--category-tab-->
+						<div class="col-sm-12">
+							<ul class="nav nav-tabs">
+								<li class="active"><a href="#reviews" data-toggle="tab">Write Your Review</a></li>
+							</ul>
+						</div>
+						<div class="tab-content">
+
+							<div class="tab-pane fade active in" id="reviews">
+								<div class="col-sm-12">
+									<form id="review-form">
+										<span>
+											<input type="text" id="name" required="" placeholder="Your Name" style="">
+											<input type="email" id="email" required="" placeholder="Email Address" style="">
+										</span>
+										<textarea name="review" placeholder="Add Review Here!" id="review" required="" style=""></textarea>
+
+										<div class="form-row hide" id="review-section">
+											<div class="col-md-12 form-group">
+												<div class="alert-success alert">
+													<span style="font-size: 20px;">Thank you for your review.</span>
+												</div>
+											</div>
+										</div>
+
+										<button type="submit" id="button-review" class="btn btn-default pull-right">
+											Submit
+										</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div><!--/category-tab-->
+
+
+
+
+
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<footer id="footer">
+		<div class="footer-widget">
+			<div class="container">
+				<div class="row">
+					<div class="form-row">
+						<div class="col-md-9 hide form-group" id="success-subscribe">
+							<div class="alert-success alert">You have been successfully subscribed!</div>
+						</div>
+					</div>
+					<div class="col-sm-3 col-sm-offset-1">
+						<div class="single-widget">
+							<h2>Subscription</h2>
+							<form class="searchform" method="POST">
+								<input type="hidden" name="csrfmiddlewaretoken" value="3iyoIu9IqVZj4V4806M1oe1RGQfTA1exO0ktmLMQQwAux0vqGnblMFamgxWZWEcc" style="">
+								<input type="email" id="susbscribe_email" required="" placeholder="Your email address" style="">
+								<button type="submit" id="subscribe" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+								<p>Get the most recent updates from <br>our site and be updated your self...</p>
+							</form>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row">
+					<p class="pull-left">Copyright © 2021 All rights reserved</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+  
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/jquery.scrollUp.min.js"></script>
+	<script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/jquery.prettyPhoto.js"></script>
+    <script src="/static/js/main.js"></script>
+	<script src="/static/js/cart.js"></script>
+	<ins class="adsbygoogle adsbygoogle-noablate" data-ad-hi="true" data-adsbygoogle-status="done" style="display: none !important;" data-ad-status="unfilled"><div id="aswift_0_host" style="border: none; height: 0px; width: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx;min-height:auto;max-height:none;min-width:auto;max-width:none;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allow="attribution-reporting; run-ad-auction" src="https://googleads.g.doubleclick.net/pagead/ads?client=ca-pub-1677597403311019&amp;output=html&amp;adk=1812271804&amp;adf=3025194257&amp;lmt=1773940689&amp;plat=9%3A32776%2C16%3A8388608%2C17%3A32%2C24%3A32%2C25%3A32%2C30%3A1081344%2C32%3A32%2C41%3A32%2C42%3A32%2C43%3A32&amp;format=0x0&amp;url=https%3A%2F%2Fautomationexercise.com%2Fproduct_details%2F31&amp;pra=5&amp;aiof=9&amp;asro=0&amp;aiapm=0.1542&amp;aiapmd=0.1423&amp;aiapmi=0.16&amp;aiapmid=1&amp;aiactd=0&amp;aicctd=0&amp;ailctd=0&amp;aimart=4&amp;aimartd=4&amp;aieuf=1&amp;aicrs=1&amp;uach=WyJMaW51eCIsIjYuMTQuMCIsIng4NiIsIiIsIjEzOC4wLjcyMDQuMjMiLG51bGwsMCxudWxsLCI2NCIsW1siTm90KUE7QnJhbmQiLCI4LjAuMC4wIl0sWyJDaHJvbWl1bSIsIjEzOC4wLjcyMDQuMjMiXV0sMF0.&amp;abgtt=6&amp;dt=1773940688755&amp;bpp=64&amp;bdt=448&amp;idt=355&amp;shv=r20260318&amp;mjsv=m202603160101&amp;ptt=9&amp;saldr=aa&amp;abxe=1&amp;cookie_enabled=1&amp;eoidce=1&amp;nras=1&amp;correlator=2479671784007&amp;frm=20&amp;pv=2&amp;u_tz=0&amp;u_his=2&amp;u_h=1080&amp;u_w=1920&amp;u_ah=1080&amp;u_aw=1920&amp;u_cd=24&amp;u_sd=1&amp;dmc=8&amp;adx=-12245933&amp;ady=-12245933&amp;biw=1905&amp;bih=1080&amp;scr_x=0&amp;scr_y=0&amp;eid=95378429%2C95384194%2C95385284%2C95385300%2C31097301%2C95386357%2C95340252%2C95340254&amp;oid=2&amp;pvsid=8804623281250152&amp;tmod=334191701&amp;uas=0&amp;nvt=1&amp;fsapi=1&amp;fc=1920&amp;brdim=10%2C10%2C10%2C10%2C1920%2C0%2C1928%2C1165%2C1920%2C1080&amp;vis=1&amp;rsz=%7C%7Cs%7C&amp;abl=NS&amp;fu=32768&amp;bc=31&amp;plas=366x732_l%7C366x732_r&amp;bz=1&amp;ifi=1&amp;uci=a!1&amp;fsb=1&amp;dtd=502" data-google-container-id="a!1" tabindex="0" title="Advertisement" aria-label="Advertisement" data-load-complete="true"></iframe></div></ins><script src="/static/js/subscription.js"></script>
+<script type="text/javascript">
+	$("#review-form").on("submit", function() {
+		$("#review-section").removeClass("hide");
+		setTimeout(function(){
+			$("#review-section").addClass('hide');
+			document.getElementById("name").value = '';
+			document.getElementById("email").value = '';
+			document.getElementById("review").value = '';
+		 }, 2000);
+		return false;
+	});
+</script>
+
+<script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;cd4e8a3390ec4a29b8f61484a473eff3&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+
+<a id="scrollUp" href="#top" style="display: none; position: fixed; z-index: 2147483647;"><i class="fa fa-angle-up"></i></a><iframe name="googlefcPresent" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;"></iframe><div class="google-auto-placed" style="width: 100%; height: auto; clear: both; text-align: center;"><ins data-ad-format="auto" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-1677597403311019" data-adsbygoogle-status="done" style="display: block; margin: 10px auto; background-color: transparent; height: 0px;" data-ad-status="unfilled"><div id="aswift_1_host" style="border: none; height: 0px; width: 1200px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block; overflow: hidden; opacity: 0;"><iframe id="aswift_1" name="aswift_1" style="left: 0px; position: absolute; top: 0px; border: 0px; width: 1200px; height: 0px; min-height: auto; max-height: none; min-width: auto; max-width: none;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="1200" height="0" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allow="attribution-reporting; run-ad-auction" src="https://googleads.g.doubleclick.net/pagead/ads?gdpr=0&amp;client=ca-pub-1677597403311019&amp;output=html&amp;h=280&amp;adk=3809598800&amp;adf=854766408&amp;pi=t.aa~a.1182920990~rp.3&amp;w=1200&amp;fwrn=4&amp;fwrnh=100&amp;lmt=1773940690&amp;rafmt=1&amp;to=qs&amp;pwprc=4334590153&amp;format=1200x280&amp;url=https%3A%2F%2Fautomationexercise.com%2Fproduct_details%2F31&amp;fwr=0&amp;pra=3&amp;rpe=1&amp;resp_fmts=3&amp;aieuf=1&amp;aicrs=1&amp;fa=40&amp;uach=WyJMaW51eCIsIjYuMTQuMCIsIng4NiIsIiIsIjEzOC4wLjcyMDQuMjMiLG51bGwsMCxudWxsLCI2NCIsW1siTm90KUE7QnJhbmQiLCI4LjAuMC4wIl0sWyJDaHJvbWl1bSIsIjEzOC4wLjcyMDQuMjMiXV0sMF0.&amp;abgtt=6&amp;dt=1773940690008&amp;bpp=10&amp;bdt=1701&amp;idt=10&amp;shv=r20260318&amp;mjsv=m202603160101&amp;ptt=9&amp;saldr=aa&amp;abxe=1&amp;cookie_enabled=1&amp;eoidce=1&amp;prev_fmts=0x0&amp;nras=2&amp;correlator=2479671784007&amp;frm=20&amp;pv=1&amp;u_tz=0&amp;u_his=2&amp;u_h=1080&amp;u_w=1920&amp;u_ah=1080&amp;u_aw=1920&amp;u_cd=24&amp;u_sd=1&amp;dmc=8&amp;adx=353&amp;ady=1328&amp;biw=1905&amp;bih=1080&amp;scr_x=0&amp;scr_y=0&amp;eid=95378429%2C95384194%2C95385284%2C95385300%2C31097301%2C95386357%2C95340252%2C95340254&amp;oid=2&amp;pvsid=8804623281250152&amp;tmod=334191701&amp;uas=0&amp;nvt=1&amp;fc=1920&amp;brdim=10%2C10%2C10%2C10%2C1920%2C0%2C1928%2C1165%2C1920%2C1080&amp;vis=1&amp;rsz=%7C%7Cs%7C&amp;abl=NS&amp;fu=128&amp;bc=31&amp;plas=366x732_l%7C366x732_r&amp;bz=1&amp;ifi=2&amp;uci=a!2&amp;btvi=1&amp;fsb=1&amp;dtd=379" data-google-container-id="a!2" tabindex="0" title="Advertisement" aria-label="Advertisement" data-google-query-id="CJfh1oW8rJMDFepI3QId-fsVQw" data-load-complete="true"></iframe></div></ins></div><iframe name="__tcfapiLocator" src="about:blank" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;"></iframe><iframe name="googlefcInactive" src="about:blank" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;"></iframe><iframe name="googlefcLoaded" src="about:blank" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;"></iframe><iframe src="https://ep2.adtrafficquality.google/sodar/sodar2/253/runner.html" width="0" height="0" style="display: none;"></iframe><iframe src="https://www.google.com/recaptcha/api2/aframe" width="0" height="0" style="display: none;"></iframe></body><iframe id="google_esf" name="google_esf" src="https://googleads.g.doubleclick.net/pagead/html/r20260318/r20190131/zrt_lookup_fy2021.html" style="display: none;"></iframe></html>
