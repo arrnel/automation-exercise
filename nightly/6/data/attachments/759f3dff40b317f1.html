@@ -1,0 +1,54 @@
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset = UTF-8">
+    <script src="https://yastatic.net/jquery/2.2.3/jquery.min.js" crossorigin="anonymous"></script>
+
+    <link href="https://yastatic.net/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="https://yastatic.net/bootstrap/3.3.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+    <link type="text/css" href="https://yandex.st/highlightjs/8.0/styles/github.min.css" rel="stylesheet"/>
+    <script type="text/javascript" src="https://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+    <script type="text/javascript" src="https://yandex.st/highlightjs/8.0/languages/bash.min.js"></script>
+    <script type="text/javascript" src="https://yandex.st/highlightjs/8.0/languages/json.min.js"></script>
+    <script type="text/javascript" src="https://yandex.st/highlightjs/8.0/languages/xml.min.js"></script>
+    <script type="text/javascript">hljs.initHighlightingOnLoad();</script>
+
+    <style>
+        pre {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <pre><code>POST: https://automationexercise.com/api/createAccount</code></pre>
+</div>
+
+
+    <h4>Headers</h4>
+    <div>
+            <div>
+                <pre><code><b>Accept</b>: application/json, application/javascript, text/javascript, text/json</code></pre>
+            </div>
+            <div>
+                <pre><code><b>Content-Type</b>: application/x-www-form-urlencoded; charset=ISO-8859-1</code></pre>
+            </div>
+    </div>
+
+
+    <h4>Cookies</h4>
+    <div>
+            <div>
+                <pre><code><b>csrftoken</b>: 9YdY8SjdhMQkBa92x2HPZZydW00RWeNBHyld175ReQ4LBenCbzMJn2MhtOw94nNZ</code></pre>
+            </div>
+            <div>
+                <pre><code><b>sessionid</b>: 85w3vurbhv3vdzdqp0nhu0vedtipvk6l</code></pre>
+            </div>
+    </div>
+
+    <h4>Curl</h4>
+    <div>
+        <pre><code>curl -v -X POST 'https://automationexercise.com/api/createAccount' -H 'Accept: application/json, application/javascript, text/javascript, text/json' -H 'Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1' -b 'csrftoken=9YdY8SjdhMQkBa92x2HPZZydW00RWeNBHyld175ReQ4LBenCbzMJn2MhtOw94nNZ' -b 'sessionid=85w3vurbhv3vdzdqp0nhu0vedtipvk6l' --form 'country=Singapore' --form 'firstname=Michel' --form 'city=Sammyshire' --form 'address2=Apt. 406' --form 'birth_month=7' --form 'address1=94810 Jarvis Corner' --form 'title=Mrs' --form 'lastname=Reynolds' --form 'birth_year=1972' --form 'birth_day=10' --form 'zipcode=45713' --form 'password=12345' --form 'name=Walter Yost' --form 'company=Rosenbaum, Haley and Block' --form 'state=Virginia' --form 'mobile_number=(925) 522-1071' --form 'email=validate_invoice_user@test_user.test'</code></pre>
+    </div>
+</body>
+</html>
