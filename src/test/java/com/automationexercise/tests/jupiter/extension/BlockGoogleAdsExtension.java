@@ -29,8 +29,7 @@ public class BlockGoogleAdsExtension implements BeforeEachCallback {
                                     var type = request.resourceType();
                                     var adTypes = List.of("script", "image", "xhr");
 
-                                    boolean isAd = adTypes.contains(type.toLowerCase()) &&
-                                            CFG.browserGoogleAdsPattern().stream()
+                                    boolean isAd = CFG.browserGoogleAdsPattern().stream()
                                                     .anyMatch(pattern -> pattern.contains(url));
 
                                     if (isAd) {
