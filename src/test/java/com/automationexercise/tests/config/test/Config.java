@@ -100,7 +100,7 @@ public interface Config {
     }
 
     default String emailDomain(){
-        var domainBase = EnvUtil.envVar("PLAYWRIGHT_BROWSER_TIMEOUT", "arrnel_test");
+        var domainBase = EnvUtil.envVar("EMAIL_DOMAIN", "mytest");
         return domainBase + START_DATE_TIME_TEXT;
     }
 
