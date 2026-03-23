@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="This is for automation practice">
+	<meta name="robots" content="index">
+	<meta name="keywords" content="Automation Exercise / Automation Practice / Practice website for automation / demo website for practice / dummy website for testing / testing website / dummy website for practice automation / API Testing / API automation">
+	<meta name="google-site-verification" content="VS1KtEV7m0Pp9MRMwCpyR7rGwUVYH6N8l1zoVepsGWs">
+	
+    <title>Automation Exercise - Contact Us</title>
+
+	
+
+	<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/css/prettyPhoto.css" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+	<link href="/static/css/main.css" rel="stylesheet">
+	<link href="/static/css/responsive.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!--[if lt IE 9]>
+    <script src="/static/js/html5.js"></script>
+    <script src="/static/js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="/static/images/home/short_logo.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/static/images/ico/apple-touch-icon-57-precomposed.png">
+	<style>
+		.submit_form {
+			padding-right: 20px;
+			padding-left: 20px;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			font-size: 18px;
+			margin-bottom: 35px;
+			margin-top: 0px !important;
+		}
+	</style>
+
+	<script src="https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202603170101/show_ads_impl_fy2021.js?bust=31097312"></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1677597403311019" crossorigin="anonymous" data-checked-head="true"></script>
+
+
+<meta http-equiv="origin-trial" content="AlK2UR5SkAlj8jjdEc9p3F3xuFYlF6LYjAML3EOqw1g26eCwWPjdmecULvBH5MVPoqKYrOfPhYVL71xAXI1IBQoAAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="Amm8/NmvvQfhwCib6I7ZsmUxiSCfOxWxHayJwyU1r3gRIItzr7bNQid6O8ZYaE1GSQTa69WwhPC9flq/oYkRBwsAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="A9nrunKdU5m96PSN1XsSGr3qOP0lvPFUB2AiAylCDlN5DTl17uDFkpQuHj1AFtgWLxpLaiBZuhrtb2WOu7ofHwEAAACKeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElNdWx0aW1vZGFsSW5wdXQiLCJleHBpcnkiOjE3NzQzMTA0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A93bovR+QVXNx2/38qDbmeYYf1wdte9EO37K9eMq3r+541qo0byhYU899BhPB7Cv9QqD7wIbR1B6OAc9kEfYCA4AAACQeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElNdWx0aW1vZGFsSW5wdXQiLCJleHBpcnkiOjE3NzQzMTA0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A1S5fojrAunSDrFbD8OfGmFHdRFZymSM/1ss3G+NEttCLfHkXvlcF6LGLH8Mo5PakLO1sCASXU1/gQf6XGuTBgwAAACQeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiQUlQcm9tcHRBUElNdWx0aW1vZGFsSW5wdXQiLCJleHBpcnkiOjE3NzQzMTA0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><script async="" src="https://fundingchoicesmessages.google.com/i/ca-pub-1677597403311019?href=https%3A%2F%2Fautomationexercise.com%2Fcontact_us&amp;ers=2"></script><script async="" src="https://fundingchoicesmessages.google.com/f/AGSKWxULIGDDC1di4sbDDII1FDR9N_WTR3AHyoXvB5XgkN1d5zw4VGvI8828YKt3LhxLxLNcrnQBIPvvI1TRKQio-heUWCQF3LQEEiKoUctgqrnhwvy8M0-dviMVG1yhRc0zYp8k3nnDvQ==?fccs=W251bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLFsxNzc0MjQxMDcyLDkzMjAwMDAwMF0sbnVsbCxudWxsLG51bGwsW251bGwsWzddXSwiaHR0cHM6Ly9hdXRvbWF0aW9uZXhlcmNpc2UuY29tL2NvbnRhY3RfdXMiLG51bGwsW1s4LCJEQl9Qc2hXZEZpRSJdLFs5LCJlbi1VUyJdLFsxOCwiW1tbbnVsbCwxMTEyXV1dIl0sWzE5LCIyIl0sWzE3LCJbMF0iXSxbMjQsIiJdLFsyOSwiZmFsc2UiXV1d"></script><script async="" src="https://fundingchoicesmessages.google.com/f/AGSKWxWCYf8IxhQGZBuPZ2V7zHC2pLilmFrAgqeshazhby5g7TRHvuV6MhQ18hE-FrQv1MWvNl9Ia3NdxSKlJ1ZjZmfLrt22zf_Lab05FAlA_RVQTX4R8-hIO2Ti_W5M12e_xuxqj96_5A==?fccs=W251bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLFsxNzc0MjQxMDczLDUwMDAwMDBdLG51bGwsbnVsbCxudWxsLFtudWxsLFs3LDldLG51bGwsMixudWxsLCJlbiJdLCJodHRwczovL2F1dG9tYXRpb25leGVyY2lzZS5jb20vY29udGFjdF91cyIsbnVsbCxbWzgsIkRCX1BzaFdkRmlFIl0sWzksImVuLVVTIl0sWzE4LCJbW1tudWxsLDExMTJdXV0iXSxbMTksIjIiXSxbMTcsIlswXSJdLFsyNCwiIl0sWzI5LCJmYWxzZSJdXV0"></script><script async="" src="https://fundingchoicesmessages.google.com/f/AGSKWxVNs84MFqHjo4wNJW8CM4L3ZL5ZPca3vsiU0AYY9wPCpVkke4iChytYboS8f6XWE40aAltc35Zs0y9r3grdv0VsNJ5-lFH6ZuASPsbtolJigo7Eg9H0--BDL5Vd2w0JYG_qYKAnoQ==?fccs=W251bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLFsxNzc0MjQxMDczLDcxNDAwMDAwMF0sbnVsbCxudWxsLG51bGwsW251bGwsWzcsOSw2XSxudWxsLDIsbnVsbCwiZW4iLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCwxXSwiaHR0cHM6Ly9hdXRvbWF0aW9uZXhlcmNpc2UuY29tL2NvbnRhY3RfdXMiLG51bGwsW1s4LCJEQl9Qc2hXZEZpRSJdLFs5LCJlbi1VUyJdLFsxOCwiW1tbbnVsbCwxMTEyXV1dIl0sWzE5LCIyIl0sWzE3LCJbMF0iXSxbMjQsIiJdLFsyOSwiZmFsc2UiXV1d"></script><script type="text/javascript" charset="UTF-8" src="https://maps.google.com/maps-api-v3/api/js/64/5d/common.js"></script><script type="text/javascript" charset="UTF-8" src="https://maps.google.com/maps-api-v3/api/js/64/5d/util.js"></script></head>
+
+<body style="">
+
+	<header id="header">
+		<div class="header-middle">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="logo pull-left">
+							<a href="/"><img src="/static/images/home/logo.png" alt="Website for automation practice"></a>
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="shop-menu pull-right">
+							<ul class="nav navbar-nav">
+								<li><a href="/"><i class="fa fa-home"></i> Home</a></li>
+								<li><a href="/products"><i class="material-icons card_travel" style="font-size: 16px;"></i> Products</a></li>
+								<li><a href="/view_cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								
+								<li><a href="/login"><i class="fa fa-lock"></i> Signup / Login</a></li>
+								
+								<li><a href="/test_cases"><i class="fa fa-list"></i> Test Cases</a></li>
+								<li><a href="/api_list"><i class="fa fa-list"></i> API Testing</a></li>
+								<li><a href="https://www.youtube.com/c/AutomationExercise"><i class="fa fa-youtube-play"></i> Video Tutorials</a></li>
+								<li><a href="/contact_us" style="color: orange;"><i class="fa fa-envelope"></i> Contact us</a></li>
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	 
+	 <div id="contact-page" class="container">
+    	<div class="bg">
+	    	<div class="row">
+	    		<div class="col-sm-12">    			   			
+					<h2 class="title text-center">Contact <strong>Us</strong></h2>
+					</div>
+				</div>			 		
+			</div>    	
+    		<div class="row">  	
+	    		<div class="col-sm-8">
+	    			<div class="contact-form">
+						<div><b>Note: </b>Below contact form is for testing purpose.</div>
+	    				<h2 class="title text-center">Get In Touch</h2>
+						<div class="status alert alert-success" style="display: block;">Success! Your details have been submitted successfully.</div>
+
+						<div id="form-section"><a class="btn btn-success" href="/"><span><i class="fa fa-angle-double-left"></i> Home</span></a></div>
+	    			</div>
+	    		</div>
+	    		<div class="col-sm-4">
+	    			<div class="contact-info">
+	    				<h2 class="title text-center">Feedback For Us</h2>
+	    				<address>
+	    					<p>We really appreciate your response to our website.</p>
+							<br>
+							<p>Kindly share your feedback with us at <a href="mailto:feedback@automationexercise.com"><u>feedback@automationexercise.com</u></a>.</p>
+							<br>
+							<p>If you have any suggestion areas or improvements, do let us know. We will definitely work on it.</p>
+							<br>
+							<p>Thank you</p>
+	    				</address>
+	    			</div>
+    			</div>    			
+	    	</div>  
+    	</div>	
+    
+	
+	<footer id="footer">
+		<div class="footer-widget">
+			<div class="container">
+				<div class="row">
+					<div class="form-row">
+						<div class="col-md-9 form-group hide" id="success-subscribe">
+							<div class="alert-success alert" style="display: block;">Success! Your details have been submitted successfully.</div>
+						</div>
+					</div>
+					<div class="col-sm-3 col-sm-offset-1">
+						<div class="single-widget">
+							<h2>Subscription</h2>
+							<form class="searchform" method="POST">
+								<input type="hidden" name="csrfmiddlewaretoken" value="WZhMU3Q5emVPRKqSUQphGfKpKwZ6UN3UMzwpI032jW0OTVwvoY7IyIHQCRmGKmnI">
+								<input type="email" id="susbscribe_email" required="" placeholder="Your email address">
+								<button type="submit" id="subscribe" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+								<p>Get the most recent updates from <br>our site and be updated your self...</p>
+							</form>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row">
+					<p class="pull-left">Copyright © 2021 All rights reserved</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	
+
+  
+    <ins class="adsbygoogle adsbygoogle-noablate" data-ad-hi="true" data-adsbygoogle-status="done" style="display: none !important;" data-ad-status="unfilled"><div id="aswift_0_host" style="border: none; height: 0px; width: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx;min-height:auto;max-height:none;min-width:auto;max-width:none;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allow="attribution-reporting; run-ad-auction" src="https://googleads.g.doubleclick.net/pagead/ads?client=ca-pub-1677597403311019&amp;output=html&amp;adk=1812271804&amp;adf=3025194257&amp;lmt=1774241072&amp;plat=3%3A16%2C4%3A16%2C9%3A32776%2C16%3A8388608%2C17%3A32%2C24%3A32%2C25%3A32%2C30%3A1081344%2C32%3A32%2C41%3A32%2C42%3A32%2C43%3A32&amp;format=0x0&amp;url=https%3A%2F%2Fautomationexercise.com%2Fcontact_us&amp;pra=5&amp;aiof=9&amp;asro=0&amp;aiapm=0.1542&amp;aiapmd=0.1423&amp;aiapmi=0.16&amp;aiapmid=1&amp;aiactd=0&amp;aicctd=0&amp;ailctd=0&amp;aimart=4&amp;aimartd=4&amp;aieuf=1&amp;aicrs=1&amp;uach=WyJMaW51eCIsIjYuMTQuMCIsIng4NiIsIiIsIjEzOC4wLjcyMDQuMjMiLG51bGwsMCxudWxsLCI2NCIsW1siTm90KUE7QnJhbmQiLCI4LjAuMC4wIl0sWyJDaHJvbWl1bSIsIjEzOC4wLjcyMDQuMjMiXV0sMF0.&amp;abgtt=6&amp;dt=1774241071862&amp;bpp=16&amp;bdt=126&amp;idt=276&amp;shv=r20260318&amp;mjsv=m202603170101&amp;ptt=9&amp;saldr=aa&amp;abxe=1&amp;cookie_enabled=1&amp;eoidce=1&amp;nras=1&amp;correlator=227113188869&amp;frm=20&amp;pv=2&amp;u_tz=0&amp;u_his=2&amp;u_h=1080&amp;u_w=1920&amp;u_ah=1080&amp;u_aw=1920&amp;u_cd=24&amp;u_sd=1&amp;dmc=8&amp;adx=-12245933&amp;ady=-12245933&amp;biw=1920&amp;bih=1080&amp;scr_x=0&amp;scr_y=0&amp;eid=95385581%2C95378429%2C95386178%2C95386650%2C31097312&amp;oid=2&amp;pvsid=6684639946879573&amp;tmod=1219009150&amp;uas=0&amp;nvt=1&amp;fsapi=1&amp;fc=1920&amp;brdim=10%2C10%2C10%2C10%2C1920%2C0%2C1928%2C1165%2C1920%2C1080&amp;vis=1&amp;rsz=%7C%7Cs%7C&amp;abl=NS&amp;fu=32768&amp;bc=31&amp;bz=1&amp;ifi=1&amp;uci=a!1&amp;fsb=1&amp;dtd=360" data-google-container-id="a!1" tabindex="0" title="Advertisement" aria-label="Advertisement" data-load-complete="true"></iframe></div></ins><script src="/static/js/jquery.js"></script>
+	<script src="/static/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
+    <script type="text/javascript" src="/static/js/gmaps.js"></script>
+    <script src="/static/js/jquery.scrollUp.min.js"></script>
+    <script src="/static/js/jquery.prettyPhoto.js"></script>
+    <script src="/static/js/main.js"></script>
+	<script src="/static/js/subscription.js"></script>
+	<script type="text/javascript">
+		$("#contact-us-form").on("submit", function() {
+			var r = confirm("Press OK to proceed!");
+			if (r == true) {
+		  		$(".alert-success").html("Success! Your details have been submitted successfully.");
+				$(".alert-success").attr("style", "display: block;");
+				$("#form-section").html('<a class="btn btn-success" href="/"><span><i class="fa fa-angle-double-left"></i> Home</span></a>');
+				return false;
+			} else {
+				return false;
+			}
+		});
+	</script>
+<script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;cd4e8a3390ec4a29b8f61484a473eff3&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+
+<a id="scrollUp" href="#top" style="display: none; position: fixed; z-index: 2147483647;"><i class="fa fa-angle-up"></i></a><iframe name="googlefcPresent" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;"></iframe><iframe name="__tcfapiLocator" src="about:blank" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;"></iframe><iframe name="googlefcInactive" src="about:blank" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;"></iframe><iframe name="googlefcLoaded" src="about:blank" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;"></iframe><iframe src="https://www.google.com/recaptcha/api2/aframe" width="0" height="0" style="display: none;"></iframe></body><iframe id="google_esf" name="google_esf" src="https://googleads.g.doubleclick.net/pagead/html/r20260318/r20190131/zrt_lookup_fy2021.html" style="display: none;"></iframe></html>
