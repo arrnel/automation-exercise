@@ -1,0 +1,54 @@
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset = UTF-8">
+    <script src="https://yastatic.net/jquery/2.2.3/jquery.min.js" crossorigin="anonymous"></script>
+
+    <link href="https://yastatic.net/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="https://yastatic.net/bootstrap/3.3.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+    <link type="text/css" href="https://yandex.st/highlightjs/8.0/styles/github.min.css" rel="stylesheet"/>
+    <script type="text/javascript" src="https://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+    <script type="text/javascript" src="https://yandex.st/highlightjs/8.0/languages/bash.min.js"></script>
+    <script type="text/javascript" src="https://yandex.st/highlightjs/8.0/languages/json.min.js"></script>
+    <script type="text/javascript" src="https://yandex.st/highlightjs/8.0/languages/xml.min.js"></script>
+    <script type="text/javascript">hljs.initHighlightingOnLoad();</script>
+
+    <style>
+        pre {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <pre><code>POST: https://automationexercise.com/api/searchProduct</code></pre>
+</div>
+
+
+    <h4>Headers</h4>
+    <div>
+            <div>
+                <pre><code><b>Accept</b>: application/json, application/javascript, text/javascript, text/json</code></pre>
+            </div>
+            <div>
+                <pre><code><b>Content-Type</b>: application/x-www-form-urlencoded; charset=ISO-8859-1</code></pre>
+            </div>
+    </div>
+
+
+    <h4>Cookies</h4>
+    <div>
+            <div>
+                <pre><code><b>csrftoken</b>: 6GqPtr7O0f8sN63X51PEgbG6Qn2Q7o0wWZCLtZDCY6oCXpUKA6JXNFd7lT48xbUp</code></pre>
+            </div>
+            <div>
+                <pre><code><b>sessionid</b>: s43hbetan0v2dng2mytnnzln4g2yf62r</code></pre>
+            </div>
+    </div>
+
+    <h4>Curl</h4>
+    <div>
+        <pre><code>curl -v -X POST 'https://automationexercise.com/api/searchProduct' -H 'Accept: application/json, application/javascript, text/javascript, text/json' -H 'Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1' -b 'csrftoken=6GqPtr7O0f8sN63X51PEgbG6Qn2Q7o0wWZCLtZDCY6oCXpUKA6JXNFd7lT48xbUp' -b 'sessionid=s43hbetan0v2dng2mytnnzln4g2yf62r' --form 'search_product=Allen Solly'</code></pre>
+    </div>
+</body>
+</html>
