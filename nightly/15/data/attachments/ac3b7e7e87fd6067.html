@@ -1,0 +1,54 @@
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset = UTF-8">
+    <script src="https://yastatic.net/jquery/2.2.3/jquery.min.js" crossorigin="anonymous"></script>
+
+    <link href="https://yastatic.net/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="https://yastatic.net/bootstrap/3.3.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+    <link type="text/css" href="https://yandex.st/highlightjs/8.0/styles/github.min.css" rel="stylesheet"/>
+    <script type="text/javascript" src="https://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+    <script type="text/javascript" src="https://yandex.st/highlightjs/8.0/languages/bash.min.js"></script>
+    <script type="text/javascript" src="https://yandex.st/highlightjs/8.0/languages/json.min.js"></script>
+    <script type="text/javascript" src="https://yandex.st/highlightjs/8.0/languages/xml.min.js"></script>
+    <script type="text/javascript">hljs.initHighlightingOnLoad();</script>
+
+    <style>
+        pre {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <pre><code>POST: https://automationexercise.com/api/createAccount</code></pre>
+</div>
+
+
+    <h4>Headers</h4>
+    <div>
+            <div>
+                <pre><code><b>Accept</b>: application/json, application/javascript, text/javascript, text/json</code></pre>
+            </div>
+            <div>
+                <pre><code><b>Content-Type</b>: application/x-www-form-urlencoded; charset=ISO-8859-1</code></pre>
+            </div>
+    </div>
+
+
+    <h4>Cookies</h4>
+    <div>
+            <div>
+                <pre><code><b>csrftoken</b>: dHKC9GxbaULTJfcUtHWAXz6k2lBLTt42EJxGzKxfXyunprXd0pXRTEoxLy0ktvBs</code></pre>
+            </div>
+            <div>
+                <pre><code><b>sessionid</b>: 60gesc73gwmjt71dcovroypw2nbon3a9</code></pre>
+            </div>
+    </div>
+
+    <h4>Curl</h4>
+    <div>
+        <pre><code>curl -v -X POST 'https://automationexercise.com/api/createAccount' -H 'Accept: application/json, application/javascript, text/javascript, text/json' -H 'Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1' -b 'csrftoken=dHKC9GxbaULTJfcUtHWAXz6k2lBLTt42EJxGzKxfXyunprXd0pXRTEoxLy0ktvBs' -b 'sessionid=60gesc73gwmjt71dcovroypw2nbon3a9' --form 'country=New Zealand' --form 'firstname=Felix' --form 'city=South Ashafort' --form 'address2=Suite 826' --form 'birth_month=4' --form 'address1=17256 Shayne Court' --form 'title=Mr' --form 'lastname=Ratke' --form 'birth_year=2006' --form 'birth_day=16' --form 'zipcode=43955' --form 'password=12345' --form 'name=Tamala Bins' --form 'company=Schmitt, Carroll and Keeling' --form 'state=Connecticut' --form 'mobile_number=(730) 672-0022' --form 'email=validate_invoice_user@test_user.test'</code></pre>
+    </div>
+</body>
+</html>
