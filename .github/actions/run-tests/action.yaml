@@ -1,6 +1,5 @@
 name: Run tests
 description: Run tests
-author: arrnel
 
 inputs:
   show_logs:
@@ -18,7 +17,7 @@ inputs:
   image_prefix:
     description: Test image prefix
     required: true
-    default: "arrnel"
+    default: ${{ github.repository_owner }}
   test_container_title:
     description: Test container title
     required: true

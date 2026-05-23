@@ -10,7 +10,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
 /**
- * @author Arrnel
  * <h3>Extractions examples</h3>
  *
  * <h4>1) Extract cookie</h4>
