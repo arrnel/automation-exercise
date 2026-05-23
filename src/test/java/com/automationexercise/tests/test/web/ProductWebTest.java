@@ -89,7 +89,7 @@ class ProductWebTest extends BaseTest {
 
     @DisabledByIssue(issueId = "3")
     @Tag(AllureTag.REVIEW_TEST)
-    @Owner("arrnel")
+    @Owner(AllureTag.OWNER)
     @ParameterizedTest
     @MethodSource("com.automationexercise.tests.test.data.ReviewDataProvider#validReviewDataProvider")
     @DisplayName("Should send product review with valid data")
@@ -104,7 +104,7 @@ class ProductWebTest extends BaseTest {
 
     @DisabledByIssue(issueId = "3")
     @Tag(AllureTag.REVIEW_TEST)
-    @Owner("arrnel")
+    @Owner(AllureTag.OWNER)
     @ParameterizedTest
     @MethodSource("com.automationexercise.tests.test.data.ReviewDataProvider#invalidReviewDataProvider")
     @DisplayName("Should not send product review with invalid data")

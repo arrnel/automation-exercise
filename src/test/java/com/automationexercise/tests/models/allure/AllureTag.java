@@ -3,7 +3,7 @@ package com.automationexercise.tests.models.allure;
 public class AllureTag {
 
     // OWNER
-    public static final String OWNER = "@arrnel";
+    public static final String OWNER = "owner";
 
     // =============
     // TEST_TYPE

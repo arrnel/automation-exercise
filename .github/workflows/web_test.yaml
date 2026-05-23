@@ -38,7 +38,7 @@ jobs:
       PLAYWRIGHT_SLOW_MOTION: ${{ vars.PLAYWRIGHT_SLOW_MOTION }}
       BUILD_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
       EXECUTION_TYPE: github
-      IMAGE_PREFIX: ${{ vars.IMAGE_PREFIX }}
+      IMAGE_PREFIX: ${{ github.repository_owner }}
 
     steps:
 
