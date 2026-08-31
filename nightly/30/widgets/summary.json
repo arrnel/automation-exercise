@@ -1,0 +1,1 @@
+{"reportName":"Nightly run. RUN 30 #1","testRuns":[],"statistic":{"failed":5,"broken":13,"skipped":13,"passed":64,"unknown":0,"total":95},"time":{"start":1788165945508,"stop":1788166159617,"duration":214109,"minDuration":0,"maxDuration":31473,"sumDuration":492526}}

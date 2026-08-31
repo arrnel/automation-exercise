@@ -1,0 +1,54 @@
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset = UTF-8">
+    <script src="https://yastatic.net/jquery/2.2.3/jquery.min.js" crossorigin="anonymous"></script>
+
+    <link href="https://yastatic.net/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="https://yastatic.net/bootstrap/3.3.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+    <link type="text/css" href="https://yandex.st/highlightjs/8.0/styles/github.min.css" rel="stylesheet"/>
+    <script type="text/javascript" src="https://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+    <script type="text/javascript" src="https://yandex.st/highlightjs/8.0/languages/bash.min.js"></script>
+    <script type="text/javascript" src="https://yandex.st/highlightjs/8.0/languages/json.min.js"></script>
+    <script type="text/javascript" src="https://yandex.st/highlightjs/8.0/languages/xml.min.js"></script>
+    <script type="text/javascript">hljs.initHighlightingOnLoad();</script>
+
+    <style>
+        pre {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <pre><code>POST: https://automationexercise.com/api/createAccount</code></pre>
+</div>
+
+
+    <h4>Headers</h4>
+    <div>
+            <div>
+                <pre><code><b>Accept</b>: application/json, application/javascript, text/javascript, text/json</code></pre>
+            </div>
+            <div>
+                <pre><code><b>Content-Type</b>: application/x-www-form-urlencoded; charset=ISO-8859-1</code></pre>
+            </div>
+    </div>
+
+
+    <h4>Cookies</h4>
+    <div>
+            <div>
+                <pre><code><b>csrftoken</b>: lbGVQaYTCPhg6DQD6tCKgdY36MGpOIPQndwNbahEh5ppnYp3gQrjqJir6FpHwzij</code></pre>
+            </div>
+            <div>
+                <pre><code><b>sessionid</b>: spch00g80pyg0gpgordt6zt90xj9nb3r</code></pre>
+            </div>
+    </div>
+
+    <h4>Curl</h4>
+    <div>
+        <pre><code>curl -v -X POST 'https://automationexercise.com/api/createAccount' -H 'Accept: application/json, application/javascript, text/javascript, text/json' -H 'Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1' -b 'csrftoken=lbGVQaYTCPhg6DQD6tCKgdY36MGpOIPQndwNbahEh5ppnYp3gQrjqJir6FpHwzij' -b 'sessionid=spch00g80pyg0gpgordt6zt90xj9nb3r' --form 'country=New Zealand' --form 'firstname=Jacquelin' --form 'city=Port Monet' --form 'address2=Suite 741' --form 'birth_month=12' --form 'address1=91977 Dorian Passage' --form 'title=Mr' --form 'lastname=Rippin' --form 'birth_year=1976' --form 'birth_day=16' --form 'zipcode=50872' --form 'password=12345' --form 'name=Ms. Gayle Schuster' --form 'company=Rogahn and Sons' --form 'state=North Carolina' --form 'mobile_number=(505) 608-5420' --form 'email=clint.schoen.900@mytest260831084544.net'</code></pre>
+    </div>
+</body>
+</html>
